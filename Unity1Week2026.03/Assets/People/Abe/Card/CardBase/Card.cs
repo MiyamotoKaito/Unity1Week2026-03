@@ -5,12 +5,12 @@ using UnityEngine;
 /// </summary>
 public class Card 
 {
-   public Card(CardId cardId, CardEffect cardEffect, CardFrontSprite cardFrontSprite, CardBackText cardBackText)
+   public Card(int cardId, CardEffect cardEffect, Sprite frontSprite, string cardBackText)
    {
-       _cardId = cardId;
+       _cardId = new CardId(cardId);
        _cardEffect = cardEffect;
-       _cardFrontSprite = cardFrontSprite;
-       _cardBackText = cardBackText;
+       _cardFrontSprite = new CardFrontSprite(frontSprite);
+       _cardBackText = new CardBackText(cardBackText);
    }
 　　
 　　public void OpenCard()
