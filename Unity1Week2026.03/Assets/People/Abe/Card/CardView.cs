@@ -8,8 +8,10 @@ public class CardView : MonoBehaviour
     public void SetCard(Card card)
     {
         _spriteRenderer.sprite = card.GetCardFrontSprite();
-        _textMeshProUGUI.text = card.GetCardBackText().GetText();
+        _textMeshProUGUI.text = card.GetCardBackText();
     }
+    
+
     private SpriteRenderer _spriteRenderer;
     private TextMeshProUGUI _textMeshProUGUI;
 

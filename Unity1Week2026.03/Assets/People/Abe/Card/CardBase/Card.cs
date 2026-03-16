@@ -31,9 +31,9 @@ public class Card
 
       return false;
    }
-   public CardId GetCardId()
+   public int GetCardId()
    {
-       return _cardId;
+       return _cardId.GetId();
    }
 
    public Sprite GetCardFrontSprite()
@@ -41,9 +41,9 @@ public class Card
        return _cardFrontSprite.GetSprite();
    }
 
-    public CardBackText GetCardBackText()
+    public string GetCardBackText()
     {
-         return _cardBackText;
+         return _cardBackText.GetText();
     }
 
    public void ExcuteEffect()
