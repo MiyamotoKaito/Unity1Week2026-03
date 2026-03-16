@@ -67,6 +67,7 @@ public class CardRepository
 
         first.CloseCard();
         second.CloseCard();
+        Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
     }
 
