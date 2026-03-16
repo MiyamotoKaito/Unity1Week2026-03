@@ -5,7 +5,6 @@ public class CardController : MonoBehaviour
     [SerializeField] private CardData[] _cardDataArray;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
-    private int _nextTextIndex;
 
     private void Start()
     {
@@ -17,7 +16,7 @@ public class CardController : MonoBehaviour
 
     public void SpawnCardPair(CardData cardData)
     {
-        if (!TempCardTextData.TryGetNextPair(ref _nextTextIndex, out var textA, out var textB))
+        if (!TempCardTextData.TryGetNextPair(out var textA, out var textB))
         {
             Debug.LogError("TempCardTextData needs at least 2 unique entries.");
             return;
