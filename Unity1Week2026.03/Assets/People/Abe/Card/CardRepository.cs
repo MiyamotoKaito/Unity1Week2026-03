@@ -28,11 +28,11 @@ public class CardRepository
         return null;
     }
 
-    public bool CardExists(int id,string text)
+    public bool TextExists(string text)
     {
         foreach (var card in _cards)
         {
-            if (card.MatchCardId(id) && card.MatchCardText(text))
+            if (card.MatchCardText(text))
             {
                 return true;
             }
