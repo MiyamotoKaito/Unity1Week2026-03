@@ -4,13 +4,14 @@ public class CardController : MonoBehaviour
 {
     public CardRepository CardRepository => _cardRepository;
     [SerializeField] private CardData[] _cardDataArray;
+    [SerializeField] private GameObject _cardParent;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
 
     private void Start()
     {
         _cardRepository = new CardRepository();
-        _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
+        _cardSpawnSystem = new CardSpawnSystem(_cardRepository, _cardParent);
         SpawnCardPair(_cardDataArray[0]); 
         SpawnCardPair(_cardDataArray[1]);
     }
