@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0c37cd83dce154a9b7111152c03c49, type: 3}
   m_Name: CardData 1
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  _cardId: 0
-  _frontSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _cardId: 1
+  _frontSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
