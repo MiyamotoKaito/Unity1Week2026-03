@@ -9,7 +9,7 @@ public class CardOpenUI : MonoBehaviour
         var card = _cardController.CardRepository.FindCardByText(cardText);
         if (card != null)
         {
-            _cardController.CardRepository.OpenCard(card);
+            card.OpenCard();
         }
         else
         {
