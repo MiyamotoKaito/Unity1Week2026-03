@@ -14,5 +14,10 @@ public class CardId
         return _id;
     }
 
+    public bool Equals(CardId other)
+    {
+        return _id == other.GetId();
+    }
+
     private int _id;
 }

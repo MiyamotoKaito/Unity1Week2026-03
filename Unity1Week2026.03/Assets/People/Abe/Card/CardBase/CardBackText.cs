@@ -11,5 +11,10 @@ public class CardBackText
     {
         return _text;
     }
+
+    public bool Equals(CardBackText other)
+    {
+        return _text == other.GetText();
+    }
     private string _text;
 }
