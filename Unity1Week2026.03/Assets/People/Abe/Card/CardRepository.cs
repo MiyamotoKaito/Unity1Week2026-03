@@ -85,6 +85,11 @@ public class CardRepository
 
     public void ClearCards()
     {
+        foreach (var card in _cards)
+        {
+            card.OnCardOpened -= TryResolveOpenPair;
+        }
+        
         _cards.Clear();
     }
 
