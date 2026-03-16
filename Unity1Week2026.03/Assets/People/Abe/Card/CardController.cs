@@ -11,6 +11,8 @@ public class CardController : MonoBehaviour
     {
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
+        SpawnCardPair(_cardDataArray[0]); 
+        SpawnCardPair(_cardDataArray[1]);
     }
 
     public void SpawnCardPair(CardData cardData)
