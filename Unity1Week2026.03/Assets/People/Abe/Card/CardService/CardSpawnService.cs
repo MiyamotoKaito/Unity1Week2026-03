@@ -5,10 +5,11 @@ using UnityEngine;
 public class CardSpawnSystem
 {
     private CardRepository _cardRepository;
-
-    public CardSpawnSystem(CardRepository cardRepository)
+    private GameObject _cardParent;
+    public CardSpawnSystem(CardRepository cardRepository, GameObject cardParent)
     {
         _cardRepository = cardRepository;
+        _cardParent = cardParent;
     }
 
     public bool SpawnCardPair(CardData cardData, string textA, string textB)
@@ -42,6 +43,7 @@ public class CardSpawnSystem
     private void CreateCardObject(Card card)
     {
         var cardObject = new GameObject("Card");
+        cardObject.transform.SetParent(_cardParent.transform, false);
         var cardView = cardObject.AddComponent<CardView>();
         cardView.SetCard(card);
     }
