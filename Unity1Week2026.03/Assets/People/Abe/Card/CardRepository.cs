@@ -28,5 +28,10 @@ public class CardRepository
         return false;
     }
 
+    public void ClearCards()
+    {
+        _cards.Clear();
+    }
+
     private List<Card> _cards = new List<Card>();
 }
