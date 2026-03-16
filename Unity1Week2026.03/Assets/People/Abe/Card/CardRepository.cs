@@ -14,6 +14,19 @@ public class CardRepository
     {
         _cards.Add(card);
     }
+    
+    public Card FindCardByText(string text)
+    {
+        foreach (var card in _cards)
+        {
+            if (card.MatchCardText(text))
+            {
+                return card;
+            }
+        }
+
+        return null;
+    }
 
     public bool CardExists(int id,string text)
     {
