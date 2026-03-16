@@ -5,7 +5,6 @@ using UnityEngine;
 public class CardSpawnSystem 
 {
     private CardRepository _cardRepository;
-    private GameObject _cardParentObject;
 
     public CardSpawnSystem(CardRepository cardRepository)
     {
@@ -18,13 +17,11 @@ public class CardSpawnSystem
         {
             _cardRepository.AddCard(card);
             //TODO カードの裏面のテキストをタイピングシステムから受け取る。
-            var cardObject = Object.Instantiate(new GameObject("Card"), _cardParentObject.transform);
+            var cardObject = new GameObject("Card");
             var cardView = cardObject.AddComponent<CardView>();
             cardView.SetCard(card);
             //TODO カードの位置を決める。
             //TODO カードを２枚生成する。
-
-            //カードとカードViewを紐づける。
         }
 
         

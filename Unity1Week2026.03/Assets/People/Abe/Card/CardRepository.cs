@@ -10,32 +10,16 @@ public class CardRepository
 
     }
 
-    public Card FindCard(string text)
-    {
-        CardBackText inputText = new CardBackText(text);
-
-        foreach (var card in _cards)
-        {
-            if (inputText.Equals(card.GetCardBackText()))
-            {
-                return card;
-            }
-        }
-
-        return null;
-    }
-
-
     public void AddCard(Card card)
     {
         _cards.Add(card);
     }
 
-    public bool CardExists(CardId id, CardBackText text)
+    public bool CardExists(int id,string text)
     {
         foreach (var card in _cards)
         {
-            if (id.Equals(card.GetCardId()) && text.Equals(card.GetCardBackText()))
+            if (id == card.GetCardId() && text == card.GetCardBackText())
             {
                 return true;
             }
