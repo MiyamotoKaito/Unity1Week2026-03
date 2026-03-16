@@ -19,7 +19,7 @@ public class CardRepository
     {
         foreach (var card in _cards)
         {
-            if (id == card.GetCardId() && text == card.GetCardBackText())
+            if (card.MatchCardId(id) && card.MatchCardText(text))
             {
                 return true;
             }
