@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 盤面のカードを管理するクラス
@@ -13,6 +14,7 @@ public class CardRepository
     public void AddCard(Card card)
     {
         _cards.Add(card);
+        card.OnCardOpened += TryResolveOpenPair;
     }
 
     public Card FindCardByText(string text)
@@ -41,44 +43,31 @@ public class CardRepository
         return false;
     }
 
-    public void OpenCard(Card card)
-    {
-        foreach (var c in _cards)
-        {
-            if (c.GetCardBackText().Equals(card.GetCardBackText()))
-            {
-                c.OpenCard();
-                TryResolveOpenPair();
-                return;
-            }
-        }
-    }
-    public bool TryResolveOpenPair()
+    public void TryResolveOpenPair()
     {
         var first = GetFirstOpenCard();
         if (first == null)
         {
-            return false;
+            return;
         }
 
         var second = GetSecondOpenCard(first);
         if (second == null)
         {
-            return false;
+            return;
         }
 
         var match = first.Equals(second);
         if (match)
         {
-            first.ExcuteEffect(); //どらちからの効果を発動させればよい。
-           // second.ExcuteEffect();
+            first.ExcuteEffect(); 
             RemoveMatchCard(first, second);
-            return true;
+            return;
         }
 
         first.CloseCard();
         second.CloseCard();
-        return false;
+        return;
     }
 
     public Card GetFirstOpenCard()
@@ -116,7 +105,17 @@ public class CardRepository
 
     private void RemoveMatchCard(Card first, Card second)
     {
-        _cards.RemoveAll(card => card.MatchCardText(first.GetCardBackText()) ||
-         card.MatchCardText(second.GetCardBackText()));
+        foreach (var card in _cards)
+        {
+            if (card.MatchCardText(first.GetCardBackText()) ||
+                card.MatchCardText(second.GetCardBackText()))
+            {
+                card.OnCardOpened -= TryResolveOpenPair;
+            }
+        }
+
+        _cards.RemoveAll(card =>
+            card.MatchCardText(first.GetCardBackText()) ||
+            card.MatchCardText(second.GetCardBackText()));
     }
 }
