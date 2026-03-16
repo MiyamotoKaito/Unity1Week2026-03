@@ -1,4 +1,4 @@
-using Unity.VectorGraphics;
+using System;
 using UnityEngine;
 /// <summary>
 /// Card entity
@@ -8,25 +8,44 @@ public class Card
     public Card(int cardId, CardEffect cardEffect, Sprite frontSprite, string cardBackText)
     {
         _cardId = new CardId(cardId);
-        _cardEffect = cardEffect;
+        _cardEffect = new CardEffect();//TODO: CardEffectの実装ができたら引数から渡すようにする
         _cardFrontSprite = new CardFrontSprite(frontSprite);
         _cardBackText = new CardBackText(cardBackText);
     }
-    
+
+    public event Action OnCardOpened;
+
     public override bool Equals(object card)
     {
-        if(card is not Card other) return false;
+        if (card is not Card other) return false;
         return _cardId.GetId() == other._cardId.GetId();
     }
-
+    public override int GetHashCode()
+    {
+        return _cardId.GetId().GetHashCode();
+    }
     public void OpenCard()
     {
+        if (_isOpen)
+        {
+            Debug.LogWarning("カードはすでに開いています: " + _cardBackText.GetText());
+            return;
+        }
         _isOpen = true;
+        Debug.Log("カードを開きました: " + _cardBackText.GetText());
+        OnCardOpened?.Invoke();
+        
     }
 
     public void CloseCard()
     {
+        if (!_isOpen)
+        {
+            Debug.LogWarning("カードはすでに閉じています: " + _cardBackText.GetText());
+            return;
+        }
         _isOpen = false;
+        Debug.Log("カードを閉じました: " + _cardBackText.GetText());
     }
 
     public bool IsOpen()
