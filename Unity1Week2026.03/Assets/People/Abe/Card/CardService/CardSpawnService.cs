@@ -1,6 +1,6 @@
 using UnityEngine;
 /// <summary>
-/// 蜷後§繧ｫ繝ｼ繝峨′隍・焚譫壼ｭ伜惠縺励↑縺・ｈ縺・↓縺吶ｋ縺溘ａ縺ｮ繧ｯ繝ｩ繧ｹ
+/// カードのペアを生成するクラス
 /// </summary>
 public class CardSpawnSystem
 {
@@ -41,11 +41,8 @@ public class CardSpawnSystem
 
     private void CreateCardObject(Card card)
     {
-        //TODO 繧ｫ繝ｼ繝峨・陬城擇縺ｮ繝・く繧ｹ繝医ｒ繧ｿ繧､繝斐Φ繧ｰ繧ｷ繧ｹ繝・Β縺九ｉ蜿励￠蜿悶ｋ縲・
         var cardObject = new GameObject("Card");
         var cardView = cardObject.AddComponent<CardView>();
         cardView.SetCard(card);
-        //TODO 繧ｫ繝ｼ繝峨・菴咲ｽｮ繧呈ｱｺ繧√ｋ縲・
-        //TODO 繧ｫ繝ｼ繝峨ｒ・呈椢逕滓・縺吶ｋ縲・
     }
 }
