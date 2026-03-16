@@ -2,14 +2,7 @@ public static class TempCardTextData
 {
     public static readonly string[] Texts =
     {
-        "Temp Text 01",
-        "Temp Text 02",
-        "Temp Text 03",
-        "Temp Text 04",
-        "Temp Text 05",
-        "Temp Text 06",
-        "Temp Text 07",
-        "Temp Text 08"
+       "A", "B", "C", "D", "E", "F", "G", "H"
     };
 
     private static int _nextIndex;
