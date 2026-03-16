@@ -22,14 +22,24 @@ public class Card
        // カードを閉じる処理
    }
 
-   public bool MatchCard(Card card)
+   public bool MatchCardId(int id)
    {
-      if (GetCardId() == card.GetCardId())
+      if (GetCardId() == id)
       {
           return true;
       }
 
       return false;
+   }
+
+   public bool MatchCardText(string text)
+   {
+       if (GetCardBackText() == text)
+       {
+           return true;
+       }
+
+       return false;
    }
    public int GetCardId()
    {
