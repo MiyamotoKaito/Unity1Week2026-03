@@ -5,9 +5,9 @@ using UnityEngine;
 /// </summary>
 public class Card 
 {
-   public Card(int cardId, CardEffect cardEffect, CardFrontSprite cardFrontSprite, CardBackText cardBackText)
+   public Card(CardId cardId, CardEffect cardEffect, CardFrontSprite cardFrontSprite, CardBackText cardBackText)
    {
-       _cardId = new CardId(cardId);
+       _cardId = cardId;
        _cardEffect = cardEffect;
        _cardFrontSprite = cardFrontSprite;
        _cardBackText = cardBackText;
