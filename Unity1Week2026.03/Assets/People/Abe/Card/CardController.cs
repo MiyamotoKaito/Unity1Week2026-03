@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CardController : MonoBehaviour
 {
+    public CardRepository CardRepository => _cardRepository;
     [SerializeField] private CardData[] _cardDataArray;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
@@ -14,7 +15,7 @@ public class CardController : MonoBehaviour
         SpawnCardPair(_cardDataArray[1]);
     }
 
-    public void SpawnCardPair(CardData cardData)
+    private void SpawnCardPair(CardData cardData)
     {
         if (!TempCardTextData.TryGetNextPair(out var textA, out var textB))
         {
