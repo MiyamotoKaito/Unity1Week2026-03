@@ -12,7 +12,25 @@ public class Card
        _cardFrontSprite = cardFrontSprite;
        _cardBackText = cardBackText;
    }
+　　
+　　public void OpenCard()
+   {
+       // カードを開く処理
+   }
+   public void CloseCard()
+   {
+       // カードを閉じる処理
+   }
 
+   public bool MatchCard(Card card)
+   {
+      if (GetCardId() == card.GetCardId())
+      {
+          return true;
+      }
+
+      return false;
+   }
    public int GetCardId()
    {
        return _cardId.GetId();
