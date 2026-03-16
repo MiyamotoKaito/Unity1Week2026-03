@@ -1,69 +1,72 @@
 using Unity.VectorGraphics;
 using UnityEngine;
 /// <summary>
-/// カードを管理するクラス
+/// Card entity
 /// </summary>
-public class Card 
+public class Card
 {
-   public Card(int cardId, CardEffect cardEffect, Sprite frontSprite, string cardBackText)
-   {
-       _cardId = new CardId(cardId);
-       _cardEffect = cardEffect;
-       _cardFrontSprite = new CardFrontSprite(frontSprite);
-       _cardBackText = new CardBackText(cardBackText);
-   }
-　　
-　　public void OpenCard()
-   {
-       // カードを開く処理
-   }
-   public void CloseCard()
-   {
-       // カードを閉じる処理
-   }
+    public Card(int cardId, CardEffect cardEffect, Sprite frontSprite, string cardBackText)
+    {
+        _cardId = new CardId(cardId);
+        _cardEffect = cardEffect;
+        _cardFrontSprite = new CardFrontSprite(frontSprite);
+        _cardBackText = new CardBackText(cardBackText);
+    }
+    
+    public override bool Equals(object card)
+    {
+        if(card is not Card other) return false;
+        return _cardId.GetId() == other._cardId.GetId();
+    }
 
-   public bool MatchCardId(int id)
-   {
-      if (GetCardId() == id)
-      {
-          return true;
-      }
+    public void OpenCard()
+    {
+        _isOpen = true;
+    }
 
-      return false;
-   }
+    public void CloseCard()
+    {
+        _isOpen = false;
+    }
 
-   public bool MatchCardText(string text)
-   {
-       if (GetCardBackText() == text)
-       {
-           return true;
-       }
+    public bool IsOpen()
+    {
+        return _isOpen;
+    }
 
-       return false;
-   }
-   public int GetCardId()
-   {
-       return _cardId.GetId();
-   }
+    public bool MatchCardText(string text)
+    {
+        if (GetCardBackText() == text)
+        {
+            return true;
+        }
 
-   public Sprite GetCardFrontSprite()
-   {
-       return _cardFrontSprite.GetSprite();
-   }
+        return false;
+    }
+
+    public int GetCardId()
+    {
+        return _cardId.GetId();
+    }
+
+    public Sprite GetCardFrontSprite()
+    {
+        return _cardFrontSprite.GetSprite();
+    }
 
     public string GetCardBackText()
     {
-         return _cardBackText.GetText();
+        return _cardBackText.GetText();
     }
 
-   public void ExcuteEffect()
-   {
-       _cardEffect.Exucute();
-   }
+    public void ExcuteEffect()
+    {
+        _cardEffect.Exucute();
+    }
 
-   private CardId _cardId;
-   private CardEffect _cardEffect;
-   private CardFrontSprite _cardFrontSprite;
-
-   private CardBackText _cardBackText;
+    private bool _isOpen;
+    private CardId _cardId;
+    private CardEffect _cardEffect;
+    private CardFrontSprite _cardFrontSprite;
+    private CardBackText _cardBackText;
 }
