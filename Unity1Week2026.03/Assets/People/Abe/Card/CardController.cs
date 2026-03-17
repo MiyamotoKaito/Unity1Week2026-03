@@ -5,9 +5,12 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public event Action OnCardsGenereted;
+
+    public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
     [SerializeField] private CardData[] _cardDataArray;
     [SerializeField] private GameObject _cardParent;
+    [SerializeField] private int _maxCardPairs = 2;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
 
@@ -18,7 +21,7 @@ public class CardController : MonoBehaviour
     }
     private void Start()
     {
-        while (_cardSpawnSystem.CardCount(6))
+        while (_cardSpawnSystem.CardCount(_maxCardPairs * 2))
         {
             SpawnCardPair(_cardDataArray[UnityEngine.Random.Range(0, _cardDataArray.Length)]);
         }
