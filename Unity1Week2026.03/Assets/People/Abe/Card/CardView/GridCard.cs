@@ -2,37 +2,37 @@ using UnityEngine;
 
 public class GridCard : MonoBehaviour
 {
-    [SerializeField] private Transform parent;
-    [SerializeField] private int width = 7;
-    [SerializeField] private float margin = 0.2f;
+    [SerializeField] private Transform _parent;
+    [SerializeField] private int _width = 7;
+    [SerializeField] private float _margin = 0.2f;
 
     void Update()
     {
-        int count = parent.childCount;
+        int count = _parent.childCount;
 
         if (count == 0) return;
 
         // 子1つ目からサイズ取得
-        var first = parent.GetChild(0);
+        var first = _parent.GetChild(0);
         var rect = first.GetComponent<RectTransform>();
 
         float itemWidth = rect.rect.width * first.localScale.x;
         float itemHeight = rect.rect.height * first.localScale.y;
 
-        float spacingX = itemWidth + margin;
-        float spacingY = itemHeight + margin;
+        float spacingX = itemWidth + _margin;
+        float spacingY = itemHeight + _margin;
 
-        int height = Mathf.CeilToInt((float)count / width);
+        int height = Mathf.CeilToInt((float)count / _width);
 
-        float offsetX = (width - 1) * spacingX * 0.5f;
+        float offsetX = (_width - 1) * spacingX * 0.5f;
         float offsetY = (height - 1) * spacingY * 0.5f;
 
         for (int i = 0; i < count; i++)
         {
-            int x = i % width;
-            int y = i / width;
+            int x = i % _width;
+            int y = i / _width;
 
-            var child = parent.GetChild(i);
+            var child = _parent.GetChild(i);
 
             Vector3 pos = new Vector3(
                 x * spacingX - offsetX,
