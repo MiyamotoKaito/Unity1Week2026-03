@@ -13,6 +13,7 @@ public class CardRepository
     }
     public event Action OnClearCards;
     public event Action<Card, Card> OnMatchCard;
+    public event Action<Card, Card> OnMissMatchCard;
 
     public void AddCard(Card card)
     {
@@ -73,9 +74,8 @@ public class CardRepository
             RemoveMatchCard(first, second);
             return;
         }
-
-        first.CloseCard();
-        second.CloseCard();
+        
+        OnMissMatchCard?.Invoke(first, second);
         Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
     }

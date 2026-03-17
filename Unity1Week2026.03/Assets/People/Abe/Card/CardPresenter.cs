@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections;
 public class CardPresenter : MonoBehaviour
 {
     [SerializeField]
@@ -16,6 +16,7 @@ public class CardPresenter : MonoBehaviour
     {
         _cardController.CardRepository.OnClearCards += ClearCards;
         _cardController.CardRepository.OnMatchCard += HideMatchedCards;
+        _cardController.CardRepository.OnMissMatchCard += OpenMissMatchedCards;
         _cardController.OnCardsGenereted += SetCards;
     }
     private void SetCards()
@@ -64,8 +65,19 @@ public class CardPresenter : MonoBehaviour
     {
         StartCoroutine(HideMatchedCardsAfterFlip(a, b));
     }
+    private void OpenMissMatchedCards(Card a, Card b)
+    {
+        StartCoroutine(CloseMismatchAfterFlip(a, b));
+    }
+    private IEnumerator CloseMismatchAfterFlip(Card a, Card b)
+    {
+        yield return WaitForFlipIfNeeded(a);
+        yield return WaitForFlipIfNeeded(b);
 
-    private System.Collections.IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
+        a.CloseCard();
+        b.CloseCard();
+    }
+    private IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
     {
         yield return WaitForFlipIfNeeded(a);
         yield return WaitForFlipIfNeeded(b);
@@ -85,7 +97,7 @@ public class CardPresenter : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator WaitForFlipIfNeeded(Card card)
+    private IEnumerator WaitForFlipIfNeeded(Card card)
     {
         if (!_textToObject.TryGetValue(card.GetCardBackText(), out var obj))
         {
