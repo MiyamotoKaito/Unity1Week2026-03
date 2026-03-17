@@ -5,6 +5,8 @@ public class CardPresenter : MonoBehaviour
 {
     [SerializeField]
     private CardController _cardController;
+    [SerializeField]
+    private float _hideDelayAfterFlip = 0.0f;
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
     private Dictionary<string, GameObject> _textToObject = new();
@@ -47,6 +49,7 @@ public class CardPresenter : MonoBehaviour
             _textToObject[card.GetCardBackText()] = cardObject;
             cardView.SetCard(card);
             card.OnCardOpened += cardRotate.OpenCard;
+            card.OnCardClosed += cardRotate.CloseCard;
             _cardRotates.Add(cardRotate);
         }
 
@@ -67,23 +70,50 @@ public class CardPresenter : MonoBehaviour
     }
     private void HideMatchedCards(Card a, Card b)
     {
+        StartCoroutine(HideMatchedCardsAfterFlip(a, b));
+    }
+
+    private System.Collections.IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
+    {
+        yield return WaitForFlipIfNeeded(a);
+        yield return WaitForFlipIfNeeded(b);
+
+        if (_hideDelayAfterFlip > 0f)
+        {
+            yield return new WaitForSeconds(_hideDelayAfterFlip);
+        }
+
         if (_textToObject.TryGetValue(a.GetCardBackText(), out var objA))
         {
-            var rotate = objA.GetComponentInChildren<CardRotate>(true);
-            if (rotate != null)
-            {
-                rotate.StopCard();
-            }
             objA.SetActive(false);
         }
         if (_textToObject.TryGetValue(b.GetCardBackText(), out var objB))
         {
-            var rotate = objB.GetComponentInChildren<CardRotate>(true);
-            if (rotate != null)
-            {
-                rotate.StopCard();
-            }
             objB.SetActive(false);
         }
+    }
+
+    private System.Collections.IEnumerator WaitForFlipIfNeeded(Card card)
+    {
+        if (!_textToObject.TryGetValue(card.GetCardBackText(), out var obj))
+        {
+            yield break;
+        }
+
+        var rotate = obj.GetComponentInChildren<CardRotate>(true);
+        if (rotate == null || !rotate.IsFlipping)
+        {
+            yield break;
+        }
+
+        bool done = false;
+        void OnDone() => done = true;
+
+        rotate.OnFlipCompleted += OnDone;
+        while (!done)
+        {
+            yield return null;
+        }
+        rotate.OnFlipCompleted -= OnDone;
     }
 }
