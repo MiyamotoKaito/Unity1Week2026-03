@@ -78,8 +78,7 @@ public class CardPresenter : MonoBehaviour
     }
     private IEnumerator CloseMismatchAfterFlip(Card a, Card b)
     {
-        yield return WaitForFlipIfNeeded(a);
-        yield return WaitForFlipIfNeeded(b);
+        yield return WaitUntilBothOpen(a, b);
 
         a.CloseCard();
         b.CloseCard();
@@ -130,5 +129,37 @@ public class CardPresenter : MonoBehaviour
         {
             rotate.OnFlipCompleted -= OnDone;
         }
+    }
+
+    private IEnumerator WaitUntilBothOpen(Card a, Card b)
+    {
+        while (true)
+        {
+            var rotateA = GetRotate(a);
+            var rotateB = GetRotate(b);
+            if (rotateA == null || rotateB == null)
+            {
+                yield break;
+            }
+
+            if (!rotateA.IsFlipping && !rotateB.IsFlipping && rotateA.IsBackActive && rotateB.IsBackActive)
+            {
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
+    private CardRotate GetRotate(Card card)
+    {
+        if (card == null)
+        {
+            return null;
+        }
+        if (!_textToObject.TryGetValue(card.GetCardBackText(), out var obj))
+        {
+            return null;
+        }
+        return obj.GetComponentInChildren<CardRotate>(true);
     }
 }

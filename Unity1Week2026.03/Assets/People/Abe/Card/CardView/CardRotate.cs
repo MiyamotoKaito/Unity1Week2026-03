@@ -5,6 +5,7 @@ public class CardRotate : MonoBehaviour
 {
     public event System.Action OnFlipCompleted;
     public bool IsFlipping => _flipRoutine != null;
+    public bool IsBackActive => _isBackActive;
 
     public void OpenCard()
     {
@@ -38,6 +39,23 @@ public class CardRotate : MonoBehaviour
     private Coroutine _flipRoutine;
     private bool _hasPendingFlip = false;
     private bool _pendingBackActive = false;
+
+    private void OnEnable()
+    {
+        SyncBackState();
+    }
+
+    private void OnDisable()
+    {
+        if (_flipRoutine != null)
+        {
+            StopCoroutine(_flipRoutine);
+            _flipRoutine = null;
+        }
+        _hasPendingFlip = false;
+        _pendingBackActive = false;
+        OnFlipCompleted?.Invoke();
+    }
 
     private void Update()
     {
@@ -92,6 +110,7 @@ public class CardRotate : MonoBehaviour
 
     private void FlipTo(bool backActive)
     {
+        SyncBackState();
         if (_flipRoutine != null)
         {
             _hasPendingFlip = true;
@@ -106,5 +125,14 @@ public class CardRotate : MonoBehaviour
 
         _hasPendingFlip = false;
         _flipRoutine = StartCoroutine(ToggleCard());
+    }
+
+    private void SyncBackState()
+    {
+        if (_backCard == null)
+        {
+            return;
+        }
+        _isBackActive = _backCard.activeSelf;
     }
 }
