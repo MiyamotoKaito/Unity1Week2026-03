@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerHealthView : MonoBehaviour
+namespace Unity1Week.URA.Player
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    /// <summary>
+    ///     プレイヤーのHPを表示するビュークラス。
+    /// </summary>
+    public class PlayerHealthView : MonoBehaviour
     {
-        
-    }
+        public void UpdateHealthBar(int currentHealth, int maxHealth)
+        {
+            float ratio = (float)currentHealth / maxHealth;
+            _healthBarFill.fillAmount = ratio;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private Image _healthBarFill;
     }
 }
