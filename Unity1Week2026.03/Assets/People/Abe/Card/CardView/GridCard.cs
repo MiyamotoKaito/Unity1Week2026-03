@@ -4,7 +4,7 @@ public class GridCard : MonoBehaviour
 {
     [SerializeField] private Transform _parent;
     [SerializeField] private int _width = 7;
-    [SerializeField] private float _margin = 0.2f;
+    [SerializeField] private float _margin;
 
     void Update()
     {
