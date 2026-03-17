@@ -6,17 +6,14 @@ public class CardPresenter : MonoBehaviour
     [SerializeField]
     private CardController _cardController;
     [SerializeField]
+    private CardViewSpawn _generateCardView;
+    [SerializeField]
     private float _hideDelayAfterFlip = 0.0f;
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
     private Dictionary<string, GameObject> _textToObject = new();
-
     private void OnEnable()
     {
-        foreach (Transform child in transform)
-        {
-            _cardObjects.Add(child.gameObject);
-        }
         _cardController.CardRepository.OnClearCards += ClearCards;
         _cardController.CardRepository.OnMatchCard += HideMatchedCards;
         _cardController.OnCardsGenereted += SetCards;
@@ -24,12 +21,9 @@ public class CardPresenter : MonoBehaviour
     private void SetCards()
     {
         var cards = _cardController.CardRepository.GetCards();
+        ClearCards();
 
-        if (cards.Count != _cardObjects.Count)
-        {
-            Debug.LogError($"Card数({cards.Count})とObject数({_cardObjects.Count})が一致していません");
-            return;
-        }
+        _cardObjects = _generateCardView.GenerateCard(cards.Count);
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -58,14 +52,12 @@ public class CardPresenter : MonoBehaviour
 
     private void ClearCards()
     {
-        _cardController.CardRepository.GetCards().ForEach(card =>
-         {
-
-             _cardRotates.ForEach(cardRotate =>
-             {
-                 card.OnCardOpened -= cardRotate.OpenCard;
-             });
-         });
+        _cardObjects.ForEach(obj =>
+        {
+            Destroy(obj);
+        });
+        _cardObjects.Clear();
+        _cardRotates.Clear();
         _textToObject.Clear();
     }
     private void HideMatchedCards(Card a, Card b)
