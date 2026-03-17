@@ -85,8 +85,7 @@ public class CardPresenter : MonoBehaviour
     }
     private IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
     {
-        yield return WaitForFlipIfNeeded(a);
-        yield return WaitForFlipIfNeeded(b);
+        yield return WaitUntilBothOpen(a, b);
 
         if (_hideDelayAfterFlip > 0f)
         {
