@@ -11,6 +11,7 @@ public class CardController : MonoBehaviour
     public void ClearCards()
     {
         _cardRepository.ClearCards();
+        TempCardTextData.ResetUsage();
     }
     public void ButtonSpawnCards()
     {
@@ -29,19 +30,28 @@ public class CardController : MonoBehaviour
     }
     private void SpawnCards()
     {
+        if (_cardDataArray == null || _cardDataArray.Length == 0)
+        {
+            Debug.LogError("CardData array is empty. Please assign CardData in the inspector.");
+            return;
+        }
         while (_cardSpawnSystem.CardCount(_maxCardPairs * 2))
         {
-            SpawnCardPair(_cardDataArray[UnityEngine.Random.Range(0, _cardDataArray.Length)]);
+            if (!SpawnCardPair(_cardDataArray[UnityEngine.Random.Range(0, _cardDataArray.Length)]))
+            {
+                Debug.LogWarning("Failed to spawn a card pair. Stopping further attempts.");
+                break;
+            }
         }
         OnCardsGenereted?.Invoke();
     }
 
-    private void SpawnCardPair(CardData cardData)
+    private bool SpawnCardPair(CardData cardData)
     {
         if (!TempCardTextData.TryGetNextPair(out var textA, out var textB))
         {
             Debug.LogError("TempCardTextData needs at least 2 unique entries.");
-            return;
+            return false;
         }
 
         var spawned = _cardSpawnSystem.SpawnCardPair(cardData, textA, textB);
@@ -49,5 +59,6 @@ public class CardController : MonoBehaviour
         {
             Debug.LogWarning("Failed to spawn card pair. Texts may be duplicated or invalid.");
         }
+        return spawned;
     }
 }
