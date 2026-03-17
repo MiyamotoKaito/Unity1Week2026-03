@@ -65,7 +65,7 @@ public class CardRepository
             return;
         }
 
-        var match = first.Equals(second);
+        var match = first.GetCardId() == second.GetCardId();
         if (match)
         {
             first.ExcuteEffect(); 
