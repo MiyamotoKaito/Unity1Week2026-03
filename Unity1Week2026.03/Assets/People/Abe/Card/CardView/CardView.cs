@@ -1,23 +1,31 @@
 using UnityEngine;
 using TMPro;
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(TextMeshProUGUI))]
+using UnityEngine.UI;
 public class CardView : MonoBehaviour
 {
 
     public void SetCard(Card card)
     {
-        _spriteRenderer.sprite = card.GetCardFrontSprite();
-        _textMeshProUGUI.text = card.GetCardBackText();
+        
+        _image.sprite = card.GetCardFrontSprite();
+        _text.text = card.GetCardBackText();
+    }
+
+    public void ClearCard()
+    {
+        _image.sprite = null;
+        _text.text = string.Empty;
+        Debug.Log("カードがクリアされました");
+        gameObject.SetActive(false);
     }
     
 
-    private SpriteRenderer _spriteRenderer;
-    private TextMeshProUGUI _textMeshProUGUI;
+    private Image _image;
+    private TextMeshProUGUI _text;
 
-    private void OnEnable()
+    private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+        _image = GetComponent<Image>();
+        _text = GetComponentInChildren<TextMeshProUGUI>(true);
     }
 }
