@@ -13,8 +13,8 @@ public class CardView : MonoBehaviour
 
     private Image _image;
     private TextMeshProUGUI _text;
-    private const string CardBackImagePath = "CardBackImage";
-    private const string CardBackTextPath = "CardBackText";
+    private const string CardBackImagePath = "Text/BackGround/BackImage";
+    private const string CardBackTextPath = "Text";
     private void Awake()
     {
         _image = transform.Find(CardBackImagePath).GetComponent<Image>();
