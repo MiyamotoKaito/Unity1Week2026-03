@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,18 @@ public class CardRepository
     {
 
     }
+    public event Action OnClearCards;
+    public event Action<Card, Card> OnMatchCard;
 
     public void AddCard(Card card)
     {
         _cards.Add(card);
         card.OnCardOpened += TryResolveOpenPair;
+    }
+
+    public List<Card> GetCards()
+    {
+        return _cards;
     }
 
     public Card FindCardByText(string text)
@@ -61,6 +69,7 @@ public class CardRepository
         if (match)
         {
             first.ExcuteEffect(); 
+            OnMatchCard?.Invoke(first, second);
             RemoveMatchCard(first, second);
             return;
         }
@@ -89,7 +98,7 @@ public class CardRepository
         {
             card.OnCardOpened -= TryResolveOpenPair;
         }
-        
+        OnClearCards?.Invoke();
         _cards.Clear();
     }
 
