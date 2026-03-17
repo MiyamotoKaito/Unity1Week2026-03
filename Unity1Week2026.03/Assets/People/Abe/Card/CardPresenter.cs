@@ -7,7 +7,7 @@ public class CardPresenter : MonoBehaviour
     private CardController _cardController;
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
-    private Dictionary<Card, GameObject> _cardToObject = new(new CardReferenceComparer());
+    private Dictionary<string, GameObject> _textToObject = new();
 
     private void OnEnable()
     {
@@ -44,7 +44,7 @@ public class CardPresenter : MonoBehaviour
                 Debug.LogError($"CardViewまたはCardRotateが見つかりません: {cardObject.name}");
                 continue;
             }
-            _cardToObject[card] = cardObject;
+            _textToObject[card.GetCardBackText()] = cardObject;
             cardView.SetCard(card);
             card.OnCardOpened += cardRotate.OpenCard;
             _cardRotates.Add(cardRotate);
@@ -63,11 +63,11 @@ public class CardPresenter : MonoBehaviour
                  card.OnCardOpened -= cardRotate.OpenCard;
              });
          });
-        _cardToObject.Clear();
+        _textToObject.Clear();
     }
     private void HideMatchedCards(Card a, Card b)
     {
-        if (_cardToObject.TryGetValue(a, out var objA))
+        if (_textToObject.TryGetValue(a.GetCardBackText(), out var objA))
         {
             var rotate = objA.GetComponentInChildren<CardRotate>(true);
             if (rotate != null)
@@ -76,7 +76,7 @@ public class CardPresenter : MonoBehaviour
             }
             objA.SetActive(false);
         }
-        if (_cardToObject.TryGetValue(b, out var objB))
+        if (_textToObject.TryGetValue(b.GetCardBackText(), out var objB))
         {
             var rotate = objB.GetComponentInChildren<CardRotate>(true);
             if (rotate != null)
@@ -84,19 +84,6 @@ public class CardPresenter : MonoBehaviour
                 rotate.StopCard();
             }
             objB.SetActive(false);
-        }
-    }
-
-    private sealed class CardReferenceComparer : IEqualityComparer<Card>
-    {
-        public bool Equals(Card x, Card y)
-        {
-            return ReferenceEquals(x, y);
-        }
-
-        public int GetHashCode(Card obj)
-        {
-            return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);
         }
     }
 }
