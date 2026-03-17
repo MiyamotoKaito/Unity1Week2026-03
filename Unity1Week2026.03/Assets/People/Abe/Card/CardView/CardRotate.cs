@@ -3,6 +3,9 @@ using System.Collections;
 
 public class CardRotate : MonoBehaviour
 {
+    public event System.Action OnFlipCompleted;
+    public bool IsFlipping => _flipRoutine != null;
+
     public void OpenCard()
     {
         if(!gameObject.activeInHierarchy)
@@ -11,7 +14,18 @@ public class CardRotate : MonoBehaviour
             return;
         }
         if (_flipRoutine != null) StopCoroutine(_flipRoutine);
-        _flipRoutine = StartCoroutine(OpenCardRoutine());
+        _flipRoutine = StartCoroutine(ToggleCard());
+    }
+
+    public void CloseCard()
+    {
+        if(!gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning($"カードがアクティブではありません: {gameObject.name}");
+            return;
+        }
+        if (_flipRoutine != null) StopCoroutine(_flipRoutine);
+        _flipRoutine = StartCoroutine(ToggleCard());
     }
     public void StopCard()
     {
@@ -21,6 +35,7 @@ public class CardRotate : MonoBehaviour
             _flipRoutine = null;
         }
     }
+    
 
     [SerializeField]
     private GameObject _backCard;
@@ -36,7 +51,7 @@ public class CardRotate : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(OpenCardRoutine());
+            StartCoroutine(ToggleCard());
         }
     }
     private void ToggleFace()
@@ -53,7 +68,7 @@ public class CardRotate : MonoBehaviour
 
         }
     }
-    private IEnumerator OpenCardRoutine()
+    private IEnumerator ToggleCard()
     {
         float duration = _flipDuration / 180;
 
@@ -69,5 +84,7 @@ public class CardRotate : MonoBehaviour
         }
 
         _flipAngle = 0;
+        _flipRoutine = null;
+        OnFlipCompleted?.Invoke();
     }
 }
