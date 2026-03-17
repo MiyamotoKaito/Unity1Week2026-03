@@ -20,6 +20,10 @@ namespace Unity1Week.URA.Player
         public int CurrentHealth => _currentHealth;
         public int MaxHealth => _maxHealth;
 
+        /// <summary>
+        ///     ダメージ処理を行う。
+        /// </summary>
+        /// <param name="damage"></param>
         public void TakeDamage(int damage)
         {
             _currentHealth = Mathf.Max(_currentHealth - damage, 0);
@@ -31,6 +35,10 @@ namespace Unity1Week.URA.Player
             }
         }
 
+        /// <summary>
+        ///     HP回復処理を行う。
+        /// </summary>
+        /// <param name="healAmount"></param>
         public void Heal(int healAmount)
         {
             _currentHealth = Mathf.Min(_currentHealth + healAmount, _maxHealth);
