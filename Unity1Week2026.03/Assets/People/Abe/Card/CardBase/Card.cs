@@ -14,6 +14,7 @@ public class Card
     }
 
     public event Action OnCardOpened;
+    public event Action OnCardClosed;
 
     public void OpenCard()
     {
@@ -37,6 +38,7 @@ public class Card
         }
         _isOpen = false;
         Debug.Log("カードを閉じました: " + _cardBackText.GetText());
+        OnCardClosed?.Invoke();
     }
 
     public bool IsOpen()
