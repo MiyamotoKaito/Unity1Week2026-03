@@ -22,10 +22,11 @@ public class CardView : MonoBehaviour
 
     private Image _image;
     private TextMeshProUGUI _text;
-
+    private const string CardBackImagePath = "CardBackImage";
+    private const string CardBackTextPath = "CardBackImage/CardBackText";
     private void Awake()
     {
-        _image = GetComponent<Image>();
-        _text = GetComponentInChildren<TextMeshProUGUI>(true);
+        _image = transform.Find(CardBackImagePath).GetComponent<Image>();
+        _text = transform.Find(CardBackTextPath).GetComponent<TextMeshProUGUI>();
     }
 }
