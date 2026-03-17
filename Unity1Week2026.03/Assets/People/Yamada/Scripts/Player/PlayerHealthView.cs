@@ -8,6 +8,11 @@ namespace Unity1Week.URA.Player
     /// </summary>
     public class PlayerHealthView : MonoBehaviour
     {
+        /// <summary>
+        ///     HPバーの表示を更新する。
+        /// </summary>
+        /// <param name="currentHealth"></param>
+        /// <param name="maxHealth"></param>
         public void UpdateHealthBar(int currentHealth, int maxHealth)
         {
             float ratio = (float)currentHealth / maxHealth;
