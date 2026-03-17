@@ -11,15 +11,6 @@ public class CardView : MonoBehaviour
         _text.text = card.GetCardBackText();
     }
 
-    public void ClearCard()
-    {
-        _image.sprite = null;
-        _text.text = string.Empty;
-        Debug.Log("カードがクリアされました");
-        gameObject.SetActive(false);
-    }
-    
-
     private Image _image;
     private TextMeshProUGUI _text;
     private const string CardBackImagePath = "CardBackImage";
