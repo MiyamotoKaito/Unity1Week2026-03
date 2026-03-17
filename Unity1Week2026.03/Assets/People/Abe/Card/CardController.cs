@@ -1,19 +1,28 @@
-using UnityEngine;
 
+using System;
+using UnityEngine;
+[DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
 {
+    public event Action OnCardsGenereted;
     public CardRepository CardRepository => _cardRepository;
     [SerializeField] private CardData[] _cardDataArray;
     [SerializeField] private GameObject _cardParent;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
 
-    private void Start()
+    private void Awake()
     {
         _cardRepository = new CardRepository();
-        _cardSpawnSystem = new CardSpawnSystem(_cardRepository, _cardParent);
-        SpawnCardPair(_cardDataArray[0]); 
-        SpawnCardPair(_cardDataArray[1]);
+        _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
+    }
+    private void Start()
+    {
+        while (_cardSpawnSystem.CardCount(6))
+        {
+            SpawnCardPair(_cardDataArray[UnityEngine.Random.Range(0, _cardDataArray.Length)]);
+        }
+        OnCardsGenereted?.Invoke();
     }
 
     private void SpawnCardPair(CardData cardData)
