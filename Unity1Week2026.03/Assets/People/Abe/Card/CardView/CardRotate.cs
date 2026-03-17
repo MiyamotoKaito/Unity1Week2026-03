@@ -10,48 +10,40 @@ public class CardRotate : MonoBehaviour
     {
         if(!gameObject.activeInHierarchy)
         {
-            Debug.LogWarning($"カードがアクティブではありません: {gameObject.name}");
+            Debug.LogWarning($"カードがアクチE��ブではありません: {gameObject.name}");
             return;
         }
-        if (_flipRoutine != null) StopCoroutine(_flipRoutine);
-        _flipRoutine = StartCoroutine(ToggleCard());
+        FlipTo(true);
     }
 
     public void CloseCard()
     {
         if(!gameObject.activeInHierarchy)
         {
-            Debug.LogWarning($"カードがアクティブではありません: {gameObject.name}");
+            Debug.LogWarning($"カードがアクチE��ブではありません: {gameObject.name}");
             return;
         }
-        if (_flipRoutine != null) StopCoroutine(_flipRoutine);
-        _flipRoutine = StartCoroutine(ToggleCard());
+        FlipTo(false);
     }
-    public void StopCard()
-    {
-        if (_flipRoutine != null)
-        {
-            StopCoroutine(_flipRoutine);
-            _flipRoutine = null;
-        }
-    }
-    
+
 
     [SerializeField]
     private GameObject _backCard;
-    [SerializeField, Tooltip("回転方向を指定、０か１のみ")]
+    [SerializeField, Tooltip("回転方向を持たせるための軸")]
     private float _x, _y, _z;
-    [SerializeField, Tooltip("反転にかかる時間を指定")]
+    [SerializeField, Tooltip("反転にかかる時間（秒）")]
     private float _flipDuration = 0;
     private bool _isBackActive = false;
     private int _flipAngle = 0;
     private Coroutine _flipRoutine;
+    private bool _hasPendingFlip = false;
+    private bool _pendingBackActive = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(ToggleCard());
+            FlipTo(!_isBackActive);
         }
     }
     private void ToggleFace()
@@ -72,6 +64,7 @@ public class CardRotate : MonoBehaviour
     {
         float duration = _flipDuration / 180;
 
+        _flipAngle = 0;
         for (int i = 0; i < 180; i++)
         {
             yield return new WaitForSeconds(duration);
@@ -86,5 +79,32 @@ public class CardRotate : MonoBehaviour
         _flipAngle = 0;
         _flipRoutine = null;
         OnFlipCompleted?.Invoke();
+        if (_hasPendingFlip && _pendingBackActive != _isBackActive)
+        {
+            _hasPendingFlip = false;
+            _flipRoutine = StartCoroutine(ToggleCard());
+        }
+        else
+        {
+            _hasPendingFlip = false;
+        }
+    }
+
+    private void FlipTo(bool backActive)
+    {
+        if (_flipRoutine != null)
+        {
+            _hasPendingFlip = true;
+            _pendingBackActive = backActive;
+            return;
+        }
+
+        if (_isBackActive == backActive)
+        {
+            return;
+        }
+
+        _hasPendingFlip = false;
+        _flipRoutine = StartCoroutine(ToggleCard());
     }
 }

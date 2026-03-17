@@ -19,6 +19,13 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnMissMatchCard += OpenMissMatchedCards;
         _cardController.OnCardsGenereted += SetCards;
     }
+    private void OnDisable()
+    {
+        _cardController.CardRepository.OnClearCards -= ClearCards;
+        _cardController.CardRepository.OnMatchCard -= HideMatchedCards;
+        _cardController.CardRepository.OnMissMatchCard -= OpenMissMatchedCards;
+        _cardController.OnCardsGenereted -= SetCards;
+    }
     private void SetCards()
     {
         var cards = _cardController.CardRepository.GetCards();
@@ -114,10 +121,14 @@ public class CardPresenter : MonoBehaviour
         void OnDone() => done = true;
 
         rotate.OnFlipCompleted += OnDone;
-        while (!done)
+        while (!done && rotate != null && rotate.IsFlipping)
         {
             yield return null;
         }
         rotate.OnFlipCompleted -= OnDone;
+        if (rotate != null)
+        {
+            rotate.OnFlipCompleted -= OnDone;
+        }
     }
 }
