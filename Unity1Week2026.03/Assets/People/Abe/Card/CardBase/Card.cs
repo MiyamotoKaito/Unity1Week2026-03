@@ -15,15 +15,6 @@ public class Card
 
     public event Action OnCardOpened;
 
-    public override bool Equals(object card)
-    {
-        if (card is not Card other) return false;
-        return _cardId.GetId() == other._cardId.GetId();
-    }
-    public override int GetHashCode()
-    {
-        return _cardId.GetId().GetHashCode();
-    }
     public void OpenCard()
     {
         if (_isOpen)
