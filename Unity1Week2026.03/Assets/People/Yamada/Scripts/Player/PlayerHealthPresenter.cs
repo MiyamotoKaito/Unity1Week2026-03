@@ -17,6 +17,10 @@ namespace Unity1Week.URA.Player
             _healthView.UpdateHealthBar(_healthModel.CurrentHealth, _healthModel.MaxHealth);
         }
 
+        [SerializeField] private PlayerHealthView _healthView;
+
+        private PlayerHealthModel _healthModel;
+
         /// <summary>
         ///     HPが変更されたときViewの更新を呼び出す。
         /// </summary>
@@ -40,9 +44,5 @@ namespace Unity1Week.URA.Player
             _healthModel.OnHealthChanged -= HandleHealthChanged;
             _healthModel.OnPlayerDied -= HandleDied;
         }
-
-        [SerializeField] private PlayerHealthView _healthView;
-
-        private PlayerHealthModel _healthModel;
     }
 }
