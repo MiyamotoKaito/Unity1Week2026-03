@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using Unity1Week.URA.typing;
 [DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
 {
@@ -8,18 +9,16 @@ public class CardController : MonoBehaviour
     public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
 
-    public void ClearCards()
+    public void SpawnCards()
     {
+        EnsureTextDataInitialized();
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
-    }
-    public void ButtonSpawnCards()
-    {
-        SpawnCards();
+         TrySpawnCards();
     }
     [SerializeField] private CardData[] _cardDataArray;
 
-    [SerializeField] private int _maxCardPairs = 2;
+    [SerializeField] private int _maxCardPairs = 9;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
 
@@ -28,7 +27,26 @@ public class CardController : MonoBehaviour
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
-    private void SpawnCards()
+    private void Start()
+    {
+        SpawnCards();
+    }
+
+    private void EnsureTextDataInitialized()
+    {
+        if (LoadText.WordList.Count == 0)
+        {
+            Debug.Log("GetCSV");
+            var csv = LoadText.GetCSVFile();
+            if (csv != null)
+            {
+                LoadText.AssemblyWords(csv);
+            }
+        }
+
+        TempCardTextData.SetTexts(LoadText.WordList);
+    }
+    private void TrySpawnCards()
     {
         if (_cardDataArray == null || _cardDataArray.Length == 0)
         {

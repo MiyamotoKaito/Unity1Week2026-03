@@ -11,6 +11,10 @@ public class CardOpenUI : MonoBehaviour
     {
         _inputField.onSubmit.AddListener(OpenCard);
     }
+    private void OnDisable()
+    {
+        _inputField.onSubmit.RemoveListener(OpenCard);
+    }
     private void OpenCard(string cardText)
     {
         var card = _cardController.CardRepository.FindCardByText(cardText);

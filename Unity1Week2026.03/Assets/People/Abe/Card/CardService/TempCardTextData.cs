@@ -1,12 +1,14 @@
 public static class TempCardTextData
 {
-    public static readonly string[] Texts =
+    private static readonly string[] DefaultTexts =
     {
-       "A", "B", "C", "D", "E", "F", "G", "H",
-         "I", "J", "K", "L", "M", "N", "O", "P",
-            "Q", "R", "S", "T", "U", "V", "W", "X",
-               "Y", "Z"
+        "A", "B", "C", "D", "E", "F", "G", "H",
+        "I", "J", "K", "L", "M", "N", "O", "P",
+        "Q", "R", "S", "T", "U", "V", "W", "X",
+        "Y", "Z"
     };
+
+    private static System.Collections.Generic.IReadOnlyList<string> _texts = DefaultTexts;
 
     private static bool _initialized;
     private static bool[] _used;
@@ -17,7 +19,7 @@ public static class TempCardTextData
         textA = null;
         textB = null;
 
-        if (Texts.Length < 2)
+        if (_texts == null || _texts.Count < 2)
         {
             return false;
         }
@@ -48,12 +50,13 @@ public static class TempCardTextData
 
     private static void EnsureInitialized()
     {
-        if (_initialized && _used != null && _used.Length == Texts.Length)
+        if (_initialized && _used != null && _texts != null && _used.Length == _texts.Count)
         {
             return;
         }
 
-        _used = new bool[Texts.Length];
+        var length = _texts?.Count ?? 0;
+        _used = new bool[length];
         _initialized = true;
     }
 
@@ -62,7 +65,7 @@ public static class TempCardTextData
         textA = null;
         textB = null;
 
-        var length = Texts.Length;
+        var length = _texts.Count;
         var unused = new int[length];
         var unusedCount = 0;
         for (var i = 0; i < length; i++)
@@ -87,10 +90,17 @@ public static class TempCardTextData
         var indexBPos = _rng.Next(unusedCount);
         var indexB = unused[indexBPos];
 
-        textA = Texts[indexA];
-        textB = Texts[indexB];
+        textA = _texts[indexA];
+        textB = _texts[indexB];
         _used[indexA] = true;
         _used[indexB] = true;
         return true;
+    }
+
+    public static void SetTexts(System.Collections.Generic.IReadOnlyList<string> texts)
+    {
+        _texts = (texts != null && texts.Count >= 2) ? texts : DefaultTexts;
+        _initialized = false;
+        _used = null;
     }
 }

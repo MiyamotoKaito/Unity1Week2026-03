@@ -123,7 +123,6 @@ public class CardPresenter : MonoBehaviour
         {
             yield return null;
         }
-        rotate.OnFlipCompleted -= OnDone;
         if (rotate != null)
         {
             rotate.OnFlipCompleted -= OnDone;
