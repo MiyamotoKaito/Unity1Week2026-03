@@ -21,7 +21,7 @@ public class CardRepository
         card.OnCardOpened += TryResolveOpenPair;
     }
 
-    public List<Card> GetCards()
+    public IReadOnlyList<Card> GetCards()
     {
         return _cards;
     }

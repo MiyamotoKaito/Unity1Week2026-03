@@ -1,16 +1,42 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class GridCard : MonoBehaviour
 {
     public void GridCards()
     {
-        RandomGrid();
+        if (_gridRoutine != null)
+        {
+            StopCoroutine(_gridRoutine);
+        }
+        _gridRoutine = StartCoroutine(GridCardsNextFrame());
     }
+    [SerializeField] private CardController _cardController;
     [SerializeField] private Transform _parent;
     [SerializeField] private int _width = 7;
     [SerializeField] private float _margin;
+    private Coroutine _gridRoutine;
 
+    private void OnEnable()
+    {
+        _cardController.OnCardsGenereted += GridCards;
+    }
+    private void OnDisable()
+    {
+        _cardController.OnCardsGenereted -= GridCards;
+        if (_gridRoutine != null)
+        {
+            StopCoroutine(_gridRoutine);
+            _gridRoutine = null;
+        }
+    }
+    private IEnumerator GridCardsNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        RandomGrid();
+        _gridRoutine = null;
+    }
     private void RandomGrid()
     {
         int count = _parent.childCount;
