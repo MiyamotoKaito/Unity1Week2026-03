@@ -14,3 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   _cardId: 0
   _frontSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _cardEffect:
+    rid: 4306894106546143312
+  references:
+    version: 2
+    RefIds:
+    - rid: 4306894106546143312
+      type: {class: Block, ns: , asm: Assembly-CSharp}
+      data: 

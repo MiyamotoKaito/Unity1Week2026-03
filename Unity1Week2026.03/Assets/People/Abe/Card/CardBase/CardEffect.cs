@@ -1,13 +1,21 @@
 using UnityEngine;
 
-public class CardEffect 
+public class Attack : ICardEffect
 {
-   public CardEffect()
+   public Attack()
    {
 
    }
    public void Exucute()
    {
-       Debug.Log("カードの効果を発動");
+       Debug.Log("攻撃の効果を発動");
    }
+}
+
+public class Block : ICardEffect
+{
+    public void Exucute()
+    {
+        Debug.Log("防御の効果を発動");
+    }
 }
