@@ -12,6 +12,68 @@ public class CardPresenter : MonoBehaviour
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
     private Dictionary<string, GameObject> _textToObject = new();
+
+    public void ShuffleSomeCards(int shuffleCount)
+    {
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards == null || cards.Count < 2)
+        {
+            return;
+        }
+        if (_cardObjects == null || _cardObjects.Count != cards.Count)
+        {
+            return;
+        }
+        if (shuffleCount < 2)
+        {
+            return;
+        }
+
+        var count = Mathf.Clamp(shuffleCount, 2, cards.Count);
+        var indices = new List<int>(cards.Count);
+        for (int i = 0; i < cards.Count; i++)
+        {
+            indices.Add(i);
+        }
+
+        // Fisher–Yates to get random subset
+        for (int i = indices.Count - 1; i > 0; i--)
+        {
+            var j = Random.Range(0, i + 1);
+            (indices[i], indices[j]) = (indices[j], indices[i]);
+        }
+
+        var targetIndices = indices.GetRange(0, count);
+        var texts = new List<string>(count);
+        foreach (var index in targetIndices)
+        {
+            texts.Add(cards[index].GetCardBackText());
+        }
+
+        for (int i = texts.Count - 1; i > 0; i--)
+        {
+            var j = Random.Range(0, i + 1);
+            (texts[i], texts[j]) = (texts[j], texts[i]);
+        }
+
+        for (int i = 0; i < targetIndices.Count; i++)
+        {
+            var cardIndex = targetIndices[i];
+            var card = cards[cardIndex];
+            card.SetCardBackText(texts[i]);
+
+            var cardObject = _cardObjects[cardIndex];
+            cardObject.name = $"Card_{card.GetCardBackText()}";
+
+            var cardView = cardObject.GetComponentInChildren<CardView>(true);
+            if (cardView != null)
+            {
+                cardView.SetCard(card);
+            }
+        }
+
+        RebuildTextIndex(cards);
+    }
     private void OnEnable()
     {
         _cardController.CardRepository.OnClearCards += ClearCards;
@@ -159,5 +221,14 @@ public class CardPresenter : MonoBehaviour
             return null;
         }
         return obj.GetComponentInChildren<CardRotate>(true);
+    }
+
+    private void RebuildTextIndex(IReadOnlyList<Card> cards)
+    {
+        _textToObject.Clear();
+        for (int i = 0; i < cards.Count; i++)
+        {
+            _textToObject[cards[i].GetCardBackText()] = _cardObjects[i];
+        }
     }
 }

@@ -71,6 +71,11 @@ public class Card
         return _cardBackText.GetText();
     }
 
+    public void SetCardBackText(string text)
+    {
+        _cardBackText = new CardBackText(text);
+    }
+
     public void ExcuteEffect()
     {
         _cardEffect.Exucute();
