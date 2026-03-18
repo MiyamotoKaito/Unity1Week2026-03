@@ -65,6 +65,7 @@ namespace Unity1Week.URA.Battle
             // 敵のスキルを順番に実行する。
             IReadOnlyList<EnemySkillBase> skills = _enemyRuntimeModel.Data.EnemySkills;
 
+            // スキルが複数ある場合を想定して、ループで回す。
             for (int i = 0; i < skills.Count; i++)
             {
                 EnemySkillBase skill = skills[i];
