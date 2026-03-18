@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,19 @@ public class CardRepository
     {
 
     }
+    public event Action OnClearCards;
+    public event Action<Card, Card> OnMatchCard;
+    public event Action<Card, Card> OnMissMatchCard;
 
     public void AddCard(Card card)
     {
         _cards.Add(card);
         card.OnCardOpened += TryResolveOpenPair;
+    }
+
+    public IReadOnlyList<Card> GetCards()
+    {
+        return _cards;
     }
 
     public Card FindCardByText(string text)
@@ -57,16 +66,16 @@ public class CardRepository
             return;
         }
 
-        var match = first.Equals(second);
+        var match = first.GetCardId() == second.GetCardId();
         if (match)
         {
             first.ExcuteEffect(); 
+            OnMatchCard?.Invoke(first, second);
             RemoveMatchCard(first, second);
             return;
         }
-
-        first.CloseCard();
-        second.CloseCard();
+        
+        OnMissMatchCard?.Invoke(first, second);
         Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
     }
@@ -89,7 +98,7 @@ public class CardRepository
         {
             card.OnCardOpened -= TryResolveOpenPair;
         }
-        
+        OnClearCards?.Invoke();
         _cards.Clear();
     }
 
