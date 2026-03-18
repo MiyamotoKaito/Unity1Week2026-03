@@ -7,6 +7,16 @@ namespace Unity1Week.URA.Player
     /// </summary>
     public class PlayerHealthPresenter : MonoBehaviour
     {
+        public void Initialize(PlayerHealthModel healthModel)
+        {
+            _healthModel = healthModel;
+
+            _healthModel.OnHealthChanged += HandleHealthChanged;
+            _healthModel.OnPlayerDied += HandleDied;
+
+            _healthView.UpdateHealthBar(_healthModel.CurrentHealth, _healthModel.MaxHealth);
+        }
+
         /// <summary>
         ///     HPが変更されたときViewの更新を呼び出す。
         /// </summary>
@@ -25,15 +35,6 @@ namespace Unity1Week.URA.Player
             Debug.Log("プレイヤー死亡！");
         }
 
-        private void Awake()
-        {
-            _healthModel = new PlayerHealthModel(_maxHealth);
-            _healthModel.OnHealthChanged += HandleHealthChanged;
-            _healthModel.OnPlayerDied += HandleDied;
-
-            _healthView.UpdateHealthBar(_healthModel.CurrentHealth, _healthModel.MaxHealth);
-        }
-
         private void OnDestroy()
         {
             _healthModel.OnHealthChanged -= HandleHealthChanged;
@@ -41,7 +42,6 @@ namespace Unity1Week.URA.Player
         }
 
         [SerializeField] private PlayerHealthView _healthView;
-        [SerializeField] private int _maxHealth;
 
         private PlayerHealthModel _healthModel;
     }
