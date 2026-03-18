@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace Unity1Week.URA.typing
@@ -11,7 +10,7 @@ namespace Unity1Week.URA.typing
     {
         #region 変数
         public List<string> WordList => _wordList;
-        private List<string> _wordList;
+        private List<string> _wordList = new();
         #endregion
 
         #region　コンストラクタ
