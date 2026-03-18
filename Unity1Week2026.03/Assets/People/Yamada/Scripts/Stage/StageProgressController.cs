@@ -49,6 +49,10 @@ namespace Unity1Week.URA.Stage
             StartRound();
         }
 
+        /// <summary>
+        ///     毎フレーム呼び出される更新処理。
+        /// </summary>
+        /// <param name="deltaTime"></param>
         public void Updete(float deltaTime)
         {
             if (_isStageCleared || _isGameOver)
@@ -58,6 +62,9 @@ namespace Unity1Week.URA.Stage
             _currentEnemyBattleProvider?.Update(deltaTime);
         }
 
+        /// <summary>
+        ///     敵のスキルターンを減らす呼び出し口。
+        /// </summary>
         public void ReduceEnemySkillTurn()
         {
             if (_isStageCleared || _isGameOver)
@@ -67,6 +74,10 @@ namespace Unity1Week.URA.Stage
             _currentEnemyBattleProvider?.ReduceSkillTurn();
         }
 
+        /// <summary>
+        ///     敵にダメージを与える呼び出し口。
+        /// </summary>
+        /// <param name="damage"></param>
         public void DamageCurrentEnemy(int damage)
         {
             if (_isStageCleared || _isGameOver)
