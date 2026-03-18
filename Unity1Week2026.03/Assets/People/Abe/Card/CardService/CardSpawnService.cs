@@ -4,12 +4,9 @@ using UnityEngine;
 /// </summary>
 public class CardSpawnSystem
 {
-    private CardRepository _cardRepository;
-    private GameObject _cardParent;
-    public CardSpawnSystem(CardRepository cardRepository, GameObject cardParent)
+    public CardSpawnSystem(CardRepository cardRepository)
     {
         _cardRepository = cardRepository;
-        _cardParent = cardParent;
     }
 
     public bool SpawnCardPair(CardData cardData, string textA, string textB)
@@ -35,16 +32,17 @@ public class CardSpawnSystem
         _cardRepository.AddCard(cardA);
         _cardRepository.AddCard(cardB);
 
-        CreateCardObject(cardA);
-        CreateCardObject(cardB);
         return true;
     }
-
-    private void CreateCardObject(Card card)
+    public bool CardCount(int count)
     {
-        var cardObject = new GameObject("Card");
-        cardObject.transform.SetParent(_cardParent.transform, false);
-        var cardView = cardObject.AddComponent<CardView>();
-        cardView.SetCard(card);
+        var cards = _cardRepository.GetCards();
+        if (cards.Count >= count)
+        {
+            Debug.Log($"カードの数が上限に達しています。{cards.Count}枚のカードが存在します。");
+            return false;
+        }
+        return true;
     }
+    private CardRepository _cardRepository;
 }

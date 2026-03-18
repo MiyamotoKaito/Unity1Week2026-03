@@ -4,9 +4,11 @@ public class CardData : ScriptableObject
 {
     public int CardId => _cardId;
     public Sprite FrontSprite => _frontSprite;
-    public CardEffect CardEffect;
+
+    public ICardEffect CardEffect => _cardEffect;
 
     [SerializeField] private int _cardId;
     [SerializeField] private Sprite _frontSprite;
+    [SerializeReference, SubclassSelector] private ICardEffect _cardEffect;
     //TODO: カードの効果を渡す方法。
 }

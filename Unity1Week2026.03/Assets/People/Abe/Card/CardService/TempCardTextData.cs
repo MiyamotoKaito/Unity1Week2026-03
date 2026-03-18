@@ -2,12 +2,15 @@ public static class TempCardTextData
 {
     public static readonly string[] Texts =
     {
-       "A", "B", "C", "D", "E", "F", "G", "H"
+       "A", "B", "C", "D", "E", "F", "G", "H",
+         "I", "J", "K", "L", "M", "N", "O", "P",
+            "Q", "R", "S", "T", "U", "V", "W", "X",
+               "Y", "Z"
     };
 
-    private static int _nextIndex;
     private static bool _initialized;
     private static bool[] _used;
+    private static System.Random _rng = new System.Random();
 
     public static bool TryGetNextPair(out string textA, out string textB)
     {
@@ -21,12 +24,7 @@ public static class TempCardTextData
 
         EnsureInitialized();
 
-        if (_nextIndex + 1 >= Texts.Length)
-        {
-            _nextIndex = 0;
-        }
-
-        if (!TryGetNextUnusedPair(out textA, out textB))
+        if (!TryGetRandomUnusedPair(out textA, out textB))
         {
             return false;
         }
@@ -42,7 +40,6 @@ public static class TempCardTextData
     public static void ResetUsage()
     {
         EnsureInitialized();
-        _nextIndex = 0;
         for (var i = 0; i < _used.Length; i++)
         {
             _used[i] = false;
@@ -57,34 +54,43 @@ public static class TempCardTextData
         }
 
         _used = new bool[Texts.Length];
-        _nextIndex = 0;
         _initialized = true;
     }
 
-    private static bool TryGetNextUnusedPair(out string textA, out string textB)
+    private static bool TryGetRandomUnusedPair(out string textA, out string textB)
     {
         textA = null;
         textB = null;
 
         var length = Texts.Length;
+        var unused = new int[length];
+        var unusedCount = 0;
         for (var i = 0; i < length; i++)
         {
-            var indexA = (_nextIndex + i) % length;
-            var indexB = (indexA + 1) % length;
-
-            if (_used[indexA] || _used[indexB])
+            if (!_used[i])
             {
-                continue;
+                unused[unusedCount] = i;
+                unusedCount++;
             }
-
-            textA = Texts[indexA];
-            textB = Texts[indexB];
-            _used[indexA] = true;
-            _used[indexB] = true;
-            _nextIndex = (indexB + 1) % length;
-            return true;
         }
 
-        return false;
+        if (unusedCount < 2)
+        {
+            return false;
+        }
+
+        var indexAPos = _rng.Next(unusedCount);
+        var indexA = unused[indexAPos];
+        unusedCount--;
+        unused[indexAPos] = unused[unusedCount];
+
+        var indexBPos = _rng.Next(unusedCount);
+        var indexB = unused[indexBPos];
+
+        textA = Texts[indexA];
+        textB = Texts[indexB];
+        _used[indexA] = true;
+        _used[indexB] = true;
+        return true;
     }
 }
