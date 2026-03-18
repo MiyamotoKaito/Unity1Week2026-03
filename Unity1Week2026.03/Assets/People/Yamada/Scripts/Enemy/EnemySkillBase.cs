@@ -14,5 +14,9 @@ namespace Unity1Week.URA.Enemy
         /// </summary>
         /// <param name="enemySkillContext"></param>
         public abstract void Execute(EnemySkillContext enemySkillContext);
+
+        public string SkillName => _skillName;
+
+        [SerializeField] private string _skillName;
     }
 }
