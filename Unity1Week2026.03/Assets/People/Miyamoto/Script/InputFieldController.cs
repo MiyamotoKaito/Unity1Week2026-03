@@ -4,19 +4,18 @@ using UnityEngine;
 /// <summary>
 /// InputFieldを制御するクラス
 /// </summary>
-public class InputFieldController
+public class InputFieldController : MonoBehaviour
 {
     #region 変数
+    [SerializeField]
     private TMP_InputField _inputField;
     #endregion
 
     #region コンストラクタ
-    public InputFieldController(TMP_InputField inputField)
+    public void Start()
     {
-        _inputField = inputField;
-
         ClearTextField();
-        ActioveInput();
+        ActiveInput();
     }
     #endregion
 
@@ -31,7 +30,7 @@ public class InputFieldController
     /// <summary>
     /// InputFieldに文字を打てるようにする
     /// </summary>
-    public void ActioveInput()
+    public void ActiveInput()
     {
         _inputField.ActivateInputField();
     }
