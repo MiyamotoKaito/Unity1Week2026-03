@@ -4,9 +4,10 @@ using UnityEngine;
 /// <summary>
 /// InputFieldを制御するクラス
 /// </summary>
-public class InputFieldController
+public class InputFieldController : MonoBehaviour
 {
     #region 変数
+    [SerializeField]
     private TMP_InputField _inputField;
     #endregion
 
