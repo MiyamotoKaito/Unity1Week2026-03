@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Unity1Week.URA.Enemy
@@ -14,6 +15,7 @@ namespace Unity1Week.URA.Enemy
         public int AttackPower => _attackPower;
         public float AttackIntervalSeconds => _attackIntervalSeconds;
         public int SkillTurnInterval => _skillTurnInterval;
+        public IReadOnlyList<EnemySkillBase> EnemySkills => _enemySkills;
 
         [Header("基本情報")]
         [SerializeField] private string _enemyName;
@@ -25,6 +27,9 @@ namespace Unity1Week.URA.Enemy
 
         [Header("行動設定")]
         [SerializeField] private float _attackIntervalSeconds;
+
+        [Header("スキル設定")]
         [SerializeField] private int _skillTurnInterval;
+        [SerializeReference, SubclassSelector] private List<EnemySkillBase> _enemySkills;
     }
 }
