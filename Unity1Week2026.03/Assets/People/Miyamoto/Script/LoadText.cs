@@ -6,18 +6,10 @@ namespace Unity1Week.URA.typing
     /// <summary>
     /// CSVファイルをロードして組み立てるクラス
     /// </summary>
-    public class LoadText
+    public static class LoadText
     {
         #region 変数
-        public List<string> WordList => _wordList;
-        private List<string> _wordList = new();
-        #endregion
-
-        #region　コンストラクタ
-        public LoadText(TextAsset textAsset)
-        {
-            AssemblyWords(textAsset);
-        }
+        public static List<string> WordList { get; } = new();
         #endregion
 
         #region メソッド
@@ -25,7 +17,7 @@ namespace Unity1Week.URA.typing
         /// CSVファイルを読み込んで単語ずつに分ける
         /// </summary>
         /// <param name="textAsset"></param>
-        private void AssemblyWords(TextAsset textAsset)
+        public static void AssemblyWords(TextAsset textAsset)
         {
             // 行単位で分ける
             var lines = textAsset.text.Split("\n");
@@ -36,9 +28,24 @@ namespace Unity1Week.URA.typing
                 foreach (var word in words)
                 {
                     //　単語をリストに追加
-                    _wordList.Add(word);
+                    WordList.Add(word);
                 }
             }
+        }
+        /// <summary>
+        /// ResourecesフォルダからCSVファイルを取得する
+        /// </summary>
+        /// <returns></returns>
+        public static TextAsset GetCSVFile()
+        {
+            var csv = Resources.Load<TextAsset>("WordList");
+
+            if (csv == null)
+            {
+                Debug.LogError("CSVファイルが見つからない");
+            }
+
+            return csv;
         }
         #endregion
     }

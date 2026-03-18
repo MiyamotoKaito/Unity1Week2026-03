@@ -11,35 +11,20 @@ public class TypingSystem : MonoBehaviour
     private TMP_InputField _InputField;
     private InputFieldController _InputFieldController;
 
-    private LoadText _loadText;
     #endregion
 
     #region　メソッド
     private void Start()
     {
-        _loadText = new(GetCSVFile());
+        LoadText.AssemblyWords(LoadText.GetCSVFile());
         _InputFieldController = new(_InputField);
         GetText();
     }
-    /// <summary>
-    /// ResourecesフォルダからCSVファイルを取得する
-    /// </summary>
-    /// <returns></returns>
-    private TextAsset GetCSVFile()
-    {
-        var csv = Resources.Load<TextAsset>("WordList");
 
-        if (csv == null)
-        {
-            Debug.LogError("CSVファイルが見つからない");
-        }
-
-        return csv;
-    }
 
     private void GetText()
     {
-        var strings = _loadText.WordList[Random.Range(0, _loadText.WordList.Count)];
+        var strings = LoadText.WordList[Random.Range(0, LoadText.WordList.Count)];
         _text.text = strings;
     }
     #endregion
