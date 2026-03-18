@@ -1,6 +1,16 @@
 using UnityEngine;
+using System;
 
-public class ShieldEnemySkill
+namespace Unity1Week.URA.Enemy
 {
-    
+    /// <summary>
+    ///     敵自身にシールドを張るスキル。
+    /// </summary>
+    public class ShieldEnemySkill : EnemySkillBase
+    {
+        public override void Execute(EnemySkillContext enemySkillContext)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
