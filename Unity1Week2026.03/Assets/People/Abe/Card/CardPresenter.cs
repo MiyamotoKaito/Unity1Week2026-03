@@ -54,6 +54,7 @@ public class CardPresenter : MonoBehaviour
         _cardController.OnReverseModeChanged += ReversTexts;
         SetEvent();
     }
+    // テキストを逆文字にする
     public void ReversTexts()
     {
         foreach (var text in _textToObject.Keys)
@@ -66,6 +67,7 @@ public class CardPresenter : MonoBehaviour
             }
         }
     }
+    // カードのテキストのみをランダムに入れ替える（カードの内容は変わらない）
     public void ShuffleSomeCards(int shuffleCount)
     {
         var cards = _cardController.CardRepository.GetCards();
@@ -135,6 +137,7 @@ public class CardPresenter : MonoBehaviour
     {
         ReplaceCardContents(new List<CardData> { cardData });
     }
+    // カード内容を置き換える（カードのIDに基づいて内容を更新する）
     public void ReplaceCardContents(IReadOnlyList<CardData> dataList)
     {
         if (dataList == null || dataList.Count == 0)
