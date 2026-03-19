@@ -8,4 +8,8 @@ public class CardInit : MonoBehaviour
     {
         _cardController.Init();
     }
+    private void Start()
+    {
+        _cardController.SpawnCards();
+    }
 }
