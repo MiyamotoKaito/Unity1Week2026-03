@@ -149,8 +149,11 @@ namespace Unity1Week.URA.Stage
         /// </summary>
         private void HandleEnemyDied()
         {
+            Debug.Log("敵死亡！");
+
             UnsubscribeEnemy();
             _currentRoundIndex++;
+            Debug.Log($"次のラウンドへ。現在のラウンドインデックス: {_currentRoundIndex}");
 
             if (_currentRoundIndex < _stageData.RoundDatas.Count)
             {
@@ -159,6 +162,7 @@ namespace Unity1Week.URA.Stage
             else
             {
                 _isStageCleared = true;
+                Debug.Log("ステージクリア！");
                 //TODO : ステージクリア処理をここに追加する。
             }
         }
