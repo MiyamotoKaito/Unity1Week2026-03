@@ -54,6 +54,7 @@ public class CardPresenter : MonoBehaviour
         _cardController.OnReverseModeChanged += ReversTexts;
         SetEvent();
     }
+    // テキストを逆文字にする
     public void ReversTexts()
     {
         foreach (var text in _textToObject.Keys)
@@ -66,6 +67,7 @@ public class CardPresenter : MonoBehaviour
             }
         }
     }
+    // カードのテキストのみをランダムに入れ替える（カードの内容は変わらない）
     public void ShuffleSomeCards(int shuffleCount)
     {
         var cards = _cardController.CardRepository.GetCards();
@@ -127,6 +129,66 @@ public class CardPresenter : MonoBehaviour
 
         RebuildTextIndex(cards);
     }
+    [SerializeField]
+    private CardData cardData;
+
+    // テスト用: カード内容を置き換える
+    public void ReplaceTest()
+    {
+        ReplaceCardContents(new List<CardData> { cardData });
+    }
+    // カード内容を置き換える（カードのIDに基づいて内容を更新する）
+    public void ReplaceCardContents(IReadOnlyList<CardData> dataList)
+    {
+        if (dataList == null || dataList.Count == 0)
+        {
+            Debug.LogWarning("ReplaceCardContents: dataList is null or empty.");
+            return;
+        }
+
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards == null || cards.Count == 0)
+        {
+            Debug.LogWarning("ReplaceCardContents: cards are not ready.");
+            return;
+        }
+        if (_cardObjects == null || _cardObjects.Count != cards.Count)
+        {
+            Debug.LogWarning("ReplaceCardContents: card objects are not ready.");
+            return;
+        }
+
+        var pairs = BuildPairs(cards);
+        if (pairs.Count == 0)
+        {
+            Debug.LogWarning("ReplaceCardContents: no valid pairs found.");
+            return;
+        }
+
+        ShuffleList(pairs);
+        var applied = 0;
+        for (int i = 0; i < dataList.Count && applied < pairs.Count; i++)
+        {
+            var data = dataList[i];
+            if (data == null)
+            {
+                continue;
+            }
+            while (applied < pairs.Count)
+            {
+                var pair = pairs[applied];
+                var currentId = cards[pair.IndexA].GetCardId();
+                if (currentId != data.CardId)
+                {
+                    ApplyPairData(cards, pair, data);
+                    applied++;
+                    break;
+                }
+                applied++;
+            }
+        }
+        Debug.Log("カード内容が置き換えられました");
+    }
     private void SetEvent()
     {
         _cardController.CardRepository.OnClearCards += ClearCards;
@@ -152,6 +214,7 @@ public class CardPresenter : MonoBehaviour
         {
             var card = cards[i];
             var cardObject = _cardObjects[i];
+            Debug.Log($"[CardPresenter] Spawned card index={i}, id={card.GetCardId()}, text={card.GetCardBackText()}");
 
             cardObject.name = $"Card_{card.GetCardBackText()}"; // デバッグ用にカードオブジェクトの名前を設定
 
@@ -282,6 +345,77 @@ public class CardPresenter : MonoBehaviour
         for (int i = 0; i < cards.Count; i++)
         {
             _textToObject[cards[i].GetCardBackText()] = _cardObjects[i];
+        }
+    }
+
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            var j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
+    private List<PairInfo> BuildPairs(IReadOnlyList<Card> cards)
+    {
+        var byId = new Dictionary<int, List<int>>();
+        for (int i = 0; i < cards.Count; i++)
+        {
+            var id = cards[i].GetCardId();
+            if (!byId.TryGetValue(id, out var list))
+            {
+                list = new List<int>(2);
+                byId.Add(id, list);
+            }
+            list.Add(i);
+        }
+
+        var pairs = new List<PairInfo>();
+        foreach (var kvp in byId)
+        {
+            var indices = kvp.Value;
+            for (int i = 0; i + 1 < indices.Count; i += 2)
+            {
+                pairs.Add(new PairInfo(indices[i], indices[i + 1]));
+            }
+        }
+        return pairs;
+    }
+
+    private void ApplyPairData(IReadOnlyList<Card> cards, PairInfo pair, CardData data)
+    {
+        if (data == null)
+        {
+            return;
+        }
+        cards[pair.IndexA].ApplyCardData(data);
+        cards[pair.IndexB].ApplyCardData(data);
+        RefreshView(pair.IndexA, cards[pair.IndexA]);
+        RefreshView(pair.IndexB, cards[pair.IndexB]);
+    }
+
+    private void RefreshView(int index, Card card)
+    {
+        var cardObject = _cardObjects[index];
+        cardObject.name = $"Card_{card.GetCardBackText()}";
+
+        var cardView = cardObject.GetComponentInChildren<CardView>(true);
+        if (cardView != null)
+        {
+            cardView.SetCard(card);
+        }
+    }
+
+    private readonly struct PairInfo
+    {
+        public readonly int IndexA;
+        public readonly int IndexB;
+
+        public PairInfo(int indexA, int indexB)
+        {
+            IndexA = indexA;
+            IndexB = indexB;
         }
     }
 }

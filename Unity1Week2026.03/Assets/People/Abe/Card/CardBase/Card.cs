@@ -82,6 +82,18 @@ public class Card
         return _triggerMode;
     }
 
+    public void ApplyCardData(CardData data)
+    {
+        if (data == null)
+        {
+            return;
+        }
+        _cardId = new CardId(data.CardId);
+        _cardEffect = data.CardEffect;
+        _cardFrontSprite = new CardFrontSprite(data.FrontSprite);
+        _triggerMode = data.TriggerMode;
+    }
+
     public void ExcuteEffect()
     {
         _cardEffect.Exucute();
