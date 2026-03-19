@@ -12,7 +12,6 @@ public class InputFieldController : MonoBehaviour
     #endregion
 
 
-
     #region メソッド
     private void Start()
     {

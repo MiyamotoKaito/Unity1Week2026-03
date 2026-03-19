@@ -16,6 +16,7 @@ namespace Unity1Week.URA.Stage
         [Header("Stage")]
         [SerializeField] private EnemyPresenter _enemyPresenter;
         [SerializeField] private EnemyDebugDamageDealer _enemyDebugDamageDealer;
+        [SerializeField] private CardController _cardController;
 
         private PlayerHealthModel _playerHealthModel;
         private StageProgressController _stageProgressController;
@@ -50,6 +51,15 @@ namespace Unity1Week.URA.Stage
             _stageProgressController.StartStage();
         }
 
+        /// <summary>
+        ///     カードの初期化をする。
+        /// </summary>
+        private void InitializeCardController()
+        {
+            _cardController.Init();
+            EffectManager.Instance.Initialize(_stageProgressController);
+        }
+
         private void InitializeDebug()
         {
             _enemyDebugDamageDealer.Initialize(_stageProgressController);
@@ -59,7 +69,13 @@ namespace Unity1Week.URA.Stage
         {
             InitializePlayer();
             InitializeStage();
+            InitializeCardController();
             InitializeDebug();
+        }
+
+        private void Start()
+        {
+            _cardController.SpawnCards();
         }
 
         private void Update()
