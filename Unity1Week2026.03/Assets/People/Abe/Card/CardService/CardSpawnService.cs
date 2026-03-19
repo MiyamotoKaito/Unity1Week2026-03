@@ -9,11 +9,25 @@ public class CardSpawnSystem
         _cardRepository = cardRepository;
     }
 
+    public void ResetSpawnFlags()
+    {
+        _singlePairSpawned = false;
+    }
+
     public bool SpawnCardPair(CardData cardData, string textA, string textB)
     {
         if (string.IsNullOrWhiteSpace(textA) || string.IsNullOrWhiteSpace(textB))
         {
             return false;
+        }
+
+        if (cardData != null && cardData.TriggerMode == CardTriggerMode.Single)
+        {
+            if (_singlePairSpawned)
+            {
+                return false;
+            }
+            _singlePairSpawned = true;
         }
 
         if (textA == textB)
@@ -45,4 +59,5 @@ public class CardSpawnSystem
         return true;
     }
     private CardRepository _cardRepository;
+    private bool _singlePairSpawned;
 }
