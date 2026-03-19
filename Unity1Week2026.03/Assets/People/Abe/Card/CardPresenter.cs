@@ -52,6 +52,7 @@ public class CardPresenter : MonoBehaviour
     private void Start()
     {
         _cardController.OnReverseModeChanged += ReversTexts;
+        SetEvent();
     }
     public void ReversTexts()
     {
@@ -126,7 +127,7 @@ public class CardPresenter : MonoBehaviour
 
         RebuildTextIndex(cards);
     }
-    private void OnEnable()
+    private void SetEvent()
     {
         _cardController.CardRepository.OnClearCards += ClearCards;
         _cardController.CardRepository.OnMatchCard += HideMatchedCards;
