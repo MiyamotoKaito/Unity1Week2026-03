@@ -46,6 +46,15 @@ namespace Unity1Week.URA.Battle
         }
 
         /// <summary>
+        ///     スキルターンを増やす呼び出し口。
+        /// </summary>
+        /// <param name="value"></param>
+        public void AddSkillTurn(int value)
+        {
+            _enemySkillTurnTracker.AddTurn(value);
+        }
+
+        /// <summary>
         ///     敵のスキルが発動可能か確認して、発動させる。
         /// </summary>
         private void TryExecuteEnemySkill()
