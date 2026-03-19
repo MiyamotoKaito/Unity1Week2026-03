@@ -1,4 +1,5 @@
 
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ public class CardOpenUI : MonoBehaviour
     }
     private void OpenCard(string cardText)
     {
+        if(_cardController.IsReverseMode)
+        {
+            cardText = new string(cardText.Reverse().ToArray());
+        }
         var card = _cardController.CardRepository.FindCardByText(cardText);
         if (card != null)
         {

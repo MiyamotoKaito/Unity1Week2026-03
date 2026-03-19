@@ -5,6 +5,7 @@ using Unity1Week.URA.typing;
 [DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
 {
+    public bool IsReverseMode => _reverseMode;
     public event Action OnCardsGenereted;
     public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
@@ -16,18 +17,24 @@ public class CardController : MonoBehaviour
         TempCardTextData.ResetUsage();
          TrySpawnCards();
     }
+    public void ReverseTexts()
+    {
+        _reverseMode = true;
+    }
     [SerializeField] private CardData[] _cardDataArray;
 
     [SerializeField] private int _maxCardPairs = 9;
     private CardSpawnSystem _cardSpawnSystem;
     private CardRepository _cardRepository;
+    [SerializeField]
+    private bool _reverseMode = false;
 
-    private void Awake()
+    public void Init()
     {
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
-    private void Start()
+    public void Spawn()
     {
         SpawnCards();
     }
