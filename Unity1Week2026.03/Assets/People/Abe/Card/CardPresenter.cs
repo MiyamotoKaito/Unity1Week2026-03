@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 public class CardPresenter : MonoBehaviour
 {
     [SerializeField]
@@ -9,10 +11,60 @@ public class CardPresenter : MonoBehaviour
     private CardViewSpawn _generateCardView;
     [SerializeField]
     private float _hideDelayAfterFlip = 0.0f;
+    [SerializeField]
+    private TMP_FontAsset[] _fontAsssetArray;
+    private bool _isReverseMode = false;
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
     private Dictionary<string, GameObject> _textToObject = new();
 
+    /// <summary>
+    /// テキストを鏡文字表示にする
+    /// </summary>
+    public void MirrorTexts()
+    {
+        foreach (var text in _textToObject.Keys)
+        {
+            var obj = _textToObject[text];
+            var cardView = obj.GetComponentInChildren<CardView>(true);
+            if (cardView != null)
+            {
+                cardView.SetFont(_fontAsssetArray[1]);
+            }
+        }
+    }
+    /// <summary>
+    /// テキストを通常表示に戻す
+    /// </summary>
+    public void NormalTexts()
+    {
+        foreach (var text in _textToObject.Keys)
+        {
+            var obj = _textToObject[text];
+            var cardView = obj.GetComponentInChildren<CardView>(true);
+            if (cardView != null)
+            {
+                cardView.SetFont(_fontAsssetArray[0]);
+            }
+        }
+    }
+
+    private void Start()
+    {
+        _cardController.OnReverseModeChanged += ReversTexts;
+    }
+    public void ReversTexts()
+    {
+        foreach (var text in _textToObject.Keys)
+        {
+            var obj = _textToObject[text];
+            var cardView = obj.GetComponentInChildren<CardView>(true);
+            if (cardView != null)
+            {
+                cardView.ReverseText();
+            }
+        }
+    }
     public void ShuffleSomeCards(int shuffleCount)
     {
         var cards = _cardController.CardRepository.GetCards();

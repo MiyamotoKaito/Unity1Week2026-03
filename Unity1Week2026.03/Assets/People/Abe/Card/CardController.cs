@@ -9,6 +9,7 @@ public class CardController : MonoBehaviour
     public event Action OnCardsGenereted;
     public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
+    public event Action OnReverseModeChanged;
 
     public void SpawnCards()
     {
@@ -20,6 +21,7 @@ public class CardController : MonoBehaviour
     public void ReverseTexts()
     {
         _reverseMode = true;
+        OnReverseModeChanged?.Invoke();
     }
     public void Init()
     {
