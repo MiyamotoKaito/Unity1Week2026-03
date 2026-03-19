@@ -3,6 +3,6 @@
 public abstract class AttackBase : ICardEffect
 {
     [SerializeField]
-    protected float _attackPower;
+    protected int _attackPower;
     public abstract void Exucute();
 }

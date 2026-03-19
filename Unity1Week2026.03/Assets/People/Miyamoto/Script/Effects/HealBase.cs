@@ -3,6 +3,6 @@
 public abstract class HealBase : ICardEffect
 {
     [SerializeField]
-    protected float _healAmount;
+    protected int _healAmount;
     public abstract void Exucute();
 }
