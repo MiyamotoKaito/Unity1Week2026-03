@@ -23,13 +23,13 @@ namespace Unity1Week.URA.Enemy
         /// <summary>
         ///     HPバーの表示を更新する。
         /// </summary>
-        /// <param name="curentHp"></param>
+        /// <param name="currentHp"></param>
         /// <param name="maxHp"></param>
-        public void UpdateHealth(int curentHp, int maxHp)
+        public void UpdateHealth(int currentHp, int maxHp)
         {
-            float ratio = (float)curentHp / maxHp;
+            float ratio = (float)currentHp / maxHp;
             _hpFillImage.fillAmount = ratio;
-            _hpText.text = $"{curentHp} / {maxHp}";
+            _hpText.text = $"{currentHp} / {maxHp}";
         }
 
         /// <summary>
