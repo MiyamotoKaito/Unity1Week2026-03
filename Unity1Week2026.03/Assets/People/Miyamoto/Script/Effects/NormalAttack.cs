@@ -5,6 +5,6 @@ public class NormalAttack : AttackBase
 {
     public override void Exucute()
     {
-        var enemy = GameObject.FindAnyObjectByType<BattleInstaller>().
+        EffectManager.Instance.PlayAttack(_attackPower);
     }
 }
