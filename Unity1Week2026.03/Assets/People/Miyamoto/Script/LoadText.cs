@@ -19,16 +19,24 @@ namespace Unity1Week.URA.typing
         /// <param name="textAsset"></param>
         public static void AssemblyWords(TextAsset textAsset)
         {
-            // 行単位で分ける
-            var lines = textAsset.text.Split("\n");
-            foreach (var line in lines)
+            if (textAsset == null)
             {
-                // カンマ単位で区切る
+                Debug.LogError("CSVテキストが空です。UTF-8で保存されたCSVを用意してください。");
+                return;
+            }
+            if (textAsset.text.Contains("\uFFFD"))
+            {
+                Debug.LogWarning("文字化けの可能性があります。CSVをUTF-8（BOM付き推奨）で保存してください。");
+            }
+            // 行単位で分ける
+            var lines = textAsset.text.Split('\n');
+            foreach (var rawLine in lines)
+            {
+                var line = rawLine.Trim(); // ← これ重要
                 var words = line.Split(',');
                 foreach (var word in words)
                 {
-                    //　単語をリストに追加
-                    WordList.Add(word);
+                    WordList.Add(word.Trim()); // ← これもやる
                 }
             }
         }
