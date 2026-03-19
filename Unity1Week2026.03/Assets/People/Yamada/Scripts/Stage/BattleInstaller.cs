@@ -62,7 +62,7 @@ namespace Unity1Week.URA.Stage
 
         private void InitializeDebug()
         {
-            _enemyDebugDamageDealer.Initialize(_stageProgressController);
+            // _enemyDebugDamageDealer.Initialize(_stageProgressController);
         }
 
         private void Awake()
