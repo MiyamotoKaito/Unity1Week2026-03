@@ -29,12 +29,12 @@ public class CardController : MonoBehaviour
     [SerializeField]
     private bool _reverseMode = false;
 
-    private void Awake()
+    public void Init()
     {
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
-    private void Start()
+    public void Spawn()
     {
         SpawnCards();
     }
