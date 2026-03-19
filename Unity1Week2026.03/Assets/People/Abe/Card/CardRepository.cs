@@ -63,6 +63,7 @@ public class CardRepository
         {
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(first, first);
             return;
         }
@@ -76,6 +77,7 @@ public class CardRepository
         {
             second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(second, second);
             return;
         }
@@ -85,6 +87,7 @@ public class CardRepository
         {
             first.ExcuteEffect(); 
             OnMatchCard?.Invoke(first, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(first, second);
             return;
         }

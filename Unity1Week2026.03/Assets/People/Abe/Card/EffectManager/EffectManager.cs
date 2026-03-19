@@ -19,6 +19,10 @@ public class EffectManager : MonoBehaviour
         _stageProgressController.HealPlayer(healAmount);
     }
 
+    public void ReduceEnemySkillTurn()
+    {
+        _stageProgressController.ReduceEnemySkillTurn();
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)
