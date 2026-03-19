@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &339719481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339719483}
+  - component: {fileID: 339719482}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &339719482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339719481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a62b8e666fd05c4885e05d6d0a6301d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectManager
+--- !u!4 &339719483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339719481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1001.99084, y: 709.6659, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &599364515
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,28 +361,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259942519}
-  - component: {fileID: 1259942518}
+  - component: {fileID: 1259942520}
+  - component: {fileID: 1259942521}
   m_Layer: 0
-  m_Name: TypingSystem
+  m_Name: InputFieldController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1259942518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259942517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 259009647fb3ca140a78a8a1c4cabf99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TypingSystem
-  _text: {fileID: 1940918960}
-  _InputField: {fileID: 2040209239}
 --- !u!4 &1259942519
 Transform:
   m_ObjectHideFlags: 0
@@ -354,6 +385,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1259942520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259942517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22ebd8f2e99e14438d6dd4349394330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputFieldController
+  _inputField: {fileID: 2040209239}
+--- !u!114 &1259942521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259942517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110825e8aa74c0a499703c99a5270edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TypingTest
+  _text: {fileID: 1940918960}
+  _inputField: {fileID: 2040209239}
+  _effect:
+  - rid: 405499228005859431
+  references:
+    version: 2
+    RefIds:
+    - rid: 405499228005859431
+      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
+      data:
+        _attackPower: 3
 --- !u!1 &1309923847
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,8 +912,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
+  m_sharedMaterial: {fileID: 4903222454759270158, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1109,3 +1176,4 @@ SceneRoots:
   - {fileID: 1309923851}
   - {fileID: 1325817553}
   - {fileID: 1259942519}
+  - {fileID: 339719483}
