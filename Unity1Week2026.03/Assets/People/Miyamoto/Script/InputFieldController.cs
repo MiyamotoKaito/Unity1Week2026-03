@@ -11,15 +11,17 @@ public class InputFieldController : MonoBehaviour
     private TMP_InputField _inputField;
     #endregion
 
-    #region コンストラクタ
-    public void Start()
-    {
-        ClearTextField();
-        ActiveInput();
-    }
-    #endregion
+
 
     #region メソッド
+    private void Start()
+    {
+        ClearTextField();
+    }
+    private void Update()
+    {
+        ActiveInput();
+    }
     /// <summary>
     /// InputFieldに書かれている文字を全て削除する
     /// </summary>
