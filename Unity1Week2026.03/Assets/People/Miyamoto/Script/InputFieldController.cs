@@ -48,8 +48,8 @@ public class InputFieldController : MonoBehaviour
     /// <param name="text"></param>
     private void OnSubmit(string text)
     {
-        Invoke(nameof(ClearTextField), 0.01f);
-        Invoke(nameof(ActiveInput), 0.01f);
+        Invoke(nameof(ClearTextField), 0.1f);
+        Invoke(nameof(ActiveInput), 0.1f);
     }
     /// <summary>
     /// インプットフィールドのフォーカスが外れた時に呼ぶ
