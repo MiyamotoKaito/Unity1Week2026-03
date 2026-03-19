@@ -14,6 +14,11 @@ public class EnemyPresenter : MonoBehaviour
         EnemyAttackTimer enemyAttackTimer,
         EnemySkillTurnTracker enemySkillTurnTracker)
     {
+        if(_enemyRuntimeModel != null)
+        {
+            _enemyRuntimeModel.OnHealthChanged -= HandleHealthChanged;
+        }
+
         _enemyRuntimeModel = enemyRuntimeModel;
         _enemyAttackTimer = enemyAttackTimer;
         _enemySkillTurnTracker = enemySkillTurnTracker;
@@ -28,6 +33,7 @@ public class EnemyPresenter : MonoBehaviour
             _enemyRuntimeModel.MaxHealth
             );
 
+        _enemyView.UpdateHealth(_enemyRuntimeModel.CurrentHealth, _enemyRuntimeModel.MaxHealth);
         _enemyView.UpdateAttackTimer(_enemyAttackTimer.RemainingTime);
         _enemyView.UpdateSkillTurn(_enemySkillTurnTracker.RemainingTurns);
     }
@@ -39,7 +45,7 @@ public class EnemyPresenter : MonoBehaviour
     /// <param name="maxHealth"></param>
     private void HandleHealthChanged(int currentHealth, int maxHealth)
     {
-        _enemyView.UpdateHealthBar(currentHealth, maxHealth);
+        _enemyView.UpdateHealth(currentHealth, maxHealth);
     }
 
     private void Update()
