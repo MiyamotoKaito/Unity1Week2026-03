@@ -15,11 +15,16 @@ public class CardController : MonoBehaviour
         EnsureTextDataInitialized();
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
-         TrySpawnCards();
+        TrySpawnCards();
     }
     public void ReverseTexts()
     {
         _reverseMode = true;
+    }
+    public void Init()
+    {
+        _cardRepository = new CardRepository();
+        _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
     [SerializeField] private CardData[] _cardDataArray;
 
@@ -28,16 +33,6 @@ public class CardController : MonoBehaviour
     private CardRepository _cardRepository;
     [SerializeField]
     private bool _reverseMode = false;
-
-    public void Init()
-    {
-        _cardRepository = new CardRepository();
-        _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
-    }
-    public void Spawn()
-    {
-        SpawnCards();
-    }
 
     private void EnsureTextDataInitialized()
     {
