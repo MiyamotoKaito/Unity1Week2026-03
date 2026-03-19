@@ -13,13 +13,18 @@ public class InputFieldController : MonoBehaviour
 
 
     #region メソッド
+    private void OnEnable()
+    {
+        _inputField.onSubmit.AddListener(OnSubmit);
+    }
+    private void OnDisable()
+    {
+        _inputField.onSubmit.RemoveListener(OnSubmit);
+    }
     private void Start()
     {
-        ClearTextField();
-    }
-    private void Update()
-    {
         ActiveInput();
+        ClearTextField();
     }
     /// <summary>
     /// InputFieldに書かれている文字を全て削除する
@@ -34,6 +39,15 @@ public class InputFieldController : MonoBehaviour
     public void ActiveInput()
     {
         _inputField.ActivateInputField();
+    }
+    /// <summary>
+    /// Enterが押されたときに呼ぶ
+    /// </summary>
+    /// <param name="text"></param>
+    private void OnSubmit(string text)
+    {
+        ClearTextField();
+        Invoke(nameof(ActiveInput), 0.01f);
     }
     #endregion
 }
