@@ -59,10 +59,24 @@ public class CardRepository
         {
             return;
         }
+        if (first.GetTriggerMode() == CardTriggerMode.Single)
+        {
+            first.ExcuteEffect();
+            OnMatchCard?.Invoke(first, first);
+            RemoveMatchCard(first, first);
+            return;
+        }
 
         var second = GetSecondOpenCard(first);
         if (second == null)
         {
+            return;
+        }
+        if (second.GetTriggerMode() == CardTriggerMode.Single)
+        {
+            second.ExcuteEffect();
+            OnMatchCard?.Invoke(second, second);
+            RemoveMatchCard(second, second);
             return;
         }
 
