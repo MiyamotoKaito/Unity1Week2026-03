@@ -11,7 +11,7 @@ namespace Unity1Week.URA.Enemy
             Debug.Log("EnemyDebugDamageDealer initialized.");
         }
 
-        public void NomalDamageClick()
+        public void NormalDamageClick()
         {
             Debug.Log("通常攻撃");
             _stageProgressController.DamageCurrentEnemy(_normalDamage);
