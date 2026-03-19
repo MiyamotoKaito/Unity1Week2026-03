@@ -51,8 +51,7 @@ public class CardPresenter : MonoBehaviour
 
     private void Start()
     {
-        _cardController.OnReverseModeChanged += ReversTexts;
-        SetEvent();
+        Debug.Log($"CardPresenter controller instance={_cardController.GetInstanceID()}");
     }
     // テキストを逆文字にする
     public void ReversTexts()
@@ -195,19 +194,44 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnMatchCard += HideMatchedCards;
         _cardController.CardRepository.OnMissMatchCard += OpenMissMatchedCards;
         _cardController.OnCardsGenereted += SetCards;
+        _cardController.OnReverseModeChanged += ReversTexts;
+    }
+    private void OnEnable()
+    {
+        if (_cardController == null)
+        {
+            Debug.LogError("CardController is not assigned on CardPresenter.");
+            return;
+        }
+        if (_cardController.CardRepository == null)
+        {
+            _cardController.Init();
+        }
+        SetEvent();
+
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards != null && cards.Count > 0)
+        {
+            SetCards();
+        }
     }
     private void OnDisable()
     {
+        if (_cardController == null || _cardController.CardRepository == null)
+        {
+            return;
+        }
         _cardController.CardRepository.OnClearCards -= ClearCards;
         _cardController.CardRepository.OnMatchCard -= HideMatchedCards;
         _cardController.CardRepository.OnMissMatchCard -= OpenMissMatchedCards;
         _cardController.OnCardsGenereted -= SetCards;
+        _cardController.OnReverseModeChanged -= ReversTexts;
     }
     private void SetCards()
     {
         var cards = _cardController.CardRepository.GetCards();
         ClearCards();
-
+        Debug.Log("カードを生成しています...");
         _cardObjects = _generateCardView.GenerateCard(cards.Count);
 
         for (int i = 0; i < cards.Count; i++)

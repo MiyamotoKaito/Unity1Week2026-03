@@ -12,6 +12,7 @@ public class CardViewSpawn : MonoBehaviour
             var card = Instantiate(_cardPrefab, _cardParent);
             cards.Add(card);
         }
+        Debug.Log($"カードを{count}枚生成しました。");
         return cards;
     }
     [SerializeField] private GameObject _cardPrefab;
