@@ -24,7 +24,7 @@ namespace Unity1Week.URA.typing
             foreach (var line in lines)
             {
                 // カンマ単位で区切る
-                var words = line.Split(',');
+                var words = line.Trim(' ').Split(',');
                 foreach (var word in words)
                 {
                     //　単語をリストに追加
@@ -38,7 +38,7 @@ namespace Unity1Week.URA.typing
         /// <returns></returns>
         public static TextAsset GetCSVFile()
         {
-            var csv = Resources.Load<TextAsset>("WordList");
+            var csv = Resources.Load<TextAsset>("ワードリスト");
 
             if (csv == null)
             {
