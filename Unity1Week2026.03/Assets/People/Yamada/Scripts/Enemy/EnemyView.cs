@@ -25,10 +25,11 @@ namespace Unity1Week.URA.Enemy
         /// </summary>
         /// <param name="curentHp"></param>
         /// <param name="maxHp"></param>
-        public void UpdateHealthBar(int curentHp, int maxHp)
+        public void UpdateHealth(int curentHp, int maxHp)
         {
             float ratio = (float)curentHp / maxHp;
             _hpFillImage.fillAmount = ratio;
+            _hpText.text = $"{curentHp} / {maxHp}";
         }
 
         /// <summary>
