@@ -11,8 +11,6 @@ public class TypingTest : MonoBehaviour
     private TMP_InputField _inputField;
     [SerializeReference, SubclassSelector]
     private List<ICardEffect> _effect;
-
-    private bool _isProcessing;
     private void Awake()
     {
         LoadText.AssemblyWords(LoadText.GetCSVFile());
@@ -27,8 +25,8 @@ public class TypingTest : MonoBehaviour
     }
     private void Answer(string text)
     {
-        if (_isProcessing) return;
-        _isProcessing = true;
+        Debug.Log(text.Length);
+        Debug.Log(_text.text.Length);
 
         if (text == _text.text)
         {
@@ -38,8 +36,6 @@ public class TypingTest : MonoBehaviour
         {
             Mistake();
         }
-
-        _isProcessing = false;
     }
 
     private void Collect()
