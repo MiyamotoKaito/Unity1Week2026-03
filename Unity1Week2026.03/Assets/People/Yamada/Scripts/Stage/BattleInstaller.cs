@@ -1,3 +1,4 @@
+using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Unity1Week.URA.Stage
 
         [Header("Stage")]
         [SerializeField] private EnemyPresenter _enemyPresenter;
+        [SerializeField] private EnemyDebugDamageDealer _enemyDebugDamageDealer;
 
         private PlayerHealthModel _playerHealthModel;
         private StageProgressController _stageProgressController;
@@ -48,10 +50,16 @@ namespace Unity1Week.URA.Stage
             _stageProgressController.StartStage();
         }
 
+        private void InitializeDebug()
+        {
+            _enemyDebugDamageDealer.Initialize(_stageProgressController);
+        }
+
         private void Awake()
         {
             InitializePlayer();
             InitializeStage();
+            InitializeDebug();
         }
 
         private void Update()
