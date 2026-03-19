@@ -16,12 +16,10 @@ public class InputFieldController : MonoBehaviour
     private void OnEnable()
     {
         _inputField.onSubmit.AddListener(OnSubmit);
-        _inputField.onDeselect.AddListener(OnDeselect);
     }
     private void OnDisable()
     {
         _inputField.onSubmit.RemoveListener(OnSubmit);
-        _inputField.onDeselect.RemoveListener(OnDeselect);
     }
     private void Start()
     {
@@ -49,15 +47,7 @@ public class InputFieldController : MonoBehaviour
     private void OnSubmit(string text)
     {
         ClearTextField();
-        ActiveInput();
-    }
-    /// <summary>
-    /// フォーカスが外れた時の処理
-    /// </summary>
-    /// <param name="text"></param>
-    private void OnDeselect(string text)
-    {
-        ActiveInput();
+        Invoke(nameof(ActiveInput), 0.01f);
     }
     #endregion
 }
