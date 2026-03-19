@@ -12,15 +12,6 @@ public class InputFieldController : MonoBehaviour
     #endregion
 
 
-    #region コンストラクタ
-    public void Start()
-    {
-        ClearTextField();
-        ActiveInput();
-    }
-    #endregion
-
-
     #region メソッド
     private void Start()
     {
