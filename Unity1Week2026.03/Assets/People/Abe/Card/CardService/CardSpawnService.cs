@@ -26,8 +26,8 @@ public class CardSpawnSystem
             return false;
         }
 
-        var cardA = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, textA);
-        var cardB = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, textB);
+        var cardA = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, textA, cardData.TriggerMode);
+        var cardB = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, textB, cardData.TriggerMode);
 
         _cardRepository.AddCard(cardA);
         _cardRepository.AddCard(cardB);

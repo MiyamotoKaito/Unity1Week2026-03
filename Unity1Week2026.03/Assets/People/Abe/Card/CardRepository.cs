@@ -59,10 +59,26 @@ public class CardRepository
         {
             return;
         }
+        if (first.GetTriggerMode() == CardTriggerMode.Single)
+        {
+            first.ExcuteEffect();
+            OnMatchCard?.Invoke(first, first);
+            EffectManager.Instance.ReduceEnemySkillTurn();
+            RemoveMatchCard(first, first);
+            return;
+        }
 
         var second = GetSecondOpenCard(first);
         if (second == null)
         {
+            return;
+        }
+        if (second.GetTriggerMode() == CardTriggerMode.Single)
+        {
+            second.ExcuteEffect();
+            OnMatchCard?.Invoke(second, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
+            RemoveMatchCard(second, second);
             return;
         }
 
@@ -71,6 +87,7 @@ public class CardRepository
         {
             first.ExcuteEffect(); 
             OnMatchCard?.Invoke(first, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(first, second);
             return;
         }

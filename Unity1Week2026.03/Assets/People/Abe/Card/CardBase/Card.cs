@@ -5,12 +5,13 @@ using UnityEngine;
 /// </summary>
 public class Card
 {
-    public Card(int cardId, ICardEffect effect, Sprite frontSprite, string cardBackText)
+    public Card(int cardId, ICardEffect effect, Sprite frontSprite, string cardBackText, CardTriggerMode triggerMode)
     {
         _cardId = new CardId(cardId);
         _cardEffect = effect;//TODO: CardEffectの実装ができたら引数から渡すようにする
         _cardFrontSprite = new CardFrontSprite(frontSprite);
         _cardBackText = new CardBackText(cardBackText);
+        _triggerMode = triggerMode;
     }
 
     public event Action OnCardOpened;
@@ -76,6 +77,11 @@ public class Card
         _cardBackText = new CardBackText(text);
     }
 
+    public CardTriggerMode GetTriggerMode()
+    {
+        return _triggerMode;
+    }
+
     public void ExcuteEffect()
     {
         _cardEffect.Exucute();
@@ -86,4 +92,5 @@ public class Card
     private ICardEffect _cardEffect;
     private CardFrontSprite _cardFrontSprite;
     private CardBackText _cardBackText;
+    private CardTriggerMode _triggerMode;
 }
