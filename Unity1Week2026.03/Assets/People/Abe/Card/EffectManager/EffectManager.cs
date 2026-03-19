@@ -1,16 +1,22 @@
-using UnityEngine;
 
+using UnityEngine;
+using Unity1Week.URA.Stage;
 public class EffectManager : MonoBehaviour
 {
     public static EffectManager Instance { get; private set; }
-
-    public void PlayAttack(ICardEffect effect)
+    private StageProgressController _stageProgressController;
+    public void Initialize(StageProgressController stageProgressController)
     {
-        effect.Exucute();
+        _stageProgressController = stageProgressController;
     }
-    public void PlayDefense(ICardEffect effect)
+
+    public void PlayAttack(int damage)
     {
-        effect.Exucute();
+        _stageProgressController.DamageCurrentEnemy(damage);
+    }
+    public void PlayHeal(int healAmount)
+    {
+        _stageProgressController.HealPlayer(healAmount);
     }
 
     private void Awake()
