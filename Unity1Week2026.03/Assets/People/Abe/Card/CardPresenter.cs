@@ -130,7 +130,8 @@ public class CardPresenter : MonoBehaviour
     [SerializeField]
     private CardData cardData;
 
-　　public void ReplaceTest()
+    // テスト用: カード内容を置き換える
+    public void ReplaceTest()
     {
         ReplaceCardContents(new List<CardData> { cardData });
     }
