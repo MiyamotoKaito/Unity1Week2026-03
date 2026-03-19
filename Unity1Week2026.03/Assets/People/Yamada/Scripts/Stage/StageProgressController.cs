@@ -2,6 +2,7 @@ using Unity1Week.URA.Battle;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Unity1Week.URA.Stage
 {
@@ -63,6 +64,19 @@ namespace Unity1Week.URA.Stage
         }
 
         /// <summary>
+        ///     敵のスキルターンを増やす呼び出し口。
+        /// </summary>
+        /// <param name="value"></param>
+        public void AddTurnToEnemy(int value)
+        {
+            if (_isStageCleared || _isGameOver)
+            {
+                return;
+            }
+            _currentEnemyBattleProvider?.AddSkillTurn(value);
+        }
+
+        /// <summary>
         ///     敵のスキルターンを減らす呼び出し口。
         /// </summary>
         public void ReduceEnemySkillTurn()
@@ -85,6 +99,19 @@ namespace Unity1Week.URA.Stage
                 return;
             }
             _currentEnemyRuntimeModel?.TakeDamage(damage);
+        }
+
+        /// <summary>
+        ///     プレイヤーを回復する呼び出し口。
+        /// </summary>
+        /// <param name="healAmount"></param>
+        public void HealPlayer(int healAmount)
+        {
+            if (_isStageCleared || _isGameOver)
+            {
+                return;
+            }
+            _playerHealthModel.Heal(healAmount);
         }
 
         private readonly StageData _stageData;
