@@ -12,6 +12,8 @@ public class CardPresenter : MonoBehaviour
     private float _hideDelayAfterFlip = 0.0f;
     [SerializeField]
     private TMP_FontAsset[] _fontAsssetArray;
+    [SerializeField]
+    private float _respawnDelaySeconds = 1f;
     private bool _isReverseMode = false;
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
@@ -212,6 +214,7 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnClearCards += ClearCards;
         _cardController.CardRepository.OnMatchCard += HideMatchedCards;
         _cardController.CardRepository.OnMissMatchCard += OpenMissMatchedCards;
+        _cardController.CardRepository.OnAllCardsRemoved += RespawnCardsDelayed;
         _cardController.OnCardsGenereted += SetCards;
         _cardController.OnReverseModeChanged += ReversTexts;
         Debug.Log("[CardPresenter] Events subscribed.");
@@ -225,6 +228,7 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnClearCards -= ClearCards;
         _cardController.CardRepository.OnMatchCard -= HideMatchedCards;
         _cardController.CardRepository.OnMissMatchCard -= OpenMissMatchedCards;
+        _cardController.CardRepository.OnAllCardsRemoved -= RespawnCardsDelayed;
         _cardController.OnCardsGenereted -= SetCards;
         _cardController.OnReverseModeChanged -= ReversTexts;
         Debug.Log("[CardPresenter] Events unsubscribed.");
@@ -368,6 +372,26 @@ public class CardPresenter : MonoBehaviour
         _cardRotates.Clear();
         _textToObject.Clear();
         _cardToObject.Clear();
+    }
+
+    private void RespawnCardsDelayed()
+    {
+        if (_isRespawning)
+        {
+            return;
+        }
+        StartCoroutine(RespawnAfterDelay());
+    }
+
+    private IEnumerator RespawnAfterDelay()
+    {
+        _isRespawning = true;
+        if (_respawnDelaySeconds > 0f)
+        {
+            yield return new WaitForSeconds(_respawnDelaySeconds);
+        }
+        _cardController.SpawnCards();
+        _isRespawning = false;
     }
 
     private void TrySyncExistingCards()
@@ -524,6 +548,8 @@ public class CardPresenter : MonoBehaviour
         }
         return null;
     }
+
+    private bool _isRespawning = false;
 
     private void RebuildTextIndex(IReadOnlyList<Card> cards)
     {
