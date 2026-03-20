@@ -58,25 +58,7 @@ public class CardController : MonoBehaviour
             Debug.LogError("CardData array is empty. Please assign CardData in the inspector.");
             return;
         }
-        var singleData = FindSingleCardData();
-        if (singleData == null)
-        {
-            Debug.LogError("Single TriggerMode CardData is required but not found.");
-            return;
-        }
-        if (!SpawnCardPair(singleData))
-        {
-            Debug.LogError("Failed to spawn the required single pair.");
-            return;
-        }
-
         var nonSingleList = BuildNonSingleList();
-        if (nonSingleList.Count == 0)
-        {
-            Debug.LogWarning("No non-single CardData found. Only the single pair will be spawned.");
-            OnCardsGenereted?.Invoke();
-            return;
-        }
 
         while (_cardSpawnSystem.CardCount(_maxCardPairs * 2))
         {
