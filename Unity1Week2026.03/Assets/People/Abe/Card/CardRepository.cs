@@ -100,8 +100,8 @@ public class CardRepository
             return;
         }
 
-        EffectManager.Instance.ReduceEnemySkillTurn();
         OnMissMatchCard?.Invoke(first, second);
+
         Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
     }
