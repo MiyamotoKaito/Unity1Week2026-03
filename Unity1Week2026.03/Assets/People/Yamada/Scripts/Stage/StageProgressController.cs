@@ -18,11 +18,16 @@ namespace Unity1Week.URA.Stage
         public StageProgressController(
             StageData stageData,
             PlayerHealthModel playerHealthModel,
-            EnemyPresenter enemyPresenter)
+            EnemyPresenter enemyPresenter,
+            CardController cardController,
+            CardPresenter cardPresenter)
         {
             _stageData = stageData;
             _playerHealthModel = playerHealthModel;
             _enemyPresenter = enemyPresenter;
+            _cardController = cardController;
+            _cardPresenter = cardPresenter;
+
             _currentRoundIndex = 0;
 
             _playerHealthModel.OnPlayerDied += HandlePlayerDied;
@@ -129,6 +134,8 @@ namespace Unity1Week.URA.Stage
         private readonly StageData _stageData;
         private readonly PlayerHealthModel _playerHealthModel;
         private readonly EnemyPresenter _enemyPresenter;
+        private readonly CardController _cardController;
+        private readonly CardPresenter _cardPresenter;
 
         private int _currentRoundIndex;
         private bool _isStageCleared;
@@ -172,6 +179,9 @@ namespace Unity1Week.URA.Stage
                 _currentEnemyAttackTimer,
                 _currentEnemySkillTurnTracker
                 );
+
+            _cardController.SpawnCards();
+            _cardPresenter.ReplaceCardContents(enemyData.JammerCards);
         }
 
         /// <summary>
