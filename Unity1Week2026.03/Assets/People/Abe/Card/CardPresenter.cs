@@ -17,6 +17,7 @@ public class CardPresenter : MonoBehaviour
     private List<GameObject> _cardObjects = new List<GameObject>();
     private List<CardRotate> _cardRotates = new List<CardRotate>();
     private Dictionary<string, GameObject> _textToObject = new();
+    private Dictionary<Card, GameObject> _cardToObject = new();
 
     /// <summary>
     /// テキストを鏡文字表示にする
@@ -51,7 +52,7 @@ public class CardPresenter : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"CardPresenter controller instance={_cardController.GetInstanceID()}");
+     SetEvent();
     }
     // テキストを逆文字にする
     public void ReversTexts()
@@ -195,25 +196,7 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnMissMatchCard += OpenMissMatchedCards;
         _cardController.OnCardsGenereted += SetCards;
         _cardController.OnReverseModeChanged += ReversTexts;
-    }
-    private void OnEnable()
-    {
-        if (_cardController == null)
-        {
-            Debug.LogError("CardController is not assigned on CardPresenter.");
-            return;
-        }
-        if (_cardController.CardRepository == null)
-        {
-            _cardController.Init();
-        }
-        SetEvent();
-
-        var cards = _cardController.CardRepository.GetCards();
-        if (cards != null && cards.Count > 0)
-        {
-            SetCards();
-        }
+        Debug.Log("[CardPresenter] Events subscribed.");
     }
     private void OnDisable()
     {
@@ -226,19 +209,18 @@ public class CardPresenter : MonoBehaviour
         _cardController.CardRepository.OnMissMatchCard -= OpenMissMatchedCards;
         _cardController.OnCardsGenereted -= SetCards;
         _cardController.OnReverseModeChanged -= ReversTexts;
+        Debug.Log("[CardPresenter] Events unsubscribed.");
     }
     private void SetCards()
     {
         var cards = _cardController.CardRepository.GetCards();
         ClearCards();
-        Debug.Log("カードを生成しています...");
         _cardObjects = _generateCardView.GenerateCard(cards.Count);
 
         for (int i = 0; i < cards.Count; i++)
         {
             var card = cards[i];
             var cardObject = _cardObjects[i];
-            Debug.Log($"[CardPresenter] Spawned card index={i}, id={card.GetCardId()}, text={card.GetCardBackText()}");
 
             cardObject.name = $"Card_{card.GetCardBackText()}"; // デバッグ用にカードオブジェクトの名前を設定
 
@@ -251,13 +233,13 @@ public class CardPresenter : MonoBehaviour
                 continue;
             }
             _textToObject[card.GetCardBackText()] = cardObject;
+            _cardToObject[card] = cardObject;
             cardView.SetCard(card);
             card.OnCardOpened += cardRotate.OpenCard;
             card.OnCardClosed += cardRotate.CloseCard;
             _cardRotates.Add(cardRotate);
         }
 
-        Debug.Log("カードがセットされました");
     }
 
     private void ClearCards()
@@ -269,13 +251,16 @@ public class CardPresenter : MonoBehaviour
         _cardObjects.Clear();
         _cardRotates.Clear();
         _textToObject.Clear();
+        _cardToObject.Clear();
     }
     private void HideMatchedCards(Card a, Card b)
     {
+        Debug.Log($"[CardPresenter] OnMatchCard: a={a?.GetCardBackText()} id={a?.GetCardId()} b={b?.GetCardBackText()} id={b?.GetCardId()}");
         StartCoroutine(HideMatchedCardsAfterFlip(a, b));
     }
     private void OpenMissMatchedCards(Card a, Card b)
     {
+        Debug.Log($"[CardPresenter] OnMissMatchCard: a={a?.GetCardBackText()} id={a?.GetCardId()} b={b?.GetCardBackText()} id={b?.GetCardId()}");
         StartCoroutine(CloseMismatchAfterFlip(a, b));
     }
     private IEnumerator CloseMismatchAfterFlip(Card a, Card b)
@@ -287,6 +272,7 @@ public class CardPresenter : MonoBehaviour
     }
     private IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
     {
+        Debug.Log("[CardPresenter] HideMatchedCardsAfterFlip start.");
         yield return WaitUntilBothOpen(a, b);
 
         if (_hideDelayAfterFlip > 0f)
@@ -294,19 +280,21 @@ public class CardPresenter : MonoBehaviour
             yield return new WaitForSeconds(_hideDelayAfterFlip);
         }
 
-        if (_textToObject.TryGetValue(a.GetCardBackText(), out var objA))
+        if (_cardToObject.TryGetValue(a, out var objA))
         {
+            Debug.Log("[CardPresenter] Hiding matched card A.");
             objA.SetActive(false);
         }
-        if (_textToObject.TryGetValue(b.GetCardBackText(), out var objB))
+        if (_cardToObject.TryGetValue(b, out var objB))
         {
+            Debug.Log("[CardPresenter] Hiding matched card B.");
             objB.SetActive(false);
         }
     }
 
     private IEnumerator WaitForFlipIfNeeded(Card card)
     {
-        if (!_textToObject.TryGetValue(card.GetCardBackText(), out var obj))
+        if (!_cardToObject.TryGetValue(card, out var obj))
         {
             yield break;
         }
@@ -333,17 +321,20 @@ public class CardPresenter : MonoBehaviour
 
     private IEnumerator WaitUntilBothOpen(Card a, Card b)
     {
+        Debug.Log("[CardPresenter] WaitUntilBothOpen start.");
         while (true)
         {
             var rotateA = GetRotate(a);
             var rotateB = GetRotate(b);
             if (rotateA == null || rotateB == null)
             {
+                Debug.Log("[CardPresenter] WaitUntilBothOpen aborted: rotate not found.");
                 yield break;
             }
 
             if (!rotateA.IsFlipping && !rotateB.IsFlipping && rotateA.IsBackActive && rotateB.IsBackActive)
             {
+                Debug.Log("[CardPresenter] WaitUntilBothOpen complete.");
                 yield break;
             }
             yield return null;
@@ -356,7 +347,7 @@ public class CardPresenter : MonoBehaviour
         {
             return null;
         }
-        if (!_textToObject.TryGetValue(card.GetCardBackText(), out var obj))
+        if (!_cardToObject.TryGetValue(card, out var obj))
         {
             return null;
         }
@@ -366,9 +357,11 @@ public class CardPresenter : MonoBehaviour
     private void RebuildTextIndex(IReadOnlyList<Card> cards)
     {
         _textToObject.Clear();
+        _cardToObject.Clear();
         for (int i = 0; i < cards.Count; i++)
         {
             _textToObject[cards[i].GetCardBackText()] = _cardObjects[i];
+            _cardToObject[cards[i]] = _cardObjects[i];
         }
     }
 

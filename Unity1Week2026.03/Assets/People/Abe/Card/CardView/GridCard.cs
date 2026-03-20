@@ -37,7 +37,10 @@ public class GridCard : MonoBehaviour
         RandomGrid();
         _gridRoutine = null;
     }
-    private void RandomGrid()
+    /// <summary>
+    /// カードをグリッド状にランダム配置する shuffle + grid layout
+    /// </summary>
+    public void RandomGrid()
     {
         int count = _parent.childCount;
         if (count == 0) return;

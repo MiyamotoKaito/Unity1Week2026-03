@@ -12,16 +12,16 @@ public class EffectManager : MonoBehaviour
 
     public void PlayAttack(int damage)
     {
-        _stageProgressController.DamageCurrentEnemy(damage);
+        _stageProgressController?.DamageCurrentEnemy(damage);
     }
     public void PlayHeal(int healAmount)
     {
-        _stageProgressController.HealPlayer(healAmount);
+        _stageProgressController?.HealPlayer(healAmount);
     }
 
     public void ReduceEnemySkillTurn()
     {
-        _stageProgressController.ReduceEnemySkillTurn();
+        _stageProgressController?.ReduceEnemySkillTurn();
     }
     private void Awake()
     {
