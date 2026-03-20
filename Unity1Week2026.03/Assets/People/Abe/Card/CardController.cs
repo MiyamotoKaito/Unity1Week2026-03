@@ -21,7 +21,14 @@ public class CardController : MonoBehaviour
     }
     public void ReverseTexts()
     {
-        _reverseMode = true;
+        if(!IsReverseMode)
+        {
+           _reverseMode = true;
+        }
+        else
+        {
+            _reverseMode = false;
+        }
         OnReverseModeChanged?.Invoke();
     }
     public void Init()
