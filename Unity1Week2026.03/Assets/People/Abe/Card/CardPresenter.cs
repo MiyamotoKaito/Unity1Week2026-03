@@ -403,7 +403,10 @@ public class CardPresenter : MonoBehaviour
 
         a.CloseCard();
         b.CloseCard();
+        
+        yield return new WaitForSeconds(0.8f);
         EffectManager.Instance.ReduceEnemySkillTurn();
+
     }
     private IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
     {
