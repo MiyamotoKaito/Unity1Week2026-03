@@ -110,6 +110,17 @@ public class Card
         return false;
     }
 
+    public bool TryGetHealBase(out HealBase healBase)
+    {
+        if (_cardEffect is HealBase heal)
+        {
+            healBase = heal;
+            return true;
+        }
+        healBase = null;
+        return false;
+    }
+
     private bool _isOpen;
     private CardId _cardId;
     private ICardEffect _cardEffect;
