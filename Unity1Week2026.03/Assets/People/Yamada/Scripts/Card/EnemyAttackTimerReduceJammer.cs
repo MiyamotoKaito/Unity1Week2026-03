@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class EnemyAttackTimerReduceJammer : ICardEffect
+public class EnemyAttackTimerReduceJammer : JammerCardBase
 {
-    public void Exucute()
+    public override void Exucute()
     {
         EffectManager.Instance.ReduceEnemyAttackTimer(_reduceTime);
     }

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ReverseTextJammer : ICardEffect
+public class ReverseTextJammer : JammerCardBase
 {
-    public void Exucute()
+    public override void Exucute()
     {
         EffectManager.Instance.ApplyReverseText();
     }

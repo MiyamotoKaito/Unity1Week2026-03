@@ -59,7 +59,7 @@ public class CardPresenter : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartEvent()
     {
         SetEvent();
         TrySyncExistingCards();

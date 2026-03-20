@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class TextShuffleJammer : ICardEffect
+public class TextShuffleJammer : JammerCardBase
 {
-    public void Exucute()
+    public override void Exucute()
     {
         EffectManager.Instance.ShuffleSomeCardTexts(_value);
     }

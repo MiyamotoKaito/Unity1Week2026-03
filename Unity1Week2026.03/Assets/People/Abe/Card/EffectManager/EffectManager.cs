@@ -8,11 +8,16 @@ public class EffectManager : MonoBehaviour
     private StageProgressController _stageProgressController;
     private CardPresenter _cardPresenter;
     private GridCard _gridCard;
-    public void Initialize(StageProgressController stageProgressController, CardPresenter cardPresenter,GridCard gridCard)
+    private CardController _cardController;
+    public void Initialize(StageProgressController stageProgressController,
+        CardPresenter cardPresenter,
+        GridCard gridCard,
+        CardController cardController)
     {
         _stageProgressController = stageProgressController;
         _cardPresenter = cardPresenter;
         _gridCard = gridCard;
+        _cardController = cardController;
     }
 
     public void PlayAttack(int damage)
@@ -37,7 +42,7 @@ public class EffectManager : MonoBehaviour
     }
     public void ApplyReverseText()
     {
-        _cardPresenter.ReversTexts();
+        _cardController.ReverseTexts();
     }
     public void DuplicateJammerPair(List<CardData> dataList)
     {
@@ -46,7 +51,7 @@ public class EffectManager : MonoBehaviour
 
     public void ReduceCurrentPower(int value)
     {
-        throw new System.NotImplementedException();
+        _cardPresenter.ReduceAttackPowerForAllAttackCards(value);
     }
 
     public void ShuffleAllCardPositions()

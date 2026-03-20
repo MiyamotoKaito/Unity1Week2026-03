@@ -16,6 +16,7 @@ namespace Unity1Week.URA.Enemy
         public float AttackIntervalSeconds => _attackIntervalSeconds;
         public int SkillTurnInterval => _skillTurnInterval;
         public IReadOnlyList<EnemySkillBase> EnemySkills => _enemySkills;
+        public IReadOnlyList<CardData> JammerCards => _jammerCards;
 
         [Header("基本情報")]
         [SerializeField] private string _enemyName;
