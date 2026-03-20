@@ -37,11 +37,20 @@ namespace Unity1Week.URA.Battle
         }
 
         /// <summary>
+        ///     攻撃までの時間をリセットする呼び出し口。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void ReduseEnemyAttackTimer(float amount)
+        {
+            _enemyAttackTimer.ReduceRemainingTime(amount);
+        }
+
+        /// <summary>
         ///     スキルターンを減らす呼び出し口。
         /// </summary>
-        public void ReduceSkillTurn()
+        public void ReduceSkillTurn(int value)
         {
-            _enemySkillTurnTracker.ReduceTurn();
+            _enemySkillTurnTracker.ReduceTurn(value);
             TryExecuteEnemySkill();
         }
 

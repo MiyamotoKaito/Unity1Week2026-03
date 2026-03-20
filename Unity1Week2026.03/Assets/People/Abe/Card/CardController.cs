@@ -16,6 +16,7 @@ public class CardController : MonoBehaviour
         EnsureTextDataInitialized();
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
+        _cardSpawnSystem.ResetSpawnFlags();
         TrySpawnCards();
     }
     public void ReverseTexts()
@@ -57,9 +58,12 @@ public class CardController : MonoBehaviour
             Debug.LogError("CardData array is empty. Please assign CardData in the inspector.");
             return;
         }
+        var nonSingleList = BuildNonSingleList();
+
         while (_cardSpawnSystem.CardCount(_maxCardPairs * 2))
         {
-            if (!SpawnCardPair(_cardDataArray[UnityEngine.Random.Range(0, _cardDataArray.Length)]))
+            var cardData = nonSingleList[UnityEngine.Random.Range(0, nonSingleList.Count)];
+            if (!SpawnCardPair(cardData))
             {
                 Debug.LogWarning("Failed to spawn a card pair. Stopping further attempts.");
                 break;
@@ -82,5 +86,30 @@ public class CardController : MonoBehaviour
             Debug.LogWarning("Failed to spawn card pair. Texts may be duplicated or invalid.");
         }
         return spawned;
+    }
+
+    private CardData FindSingleCardData()
+    {
+        foreach (var data in _cardDataArray)
+        {
+            if (data != null && data.TriggerMode == CardTriggerMode.Single)
+            {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    private System.Collections.Generic.List<CardData> BuildNonSingleList()
+    {
+        var list = new System.Collections.Generic.List<CardData>();
+        foreach (var data in _cardDataArray)
+        {
+            if (data != null && data.TriggerMode != CardTriggerMode.Single)
+            {
+                list.Add(data);
+            }
+        }
+        return list;
     }
 }

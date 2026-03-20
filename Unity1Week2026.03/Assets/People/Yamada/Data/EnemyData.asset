@@ -17,13 +17,16 @@ MonoBehaviour:
   _maxHealth: 100
   _attackPower: 50
   _attackIntervalSeconds: 10
-  _skillTurnInterval: 3
+  _skillTurnInterval: 1
   _enemySkills:
-  - rid: 5427475683074637897
+  - rid: 5427475729416454221
+  _jammerCards:
+  - {fileID: 11400000, guid: 402816c65b984cf44aa369486ceae510, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 5427475683074637897
-      type: {class: ShieldEnemySkill, ns: Unity1Week.URA.Enemy, asm: Assembly-CSharp}
+    - rid: 5427475729416454221
+      type: {class: AllTextShuffleSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
+        _shuffleCount: 4

@@ -17,6 +17,7 @@ namespace Unity1Week.URA.Enemy
         /// <param name="maxHp"></param>
         public void InitializeView(Sprite enemySr, int currentHp, int maxHp)
         {
+            _enemySr = GetComponent<SpriteRenderer>();
             _enemySr.sprite = enemySr;
         }
 

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0c37cd83dce154a9b7111152c03c49, type: 3}
   m_Name: CardData 2
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  _cardId: 1
-  _frontSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  _cardId: 2
+  _frontSprite: {fileID: 0}
   _cardEffect:
-    rid: 4306894139772108882
+    rid: 4306894139772108889
+  _triggerMode: 1
   references:
     version: 2
     RefIds:
-    - rid: 4306894139772108882
-      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
-      data:
-        _attackPower: 0
+    - rid: 4306894139772108889
+      type: {class: Attack, ns: , asm: Assembly-CSharp}
+      data: 
