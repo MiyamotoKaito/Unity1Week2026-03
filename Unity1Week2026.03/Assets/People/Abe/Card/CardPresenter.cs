@@ -61,7 +61,8 @@ public class CardPresenter : MonoBehaviour
 
     private void Start()
     {
-     SetEvent();
+        SetEvent();
+        TrySyncExistingCards();
     }
     // テキストを逆文字にする
     public void ReversTexts()
@@ -320,6 +321,24 @@ public class CardPresenter : MonoBehaviour
         _cardRotates.Clear();
         _textToObject.Clear();
         _cardToObject.Clear();
+    }
+
+    private void TrySyncExistingCards()
+    {
+        if (_cardController == null || _cardController.CardRepository == null)
+        {
+            return;
+        }
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards == null || cards.Count == 0)
+        {
+            return;
+        }
+        if (_cardObjects != null && _cardObjects.Count == cards.Count)
+        {
+            return;
+        }
+        SetCards();
     }
     private void HideMatchedCards(Card a, Card b)
     {
