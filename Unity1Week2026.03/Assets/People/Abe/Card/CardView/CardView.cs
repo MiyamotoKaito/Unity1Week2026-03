@@ -9,7 +9,8 @@ public class CardView : MonoBehaviour
     {
         
         _image.sprite = card?.GetCardFrontSprite();
-        _text.text = card.GetCardBackText();
+        _text.text = card?.GetCardBackText() ?? string.Empty;
+        UpdateEffectValue(card);
     }
 
     public void PlayDebuffFx()
@@ -34,15 +35,29 @@ public class CardView : MonoBehaviour
     }
     private Image _image;
     private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _effectValueText;
     [SerializeField] private Animator _animator;
     [SerializeField] private string _debuffTrigger = "Debuff";
     [SerializeField] private ParticleSystem _debuffParticle;
     private const string CardBackImagePath = "Text/BackGround/BackImage";
     private const string CardBackTextPath = "Text";
+    private const string EffectValuePath = "EffectValue";
     private void Awake()
     {
         _image = transform.Find(CardBackImagePath).GetComponent<Image>();
         _text = transform.Find(CardBackTextPath).GetComponent<TextMeshProUGUI>();
+        if (_effectValueText == null)
+        {
+            var effectValue = transform.Find(EffectValuePath);
+            if (effectValue == null)
+            {
+                effectValue = transform.Find($"{CardBackTextPath}/{EffectValuePath}");
+            }
+            if (effectValue != null)
+            {
+                _effectValueText = effectValue.GetComponent<TextMeshProUGUI>();
+            }
+        }
         if (_animator == null)
         {
             _animator = GetComponentInChildren<Animator>(true);
@@ -50,6 +65,34 @@ public class CardView : MonoBehaviour
         if (_debuffParticle == null)
         {
             _debuffParticle = GetComponentInChildren<ParticleSystem>(true);
+        }
+    }
+
+    private void UpdateEffectValue(Card card)
+    {
+        string effectText = string.Empty;
+        if (card != null)
+        {
+            if (card.TryGetAttackBase(out var attack))
+            {
+                effectText = $"{attack.AttackPower}";
+            }
+            else if (card.TryGetHealBase(out var heal))
+            {
+                effectText = $"{heal.HealAmount}";
+            }
+        }
+
+        if (_effectValueText != null)
+        {
+            _effectValueText.text = effectText;
+            _effectValueText.gameObject.SetActive(!string.IsNullOrEmpty(effectText));
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(effectText))
+        {
+            _text.text = string.IsNullOrEmpty(_text.text) ? effectText : $"{_text.text}\n{effectText}";
         }
     }
 }
