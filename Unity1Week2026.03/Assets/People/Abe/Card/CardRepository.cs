@@ -54,31 +54,39 @@ public class CardRepository
 
     public void TryResolveOpenPair()
     {
+        Debug.Log("[CardRepository] TryResolveOpenPair called.");
         var first = GetFirstOpenCard();
+
         if (first == null)
         {
+            Debug.Log("[CardRepository] No open card found.");
             return;
         }
+        Debug.Log($"[CardRepository] First open: id={first.GetCardId()}, text={first.GetCardBackText()}, mode={first.GetTriggerMode()}");
+        
         if (first.GetTriggerMode() == CardTriggerMode.Single)
         {
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(first, first);
+            Debug.Log("[CardRepository] Single card resolved (first).");
             return;
         }
 
         var second = GetSecondOpenCard(first);
         if (second == null)
         {
+            Debug.Log("[CardRepository] Second open card not found.");
             return;
         }
+        Debug.Log($"[CardRepository] Second open: id={second.GetCardId()}, text={second.GetCardBackText()}, mode={second.GetTriggerMode()}");
         if (second.GetTriggerMode() == CardTriggerMode.Single)
         {
             second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(second, second);
+            first.CloseCard();
+            Debug.Log("[CardRepository] Single card resolved (second).");
             return;
         }
 
@@ -87,8 +95,8 @@ public class CardRepository
         {
             first.ExcuteEffect(); 
             OnMatchCard?.Invoke(first, second);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             RemoveMatchCard(first, second);
+            Debug.Log("[CardRepository] Pair matched and resolved.");
             return;
         }
         
