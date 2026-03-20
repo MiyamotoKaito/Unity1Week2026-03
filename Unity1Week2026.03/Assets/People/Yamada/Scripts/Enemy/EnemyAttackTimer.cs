@@ -27,6 +27,15 @@ namespace Unity1Week.URA.Enemy
         }
 
         /// <summary>
+        ///     攻撃までの残り時間を減らす。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void ReduceRemainingTime(float amount)
+        {
+            _remaingTime = Mathf.Max(_remaingTime - amount, 0);
+        }
+
+        /// <summary>
         ///     タイマーをリセットする。
         /// </summary>
         public void ResetTimer()
