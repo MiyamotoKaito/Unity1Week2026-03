@@ -391,6 +391,10 @@ public class CardPresenter : MonoBehaviour
     {
         Debug.Log($"[CardPresenter] OnMatchCard: a={a?.GetCardBackText()} id={a?.GetCardId()} b={b?.GetCardBackText()} id={b?.GetCardId()}");
         StartCoroutine(HideMatchedCardsAfterFlip(a, b));
+        if (a == b)
+        {
+            StartCoroutine(CloseOtherOpenAfterFlip(a));
+        }
     }
     private void OpenMissMatchedCards(Card a, Card b)
     {
@@ -428,6 +432,18 @@ public class CardPresenter : MonoBehaviour
             Debug.Log("[CardPresenter] Hiding matched card B.");
             objB.SetActive(false);
         }
+    }
+
+    private IEnumerator CloseOtherOpenAfterFlip(Card singleCard)
+    {
+        var other = FindOtherOpenCard(singleCard);
+        if (other == null)
+        {
+            yield break;
+        }
+
+        yield return WaitUntilBothOpen(singleCard, other);
+        other.CloseCard();
     }
 
     private IEnumerator WaitForFlipIfNeeded(Card card)
@@ -490,6 +506,23 @@ public class CardPresenter : MonoBehaviour
             return null;
         }
         return obj.GetComponentInChildren<CardRotate>(true);
+    }
+
+    private Card FindOtherOpenCard(Card exclude)
+    {
+        if (_cardController == null || _cardController.CardRepository == null)
+        {
+            return null;
+        }
+        var cards = _cardController.CardRepository.GetCards();
+        foreach (var card in cards)
+        {
+            if (card != null && card != exclude && card.IsOpen())
+            {
+                return card;
+            }
+        }
+        return null;
     }
 
     private void RebuildTextIndex(IReadOnlyList<Card> cards)
