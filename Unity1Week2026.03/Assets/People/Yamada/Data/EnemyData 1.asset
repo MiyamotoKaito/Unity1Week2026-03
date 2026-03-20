@@ -17,9 +17,10 @@ MonoBehaviour:
   _maxHealth: 10
   _attackPower: 50
   _attackIntervalSeconds: 10
-  _skillTurnInterval: 3
+  _skillTurnInterval: 5
   _enemySkills:
   - rid: 5427475683074637897
+  _jammerCards: []
   references:
     version: 2
     RefIds:

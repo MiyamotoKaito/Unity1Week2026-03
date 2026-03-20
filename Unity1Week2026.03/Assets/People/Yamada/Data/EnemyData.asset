@@ -19,17 +19,14 @@ MonoBehaviour:
   _attackIntervalSeconds: 10
   _skillTurnInterval: 1
   _enemySkills:
-  - rid: 5427475683074637897
-  - rid: 5427475729416454218
-  _jammerCards: []
+  - rid: 5427475729416454221
+  _jammerCards:
+  - {fileID: 11400000, guid: 402816c65b984cf44aa369486ceae510, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 5427475683074637897
-      type: {class: ShieldEnemySkill, ns: Unity1Week.URA.Enemy, asm: Assembly-CSharp}
+    - rid: 5427475729416454221
+      type: {class: AllTextShuffleSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
-    - rid: 5427475729416454218
-      type: {class: ShuffleCardPositionsSkill, ns: , asm: Assembly-CSharp}
-      data:
-        _skillName: 
+        _shuffleCount: 4
