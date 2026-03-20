@@ -2,7 +2,6 @@ using Unity1Week.URA.Battle;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Unity1Week.URA.Stage
 {
@@ -64,6 +63,19 @@ namespace Unity1Week.URA.Stage
         }
 
         /// <summary>
+        ///     指定した時間だけ敵の攻撃タイマーを減らす呼び出し口。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void ReduceEnemyAttackTimer(float amount)
+        {
+            if (_isStageCleared || _isGameOver)
+            {
+                return;
+            }
+            _currentEnemyBattleProvider.ReduseEnemyAttackTimer(amount);
+        }
+
+        /// <summary>
         ///     敵のスキルターンを増やす呼び出し口。
         /// </summary>
         /// <param name="value"></param>
@@ -79,13 +91,13 @@ namespace Unity1Week.URA.Stage
         /// <summary>
         ///     敵のスキルターンを減らす呼び出し口。
         /// </summary>
-        public void ReduceEnemySkillTurn()
+        public void ReduceEnemySkillTurn(int value = 1)
         {
             if (_isStageCleared || _isGameOver)
             {
                 return;
             }
-            _currentEnemyBattleProvider?.ReduceSkillTurn();
+            _currentEnemyBattleProvider?.ReduceSkillTurn(value);
         }
 
         /// <summary>

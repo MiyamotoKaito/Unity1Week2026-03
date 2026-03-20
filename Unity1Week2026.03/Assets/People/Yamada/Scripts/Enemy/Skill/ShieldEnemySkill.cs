@@ -10,7 +10,7 @@ namespace Unity1Week.URA.Enemy
     {
         public override void Execute(EnemySkillContext enemySkillContext)
         {
-            throw new NotImplementedException();
+            enemySkillContext.EnemyRuntimeModel.SetShield(true);
         }
     }
 }

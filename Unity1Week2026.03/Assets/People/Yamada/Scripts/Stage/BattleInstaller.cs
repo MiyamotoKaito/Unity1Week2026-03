@@ -17,6 +17,8 @@ namespace Unity1Week.URA.Stage
         [SerializeField] private EnemyPresenter _enemyPresenter;
         [SerializeField] private EnemyDebugDamageDealer _enemyDebugDamageDealer;
         [SerializeField] private CardController _cardController;
+        [SerializeField] private CardPresenter _cardPresenter;
+        [SerializeField] private GridCard _gridCard;
 
         private PlayerHealthModel _playerHealthModel;
         private StageProgressController _stageProgressController;
@@ -57,12 +59,12 @@ namespace Unity1Week.URA.Stage
         private void InitializeCardController()
         {
             _cardController.Init();
-            EffectManager.Instance.Initialize(_stageProgressController);
+            EffectManager.Instance.Initialize(_stageProgressController, _cardPresenter, _gridCard);
         }
 
         private void InitializeDebug()
         {
-            _enemyDebugDamageDealer.Initialize(_stageProgressController);
+            // _enemyDebugDamageDealer.Initialize(_stageProgressController);
         }
 
         private void Awake()
