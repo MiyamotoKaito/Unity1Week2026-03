@@ -299,6 +299,8 @@ public class CardPresenter : MonoBehaviour
 
                 TryGetCardObject(first, out objA);
                 TryGetCardObject(card, out objB);
+                UpdateEffectText(first, objA);
+                UpdateEffectText(card, objB);
                 return true;
             }
 
@@ -428,6 +430,19 @@ public class CardPresenter : MonoBehaviour
         {
             _textToObject[cards[i].GetCardBackText()] = _cardObjects[i];
             _cardToObject[cards[i]] = _cardObjects[i];
+        }
+    }
+
+    private void UpdateEffectText(Card card, GameObject cardObject)
+    {
+        if (card == null || cardObject == null)
+        {
+            return;
+        }
+        var view = cardObject.GetComponentInChildren<CardView>(true);
+        if (view != null)
+        {
+            view.RefreshEffectValue(card);
         }
     }
 

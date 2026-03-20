@@ -24,6 +24,11 @@ public class CardView : MonoBehaviour
             _debuffParticle.Play(true);
         }
     }
+
+    public void RefreshEffectValue(Card card)
+    {
+        UpdateEffectValue(card);
+    }
     public void ReverseText()
     {
         _text.text = new string(_text.text.Reverse().ToArray());
