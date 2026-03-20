@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 using TMPro;
 public class CardPresenter : MonoBehaviour
 {
@@ -250,6 +249,63 @@ public class CardPresenter : MonoBehaviour
             _cardRotates.Add(cardRotate);
         }
 
+    }
+
+    public bool TryGetCardObject(Card card, out GameObject obj)
+    {
+        return _cardToObject.TryGetValue(card, out obj);
+    }
+    
+    //ランダムに選ばれたペアの攻撃力を減少させる。
+    public bool TryReduceAttackPowerForAnyPair(int amount, out GameObject objA, out GameObject objB)
+    {
+        objA = null;
+        objB = null;
+        if (_cardController == null || _cardController.CardRepository == null)
+        {
+            return false;
+        }
+
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards == null || cards.Count < 2)
+        {
+            return false;
+        }
+
+        var idToCard = new Dictionary<int, Card>();
+        foreach (var card in cards)
+        {
+            if (card == null || !card.TryGetAttackBase(out _))
+            {
+                continue;
+            }
+
+            var id = card.GetCardId();
+            if (idToCard.TryGetValue(id, out var first))
+            {
+                if (first.TryGetAttackBase(out var effectA) &&
+                    card.TryGetAttackBase(out var effectB))
+                {
+                    if (ReferenceEquals(effectA, effectB))
+                    {
+                        effectA.AddAttackPower(-amount);
+                    }
+                    else
+                    {
+                        effectA.AddAttackPower(-amount);
+                        effectB.AddAttackPower(-amount);
+                    }
+                }
+
+                TryGetCardObject(first, out objA);
+                TryGetCardObject(card, out objB);
+                return true;
+            }
+
+            idToCard[id] = card;
+        }
+
+        return false;
     }
 
     private void ClearCards()

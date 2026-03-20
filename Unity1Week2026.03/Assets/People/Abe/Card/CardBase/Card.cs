@@ -99,6 +99,17 @@ public class Card
         _cardEffect.Exucute();
     }
 
+    public bool TryGetAttackBase(out AttackBase attackBase)
+    {
+        if (_cardEffect is AttackBase attack)
+        {
+            attackBase = attack;
+            return true;
+        }
+        attackBase = null;
+        return false;
+    }
+
     private bool _isOpen;
     private CardId _cardId;
     private ICardEffect _cardEffect;
