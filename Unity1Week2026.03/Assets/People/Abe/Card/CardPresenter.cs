@@ -264,7 +264,7 @@ public class CardPresenter : MonoBehaviour
     {
         return _cardToObject.TryGetValue(card, out obj);
     }
-    
+
     //ランダムに選ばれたペアの攻撃力を減少させる。
     public bool TryReduceAttackPowerForAnyPair(int amount, out GameObject objA, out GameObject objB)
     {
@@ -403,6 +403,7 @@ public class CardPresenter : MonoBehaviour
 
         a.CloseCard();
         b.CloseCard();
+        EffectManager.Instance.ReduceEnemySkillTurn();
     }
     private IEnumerator HideMatchedCardsAfterFlip(Card a, Card b)
     {
