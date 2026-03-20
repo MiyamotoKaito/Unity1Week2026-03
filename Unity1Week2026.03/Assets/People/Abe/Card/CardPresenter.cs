@@ -115,11 +115,19 @@ public class CardPresenter : MonoBehaviour
             texts.Add(cards[index].GetCardBackText());
         }
 
-        for (int i = texts.Count - 1; i > 0; i--)
+        // Shuffle texts but avoid any card staying in the same position (derangement within targetIndices)
+        var maxAttempts = 20;
+        var attempts = 0;
+        do
         {
-            var j = Random.Range(0, i + 1);
-            (texts[i], texts[j]) = (texts[j], texts[i]);
+            for (int i = texts.Count - 1; i > 0; i--)
+            {
+                var j = Random.Range(0, i + 1);
+                (texts[i], texts[j]) = (texts[j], texts[i]);
+            }
+            attempts++;
         }
+        while (attempts < maxAttempts && HasSamePosition(cards, targetIndices, texts));
 
         for (int i = 0; i < targetIndices.Count; i++)
         {
@@ -309,6 +317,45 @@ public class CardPresenter : MonoBehaviour
         }
 
         return false;
+    }
+    // 全ての攻撃カードの攻撃力を減少させる。減少させたカードの数を返す。
+    public int ReduceAttackPowerForAllAttackCards(int amount)
+    {
+        if (_cardController == null || _cardController.CardRepository == null)
+        {
+            return 0;
+        }
+
+        var cards = _cardController.CardRepository.GetCards();
+        if (cards == null || cards.Count == 0)
+        {
+            return 0;
+        }
+
+        var handledEffects = new HashSet<AttackBase>();
+        var updatedCount = 0;
+
+        foreach (var card in cards)
+        {
+            if (card == null || !card.TryGetAttackBase(out var attack))
+            {
+                continue;
+            }
+
+            if (handledEffects.Add(attack))
+            {
+                // Same effect instance may be shared by pair
+                attack.AddAttackPower(-amount);
+            }
+
+            if (TryGetCardObject(card, out var cardObject))
+            {
+                UpdateEffectText(card, cardObject);
+                updatedCount++;
+            }
+        }
+
+        return updatedCount;
     }
 
     private void ClearCards()
@@ -534,5 +581,18 @@ public class CardPresenter : MonoBehaviour
             IndexA = indexA;
             IndexB = indexB;
         }
+    }
+
+    private bool HasSamePosition(IReadOnlyList<Card> cards, List<int> targetIndices, List<string> shuffledTexts)
+    {
+        for (int i = 0; i < targetIndices.Count; i++)
+        {
+            var cardIndex = targetIndices[i];
+            if (cards[cardIndex].GetCardBackText() == shuffledTexts[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
