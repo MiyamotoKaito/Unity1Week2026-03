@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class FontChangeJammer : ICardEffect
+public class FontChangeJammer : JammerCardBase
 {
-    public void Exucute()
+    public override void Exucute()
     {
         EffectManager.Instance.ApplyMirrorFont();
     }

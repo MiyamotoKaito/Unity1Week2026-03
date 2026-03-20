@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ReduceSkillTurnJammer : ICardEffect
+public class ReduceSkillTurnJammer : JammerCardBase
 {
-    public void Exucute()
+    public override void Exucute()
     {
         EffectManager.Instance.ReduceEnemySkillTurn(_reduceTurnValue);
     }
