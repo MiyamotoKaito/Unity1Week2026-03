@@ -31,5 +31,8 @@ namespace Unity1Week.URA.Enemy
         [Header("スキル設定")]
         [SerializeField] private int _skillTurnInterval;
         [SerializeReference, SubclassSelector] private List<EnemySkillBase> _enemySkills;
+
+        [Header("お邪魔カード設定")]
+        [SerializeField] private List<CardData> _jammerCards;
     }
 }
