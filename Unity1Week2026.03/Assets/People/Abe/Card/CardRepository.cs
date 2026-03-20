@@ -63,12 +63,13 @@ public class CardRepository
             return;
         }
         Debug.Log($"[CardRepository] First open: id={first.GetCardId()}, text={first.GetCardBackText()}, mode={first.GetTriggerMode()}");
-        
+
         if (first.GetTriggerMode() == CardTriggerMode.Single)
         {
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
             RemoveMatchCard(first, first);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             Debug.Log("[CardRepository] Single card resolved (first).");
             return;
         }
@@ -85,6 +86,7 @@ public class CardRepository
             second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
             RemoveMatchCard(second, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             first.CloseCard();
             Debug.Log("[CardRepository] Single card resolved (second).");
             return;
@@ -93,13 +95,14 @@ public class CardRepository
         var match = first.GetCardId() == second.GetCardId();
         if (match)
         {
-            first.ExcuteEffect(); 
+            first.ExcuteEffect();
             OnMatchCard?.Invoke(first, second);
             RemoveMatchCard(first, second);
+            EffectManager.Instance.ReduceEnemySkillTurn();
             Debug.Log("[CardRepository] Pair matched and resolved.");
             return;
         }
-        
+
         OnMissMatchCard?.Invoke(first, second);
         Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
