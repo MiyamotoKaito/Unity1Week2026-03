@@ -34,6 +34,16 @@ public class CardPresenter : MonoBehaviour
             }
         }
     }
+    public void MirrorTextTime(int seconds)
+    {
+        StartCoroutine(MirrorTextTimeCoroutine(seconds));
+    }
+    private IEnumerator MirrorTextTimeCoroutine(int seconds)
+    {
+        MirrorTexts();
+        yield return new WaitForSeconds(seconds);
+        NormalTexts();
+    }
     /// <summary>
     /// テキストを通常表示に戻す
     /// </summary>
