@@ -440,6 +440,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5181750845550402506, guid: 9585d3411d5b38d4fb4a22377304491f, type: 3}
   m_PrefabInstance: {fileID: 1158765588}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1158765590 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 61659355710519353, guid: 9585d3411d5b38d4fb4a22377304491f, type: 3}
+  m_PrefabInstance: {fileID: 1158765588}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f547e056c2f98a94981674b60b6a5097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardPresenter
 --- !u!1001 &1521633404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,9 +468,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1862278343}
     - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
+      propertyPath: _gridCard
+      value: 
+      objectReference: {fileID: 1574320683}
+    - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
+      propertyPath: _cardPresenter
+      value: 
+      objectReference: {fileID: 1158765590}
+    - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
       propertyPath: _cardController
       value: 
       objectReference: {fileID: 1574320681}
+    - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
+      propertyPath: _playerMaxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 7122044393662336825, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
       propertyPath: _healthBarFill
       value: 
@@ -545,6 +568,10 @@ PrefabInstance:
       propertyPath: _cardParent
       value: 
       objectReference: {fileID: 1158765589}
+    - target: {fileID: 3209495364649027627, guid: b5da18c8d79a8db4d9fe76846b7425a1, type: 3}
+      propertyPath: _cardPrefab
+      value: 
+      objectReference: {fileID: 3390765815493205516, guid: 46ae3d75bed4a7640bf8def36b58150d, type: 3}
     - target: {fileID: 4646000204375400137, guid: b5da18c8d79a8db4d9fe76846b7425a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1130.0228
@@ -617,6 +644,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8784df13ca506fe429548806d3c3aacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GenerateCardView
+--- !u!114 &1574320683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5651330159595792202, guid: b5da18c8d79a8db4d9fe76846b7425a1, type: 3}
+  m_PrefabInstance: {fileID: 1574320680}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701658b1d80b51c4dbd58ced31b53c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GridCard
 --- !u!1001 &1664269890
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,13 +17,19 @@ MonoBehaviour:
   _maxHealth: 100
   _attackPower: 50
   _attackIntervalSeconds: 10
-  _skillTurnInterval: 3
+  _skillTurnInterval: 1
   _enemySkills:
   - rid: 5427475683074637897
+  - rid: 5427475729416454218
+  _jammerCards: []
   references:
     version: 2
     RefIds:
     - rid: 5427475683074637897
       type: {class: ShieldEnemySkill, ns: Unity1Week.URA.Enemy, asm: Assembly-CSharp}
+      data:
+        _skillName: 
+    - rid: 5427475729416454218
+      type: {class: ShuffleCardPositionsSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
