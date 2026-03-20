@@ -69,7 +69,6 @@ public class CardRepository
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
             RemoveMatchCard(first, first);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             Debug.Log("[CardRepository] Single card resolved (first).");
             return;
         }
@@ -86,7 +85,6 @@ public class CardRepository
             second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
             RemoveMatchCard(second, second);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             first.CloseCard();
             Debug.Log("[CardRepository] Single card resolved (second).");
             return;
@@ -98,11 +96,11 @@ public class CardRepository
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, second);
             RemoveMatchCard(first, second);
-            EffectManager.Instance.ReduceEnemySkillTurn();
             Debug.Log("[CardRepository] Pair matched and resolved.");
             return;
         }
 
+        EffectManager.Instance.ReduceEnemySkillTurn();
         OnMissMatchCard?.Invoke(first, second);
         Debug.Log("カードのペアが一致しませんでした: " + first.GetCardBackText() + " - " + second.GetCardBackText());
         return;
