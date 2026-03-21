@@ -57,13 +57,6 @@ public class CardRotate : MonoBehaviour
         OnFlipCompleted?.Invoke();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FlipTo(!_isBackActive);
-        }
-    }
     private void ToggleFace()
     {
         if (!_isBackActive)

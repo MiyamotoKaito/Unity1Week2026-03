@@ -21,9 +21,9 @@ public class CardController : MonoBehaviour
     }
     public void ReverseTexts()
     {
-        if(!IsReverseMode)
+        if (!IsReverseMode)
         {
-           _reverseMode = true;
+            _reverseMode = true;
         }
         else
         {
@@ -43,7 +43,32 @@ public class CardController : MonoBehaviour
     private CardRepository _cardRepository;
     [SerializeField]
     private bool _reverseMode = false;
-
+    private float _holdTime = 0f;
+    private bool _longPressTriggered = false;
+    private float _longPressThreshold = 1f;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _holdTime = 0f;
+            _longPressTriggered = false;
+        }
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            _holdTime += Time.deltaTime;
+            if (!_longPressTriggered && _holdTime > _longPressThreshold)
+            {
+                _longPressTriggered = true;
+                ReverseTexts();
+               
+            }
+            if (Input.GetKeyUp(KeyCode.Tab))
+            {
+                _holdTime = 0f;
+                _longPressTriggered = false;
+            }
+        }
+    }
     private void EnsureTextDataInitialized()
     {
         if (LoadText.WordList.Count == 0)
