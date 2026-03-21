@@ -17,11 +17,13 @@ public class InputFieldController : MonoBehaviour
     {
         _inputField.onSubmit.AddListener(OnSubmit);
         _inputField.onDeselect.AddListener(OnDeselect);
+        _inputField.onSelect.AddListener(OnSelect);
     }
     private void OnDisable()
     {
         _inputField.onSubmit.RemoveListener(OnSubmit);
         _inputField.onDeselect.RemoveListener(OnDeselect);
+        _inputField.onSelect.RemoveListener(OnSelect);
     }
     private void Start()
     {
@@ -58,6 +60,14 @@ public class InputFieldController : MonoBehaviour
     private void OnDeselect(string text)
     {
         ActiveInput();
+    }
+    /// <summary>
+    /// テキストボックスが選択されているときに呼び出す
+    /// </summary>
+    /// <param name="text"></param>
+    private void OnSelect(string text)
+    {
+        Input.imeCompositionMode = IMECompositionMode.On;
     }
     #endregion
 }
