@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Unity1Week.URA.Player
 {
@@ -18,8 +18,10 @@ namespace Unity1Week.URA.Player
         }
 
         [SerializeField] private PlayerHealthView _healthView;
+        [SerializeField] private DamageFeedbackView _damageFeedBackView;
 
         private PlayerHealthModel _healthModel;
+        private int _previousHealth;
 
         /// <summary>
         ///     HPが変更されたときViewの更新を呼び出す。
@@ -28,6 +30,12 @@ namespace Unity1Week.URA.Player
         /// <param name="maxHealth"></param>
         private void HandleHealthChanged(int currentHealth, int maxHealth)
         {
+            if(currentHealth < _previousHealth)
+            {
+                _damageFeedBackView?.PlayDamageFeedback();
+            }
+
+            _previousHealth = currentHealth;
             _healthView.UpdateHealthBar(currentHealth, maxHealth);
         }
 
