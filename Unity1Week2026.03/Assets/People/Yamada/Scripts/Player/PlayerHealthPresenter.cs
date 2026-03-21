@@ -10,6 +10,7 @@ namespace Unity1Week.URA.Player
         public void Initialize(PlayerHealthModel healthModel)
         {
             _healthModel = healthModel;
+            _previousHealth = _healthModel.CurrentHealth;
 
             _healthModel.OnHealthChanged += HandleHealthChanged;
             _healthModel.OnPlayerDied += HandleDied;
