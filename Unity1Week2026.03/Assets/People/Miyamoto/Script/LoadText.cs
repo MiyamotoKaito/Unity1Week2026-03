@@ -46,7 +46,7 @@ namespace Unity1Week.URA.typing
         /// <returns></returns>
         public static TextAsset GetCSVFile()
         {
-            var csv = Resources.Load<TextAsset>("WordList");
+            var csv = Resources.Load<TextAsset>("WordListV2");
 
             if (csv == null)
             {
