@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc0c37cd83dce154a9b7111152c03c49, type: 3}
-  m_Name: CardData
+  m_Name: AttackCard3
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  _cardId: 0
-  _frontSprite: {fileID: 21300000, guid: f904f77b1a90e594b9efb6cd840ddfad, type: 3}
+  _cardId: 97
+  _frontSprite: {fileID: 21300000, guid: 89593580d9928d7439299f77d3788900, type: 3}
   _cardEffect:
-    rid: 4306894139772108883
+    rid: 988827532604211282
   _triggerMode: 0
   references:
     version: 2
     RefIds:
-    - rid: 4306894139772108883
-      type: {class: NormalHeal, ns: , asm: Assembly-CSharp}
+    - rid: 988827532604211282
+      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
       data:
-        _healAmount: 3
+        _attackPower: 2
