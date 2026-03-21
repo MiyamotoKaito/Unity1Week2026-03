@@ -1,6 +1,7 @@
 using Unity1Week.URA.Battle;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
+using Unity1Week.URA.System;
 using UnityEngine;
 
 namespace Unity1Week.URA.Stage
@@ -191,6 +192,7 @@ namespace Unity1Week.URA.Stage
         {
             _isGameOver = true;
             //TODO : ゲームオーバー処理をここに追加する。
+            SceneLoader.LoadScene("Result");
         }
 
         /// <summary>
@@ -213,6 +215,7 @@ namespace Unity1Week.URA.Stage
                 _isStageCleared = true;
                 Debug.Log("ステージクリア！");
                 //TODO : ステージクリア処理をここに追加する。
+                SceneLoader.LoadScene("Result");
             }
         }
 
