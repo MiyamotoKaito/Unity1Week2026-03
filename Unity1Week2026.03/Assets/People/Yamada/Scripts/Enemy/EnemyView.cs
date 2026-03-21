@@ -1,3 +1,5 @@
+﻿using DG.Tweening;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +41,10 @@ namespace Unity1Week.URA.Enemy
         /// <param name="remainingTimer"></param>
         public void UpdateAttackTimer(float remainingTimer)
         {
-            _attackTimerText.text = remainingTimer.ToString();
+            _attackTimerText.text = Mathf.CeilToInt(remainingTimer).ToString();
+
+            UpdateTimerColor(remainingTimer);
+            UpdatePulse(remainingTimer);
         }
 
         /// <summary>
@@ -51,16 +56,86 @@ namespace Unity1Week.URA.Enemy
             _skillCountText.text = remainingTurns.ToString();
         }
 
+
         [SerializeField] private Image _hpFillImage;
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackTimerText;
         [SerializeField] private TMP_Text _skillCountText;
 
+        [Header("アニメーション設定")]
+        [SerializeField] private List<TimerColorSetting> _timerColorSettings;
+        [SerializeField] private float _pulseScale;
+        [SerializeField] private float _pulseScaleSecond;
+        [SerializeField] private float _pulseDuration;
+        [SerializeField] private float _pulseStartTime;
+        [SerializeField] private float _pulseSecondStartTime;
+        [SerializeField] private Ease _pulseEase;
+
         private SpriteRenderer _enemySr;
+        private bool _hasPulsed;
+        private float _pulseTimer;
+
+        /// <summary>
+        ///     タイマーの色を変える。
+        /// </summary>
+        /// <param name="remainingTimer"></param>
+        private void UpdateTimerColor(float remainingTimer)
+        {
+            foreach (var setting in _timerColorSettings)
+            {
+                if (remainingTimer <= setting.Thresold)
+                {
+                    _attackTimerText.color = setting.Color;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     テキスト演出を条件をチェックして再生する。
+        /// </summary>
+        /// <param name="remainingTimer"></param>
+        private void UpdatePulse(float remainingTimer)
+        {
+            if (remainingTimer > _pulseStartTime)
+            {
+                _pulseTimer = 0f;
+                return;
+            }
+
+            _pulseTimer += Time.deltaTime;
+
+            if (_pulseTimer >= 1f)
+            {
+                _pulseTimer = 0f;
+                PlayPulse(remainingTimer);
+            }
+        }
+
+        /// <summary>
+        ///     演出を再生する。
+        /// </summary>
+        /// <param name="remainingTimer"></param>
+        private void PlayPulse(float remainingTimer)
+        {
+            float scale = remainingTimer <= _pulseSecondStartTime ? _pulseScaleSecond : _pulseScale;
+            _attackTimerText.transform.DOKill();
+
+            _attackTimerText.transform
+                .DOScale(scale, _pulseDuration)
+                .SetEase(_pulseEase)
+                .OnComplete(() =>
+                {
+                    _attackTimerText.transform
+                        .DOScale(1f, _pulseDuration)
+                        .SetEase(_pulseEase);
+                });
+        }
 
         private void Awake()
         {
             _enemySr = GetComponent<SpriteRenderer>();
+            _timerColorSettings.Sort((a, b) => a.Thresold.CompareTo(b.Thresold));
         }
     }
 }

@@ -1500,7 +1500,7 @@ GameObject:
   - component: {fileID: 1862278341}
   - component: {fileID: 1862278343}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1596,6 +1596,17 @@ MonoBehaviour:
   _hpText: {fileID: 2140913685}
   _attackTimerText: {fileID: 2140913684}
   _skillCountText: {fileID: 2140913683}
+  _timerColorSettings:
+  - Thresold: 10
+    Color: {r: 1, g: 0.910213, b: 0, a: 1}
+  - Thresold: 3
+    Color: {r: 1, g: 0.010242399, b: 0, a: 1}
+  _pulseScale: 1.3
+  _pulseScaleSecond: 1.5
+  _pulseDuration: 0.4
+  _pulseStartTime: 10
+  _pulseSecondStartTime: 3
+  _pulseEase: 6
 --- !u!1 &1930033187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,7 +1831,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1478634848474294308, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
       propertyPath: m_text
-      value: Attak Timer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478634848474294308, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_fontSize
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478634848474294308, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478634848474294308, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847118128393929927, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 377.1105
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847118128393929927, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847118128393929927, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 481
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847118128393929927, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 306
       objectReference: {fileID: 0}
     - target: {fileID: 2282396928830799108, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
       propertyPath: m_Name
