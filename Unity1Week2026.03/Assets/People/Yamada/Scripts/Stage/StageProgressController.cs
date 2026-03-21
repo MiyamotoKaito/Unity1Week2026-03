@@ -1,3 +1,4 @@
+using System;
 using Unity1Week.URA.Battle;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
@@ -11,11 +12,6 @@ namespace Unity1Week.URA.Stage
     /// </summary>
     public class StageProgressController
     {
-        public bool IsStageCleared => _isStageCleared;
-        public bool IsGameOver => _isGameOver;
-        public EnemyRuntimeModel CurrentEnemyRuntimeModel => _currentEnemyRuntimeModel;
-        public int CurrentRoundIndex => _currentRoundIndex + 1;
-
         public StageProgressController(
             StageData stageData,
             PlayerHealthModel playerHealthModel,
@@ -33,6 +29,11 @@ namespace Unity1Week.URA.Stage
 
             _playerHealthModel.OnPlayerDied += HandlePlayerDied;
         }
+
+        public bool IsStageCleared => _isStageCleared;
+        public bool IsGameOver => _isGameOver;
+
+        public event Action<int, RoundData> OnRoundStarted;
 
         /// <summary>
         ///     イベントの購読解除など、ステージの状態をリセットするための処理。
@@ -52,7 +53,40 @@ namespace Unity1Week.URA.Stage
             _isStageCleared = false;
             _isGameOver = false;
 
-            StartRound();
+            RequestRound();
+        }
+
+        /// <summary>
+        ///     ラウンドを開始する。
+        ///     現在のラウンドインデックスに基づいて、Enemy関連のモデルとビューを初期化する。
+        /// </summary>
+        public void StartRound()
+        {
+            // 今回のラウンドのEnemyDataを取得し、初期化する。
+            RoundData currentRoundData = _stageData.RoundDatas[_currentRoundIndex];
+            EnemyData enemyData = currentRoundData.EnemyData;
+
+            _currentEnemyRuntimeModel = new EnemyRuntimeModel(enemyData);
+            _currentEnemyRuntimeModel.OnEnemyDied += HandleEnemyDied;
+
+            _currentEnemyAttackTimer = new EnemyAttackTimer(enemyData.AttackIntervalSeconds);
+            _currentEnemySkillTurnTracker = new EnemySkillTurnTracker(enemyData.SkillTurnInterval);
+
+            _currentEnemyBattleProvider = new EnemyBattleProvider(
+                _currentEnemyRuntimeModel,
+                _playerHealthModel,
+                _currentEnemyAttackTimer,
+                _currentEnemySkillTurnTracker
+                );
+
+            _enemyPresenter.Initialize(
+                _currentEnemyRuntimeModel,
+                _currentEnemyAttackTimer,
+                _currentEnemySkillTurnTracker
+                );
+
+            _cardController.SpawnCards();
+            _cardPresenter.ReplaceCardContents(enemyData.JammerCards);
         }
 
         /// <summary>
@@ -146,11 +180,7 @@ namespace Unity1Week.URA.Stage
         private EnemySkillTurnTracker _currentEnemySkillTurnTracker;
         private EnemyBattleProvider _currentEnemyBattleProvider;
 
-        /// <summary>
-        ///     ラウンドを開始する。
-        ///     現在のラウンドインデックスに基づいて、Enemy関連のモデルとビューを初期化する。
-        /// </summary>
-        private void StartRound()
+        private void RequestRound()
         {
             if (_currentRoundIndex >= _stageData.RoundDatas.Count)
             {
@@ -158,31 +188,8 @@ namespace Unity1Week.URA.Stage
                 return;
             }
 
-            // 今回のラウンドのEnemyDataを取得し、初期化する。
             RoundData currentRoundData = _stageData.RoundDatas[_currentRoundIndex];
-            EnemyData enemyData = currentRoundData.EnemyData;
-
-            _currentEnemyRuntimeModel = new EnemyRuntimeModel(enemyData);
-            _currentEnemyRuntimeModel.OnEnemyDied += HandleEnemyDied;
-
-            _currentEnemyAttackTimer = new EnemyAttackTimer(enemyData.AttackIntervalSeconds);
-            _currentEnemySkillTurnTracker = new EnemySkillTurnTracker(enemyData.SkillTurnInterval);
-
-            _currentEnemyBattleProvider = new EnemyBattleProvider(
-                _currentEnemyRuntimeModel,
-                _playerHealthModel,
-                _currentEnemyAttackTimer,
-                _currentEnemySkillTurnTracker
-                );
-
-            _enemyPresenter.Initialize(
-                _currentEnemyRuntimeModel,
-                _currentEnemyAttackTimer,
-                _currentEnemySkillTurnTracker
-                );
-
-            _cardController.SpawnCards();
-            _cardPresenter.ReplaceCardContents(enemyData.JammerCards);
+            OnRoundStarted?.Invoke(_currentRoundIndex + 1, currentRoundData);
         }
 
         /// <summary>
@@ -208,7 +215,7 @@ namespace Unity1Week.URA.Stage
 
             if (_currentRoundIndex < _stageData.RoundDatas.Count)
             {
-                StartRound();
+                RequestRound();
             }
             else
             {
