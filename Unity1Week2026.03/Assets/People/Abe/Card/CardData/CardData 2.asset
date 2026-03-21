@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: CardData 2
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   _cardId: 2
-  _frontSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  _frontSprite: {fileID: 21300000, guid: d0ed55776ca955e40b13237a6e40774d, type: 3}
   _cardEffect:
-    rid: 4306894139772108889
+    rid: 988827587829825608
   _triggerMode: 0
   references:
     version: 2
     RefIds:
-    - rid: 4306894139772108889
-      type: {class: Attack, ns: , asm: Assembly-CSharp}
-      data: 
+    - rid: 988827587829825608
+      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
+      data:
+        _attackPower: 20

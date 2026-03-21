@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MirrorFontJammer
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   _cardId: 50
-  _frontSprite: {fileID: 21300000, guid: 567c0940183616e47b518d6c06f905e7, type: 3}
+  _frontSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   _cardEffect:
     rid: 988827532604211276
   _triggerMode: 1

@@ -48,6 +48,7 @@ MonoBehaviour:
   _generateCardView: {fileID: 0}
   _hideDelayAfterFlip: 0.2
   _fontAsssetArray:
-  - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 11400000, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
   - {fileID: 11400000, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
+  _respawnDelaySeconds: 1
   cardData: {fileID: 0}
