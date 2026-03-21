@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1276589931504448840}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1136.655, y: -768.7521, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8784df13ca506fe429548806d3c3aacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GenerateCardView
-  _cardPrefab: {fileID: 6572065250102893528, guid: 12805b8c68c58da4aa831d85cb343439, type: 3}
-  _cardParent: {fileID: 8949546026097645900}
+  _cardPrefab: {fileID: 3390765815493205516, guid: 46ae3d75bed4a7640bf8def36b58150d, type: 3}
+  _cardParent: {fileID: 0}
 --- !u!1 &1770024317270198801
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +79,6 @@ Transform:
   - {fileID: 5066907395211711018}
   - {fileID: 3487418355181528245}
   - {fileID: 5589140057367273802}
-  - {fileID: 8949546026097645900}
   - {fileID: 8443890876618697812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -109,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 1956278545954760846}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1130.0228, y: -768.0145, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -128,9 +127,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardController
   _cardDataArray:
+  - {fileID: 11400000, guid: 13e67fd268570804183fba2b9698d48e, type: 2}
+  - {fileID: 11400000, guid: 56bbed69922cbea4b90bb81106c71bb9, type: 2}
+  - {fileID: 11400000, guid: c8c5687368088794f877f55219891356, type: 2}
+  - {fileID: 11400000, guid: 661dfbbbc4872de4e91e6d6243bc108f, type: 2}
   - {fileID: 11400000, guid: 30654d4bdf4a0164da435638df504521, type: 2}
   - {fileID: 11400000, guid: 7ac4e8982eeacec4e90b88d3a892c6f9, type: 2}
-  _maxCardPairs: 3
+  - {fileID: 11400000, guid: 237bb67625555a242843d46c592054c2, type: 2}
+  - {fileID: 11400000, guid: 92934afbd1c027b46af2909e5c15d8d5, type: 2}
+  _maxCardPairs: 9
   _reverseMode: 0
 --- !u!1 &4040012453491653340
 GameObject:
@@ -158,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 4040012453491653340}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -620.61084, y: -574.496, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -203,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 4387157117053460082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1130.0228, y: -768.0145, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -223,56 +228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CardOpenUI
   _cardController: {fileID: 2406923801463921995}
   _inputField: {fileID: 0}
---- !u!1 &5123080002671132038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8949546026097645900}
-  - component: {fileID: 3109315691889748042}
-  m_Layer: 0
-  m_Name: CardPresenter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8949546026097645900
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5123080002671132038}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1130.0228, y: -768.0145, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4646000204375400137}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3109315691889748042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5123080002671132038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f547e056c2f98a94981674b60b6a5097, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CardPresenter
-  _cardController: {fileID: 2406923801463921995}
-  _generateCardView: {fileID: 3209495364649027627}
-  _hideDelayAfterFlip: 0.2
-  _fontAsssetArray:
-  - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  - {fileID: 11400000, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
 --- !u!1 &8511069983649242213
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +254,7 @@ Transform:
   m_GameObject: {fileID: 8511069983649242213}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1130.0228, y: -768.0145, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -318,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridCard
   _cardController: {fileID: 2406923801463921995}
-  _parent: {fileID: 8949546026097645900}
-  _width: 7
-  _margin: 2.2
+  _parent: {fileID: 0}
+  _width: 6
+  _xSpace: 2.5
+  _ySpace: 1.5

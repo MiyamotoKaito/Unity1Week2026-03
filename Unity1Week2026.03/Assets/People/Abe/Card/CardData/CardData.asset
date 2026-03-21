@@ -23,4 +23,4 @@ MonoBehaviour:
     - rid: 4306894139772108883
       type: {class: NormalHeal, ns: , asm: Assembly-CSharp}
       data:
-        _healAmount: 3
+        _healAmount: 10

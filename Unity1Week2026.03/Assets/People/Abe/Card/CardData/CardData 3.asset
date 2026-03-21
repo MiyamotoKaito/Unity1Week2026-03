@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CardData 3
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   _cardId: 3
-  _frontSprite: {fileID: 21300000, guid: 567c0940183616e47b518d6c06f905e7, type: 3}
+  _frontSprite: {fileID: -84144442347387891, guid: b41fbc8a127c03f468276358a68dc308, type: 3}
   _cardEffect:
     rid: 4306894139772108889
   _triggerMode: 0

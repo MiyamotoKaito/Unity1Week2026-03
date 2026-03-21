@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Player.PlayerHealthPresenter
   _healthView: {fileID: 7122044393662336825}
+  _damageFeedBackView: {fileID: 0}
 --- !u!114 &7122044393662336825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,11 +88,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baa24d331412264ba2ae364a23c35f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.BattleInstaller
-  _playerMaxHealth: 100
+  _playerMaxHealth: 1000
   _playerHealthPresenter: {fileID: 4087275882039407649}
   _enemyPresenter: {fileID: 3591440215438060094}
   _enemyDebugDamageDealer: {fileID: 6960464327594996314}
   _cardController: {fileID: 0}
+  _cardPresenter: {fileID: 0}
+  _gridCard: {fileID: 0}
+  _roundTransitionView: {fileID: 0}
+  _backGroundView: {fileID: 0}
 --- !u!114 &6960464327594996314
 MonoBehaviour:
   m_ObjectHideFlags: 0
