@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyData
   _enemyName: TestEnemy
-  _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _sprite: {fileID: 21300000, guid: f904f77b1a90e594b9efb6cd840ddfad, type: 3}
   _maxHealth: 100
   _attackPower: 50
   _attackIntervalSeconds: 10
-  _skillTurnInterval: 1
+  _skillTurnInterval: 2
   _enemySkills:
   - rid: 5427475729416454221
   _jammerCards:
