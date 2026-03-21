@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: RoundData 1
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.RoundData
   _enemyData: {fileID: 11400000, guid: 10f82918b23818341a8a97f1d6f47131, type: 2}
+  _roundStartMessage: "\u9053\u4E2D"
+  _backGroundSprite: {fileID: 21300000, guid: 84c786f93a8a52140a00f41f20cc8b4f, type: 3}
