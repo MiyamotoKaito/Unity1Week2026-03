@@ -10,8 +10,11 @@ namespace Unity1Week.URA.Stage
     public class RoundData : ScriptableObject
     {
         public EnemyData EnemyData => _enemyData;
+        public string RoundStartMessage => _roundStartMessage;
+        public Sprite BackGroundSprite => _backGroundSprite;
 
         [SerializeField] private EnemyData _enemyData;
-        //TODO: 背景とかラウンドごとに必要なデータがあればここに追加
+        [SerializeField, TextArea] private string _roundStartMessage;
+        [SerializeField] private Sprite _backGroundSprite;
     }
 }

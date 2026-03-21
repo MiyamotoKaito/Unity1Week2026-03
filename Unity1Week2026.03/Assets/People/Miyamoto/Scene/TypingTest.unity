@@ -222,8 +222,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "tinko\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
+  m_sharedMaterial: {fileID: 8135872068889375757, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -683,8 +683,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
+  m_sharedMaterial: {fileID: 8135872068889375757, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -912,8 +912,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
-  m_sharedMaterial: {fileID: 4903222454759270158, guid: 4971e7ed0ea31eb448d2c5e4420c5581, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
+  m_sharedMaterial: {fileID: 8135872068889375757, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: 9cff9824ba2fe2f48a0c95643b1da750, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
