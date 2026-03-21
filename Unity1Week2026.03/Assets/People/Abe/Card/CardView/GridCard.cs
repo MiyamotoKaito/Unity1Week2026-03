@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,7 +15,8 @@ public class GridCard : MonoBehaviour
     [SerializeField] private CardController _cardController;
     [SerializeField] private Transform _parent;
     [SerializeField] private int _width = 7;
-    [SerializeField] private float _margin;
+    [SerializeField] private float _xSpace;
+    [SerializeField] private float _ySpace;
     private Coroutine _gridRoutine;
 
     private void OnEnable()
@@ -66,8 +67,8 @@ public class GridCard : MonoBehaviour
         float itemWidth = rect.rect.width * children[0].localScale.x;
         float itemHeight = rect.rect.height * children[0].localScale.y;
 
-        float spacingX = itemWidth + _margin;
-        float spacingY = itemHeight + _margin;
+        float spacingX = itemWidth + _xSpace;
+        float spacingY = itemHeight + _ySpace;
 
         int height = Mathf.CeilToInt((float)count / _width);
 
