@@ -14,6 +14,7 @@ public class CardRepository
     public event Action OnClearCards;
     public event Action<Card, Card> OnMatchCard;
     public event Action<Card, Card> OnMissMatchCard;
+    public event Action OnAllCardsRemoved;
 
     public void AddCard(Card card)
     {
@@ -157,5 +158,10 @@ public class CardRepository
         _cards.RemoveAll(card =>
             card.MatchCardText(first.GetCardBackText()) ||
             card.MatchCardText(second.GetCardBackText()));
+
+        if (_cards.Count == 0)
+        {
+            OnAllCardsRemoved?.Invoke();
+        }
     }
 }
