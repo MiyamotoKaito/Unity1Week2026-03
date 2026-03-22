@@ -20,6 +20,7 @@ namespace Unity1Week.URA.Stage
         [SerializeField] private CardPresenter _cardPresenter;
         [SerializeField] private GridCard _gridCard;
         [SerializeField] private InputFieldController _inputFieldController;
+        [SerializeField] private ResultView _resultView;
 
         [SerializeField] private RoundTransitionView _roundTransitionView;
         [SerializeField] private BackGroundView _backGroundView;
@@ -100,12 +101,14 @@ namespace Unity1Week.URA.Stage
         {
             _inputFieldController.DisableInputField();
             _enemyPresenter.StopEffect();
+            _resultView.PlayGameClear();
         }
 
         private void HandleGameOver()
         {
             _inputFieldController.DisableInputField();
             _enemyPresenter.StopEffect();
+            _resultView.PlayGameOver();
         }
 
         private void Awake()
