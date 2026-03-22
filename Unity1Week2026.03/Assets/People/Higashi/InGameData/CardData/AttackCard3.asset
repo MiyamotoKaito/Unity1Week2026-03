@@ -25,3 +25,4 @@ MonoBehaviour:
       type: {class: CombinedAttack, ns: , asm: Assembly-CSharp}
       data:
         _attackPower: 2
+        _attackCount: 2
