@@ -144,6 +144,19 @@ public class GridCard : MonoBehaviour
             child.localPosition = targets[i] + Vector3.up * _spawnDropHeight;
         }
 
+        // Order by target X (left to right) for staggered drop.
+        var order = new List<int>(count);
+        for (int i = 0; i < count; i++)
+        {
+            order.Add(i);
+        }
+        order.Sort((a, b) => targets[a].x.CompareTo(targets[b].x));
+        var orderIndex = new int[count];
+        for (int i = 0; i < order.Count; i++)
+        {
+            orderIndex[order[i]] = i;
+        }
+
         float moveDuration = Mathf.Max(0.01f, _spawnDropSeconds);
         float fadeDuration = Mathf.Max(0.01f, _spawnFadeSeconds);
         float stepDelay = Mathf.Max(0f, _spawnStaggerSeconds);
@@ -163,7 +176,7 @@ public class GridCard : MonoBehaviour
                 {
                     continue;
                 }
-                float delay = stepDelay * i;
+                float delay = stepDelay * orderIndex[i];
                 float moveT = Mathf.Clamp01((elapsed - delay) / moveDuration);
                 float fadeT = Mathf.Clamp01((elapsed - delay) / fadeDuration);
                 tr.localPosition = Vector3.Lerp(
@@ -190,4 +203,5 @@ public class GridCard : MonoBehaviour
             }
         }
     }
+
 }
