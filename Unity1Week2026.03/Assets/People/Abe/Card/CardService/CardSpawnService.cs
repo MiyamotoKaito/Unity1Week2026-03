@@ -40,8 +40,9 @@ public class CardSpawnSystem
             return false;
         }
 
-        var cardA = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, cardData.PowerSprite, textA, cardData.TriggerMode);
-        var cardB = new Card(cardData.CardId, cardData.CardEffect, cardData.FrontSprite, cardData.PowerSprite, textB, cardData.TriggerMode);
+        var effectInstance = cardData.CreateEffectInstance();
+        var cardA = new Card(cardData.CardId, effectInstance, cardData.FrontSprite, cardData.PowerSprite, textA, cardData.TriggerMode);
+        var cardB = new Card(cardData.CardId, effectInstance, cardData.FrontSprite, cardData.PowerSprite, textB, cardData.TriggerMode);
 
         _cardRepository.AddCard(cardA);
         _cardRepository.AddCard(cardB);
