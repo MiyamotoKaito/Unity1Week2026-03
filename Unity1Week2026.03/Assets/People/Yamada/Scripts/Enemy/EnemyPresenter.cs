@@ -1,4 +1,4 @@
-using Unity1Week.URA.Enemy;
+﻿using Unity1Week.URA.Enemy;
 using UnityEngine;
 
 public class EnemyPresenter : MonoBehaviour
@@ -33,6 +33,7 @@ public class EnemyPresenter : MonoBehaviour
             _enemyRuntimeModel.MaxHealth
             );
 
+        _previousHealth = _enemyRuntimeModel.CurrentHealth;
         _enemyView.UpdateHealth(_enemyRuntimeModel.CurrentHealth, _enemyRuntimeModel.MaxHealth);
         _enemyView.UpdateAttackTimer(_enemyAttackTimer.RemainingTime);
         _enemyView.UpdateSkillTurn(_enemySkillTurnTracker.RemainingTurns);
@@ -45,6 +46,12 @@ public class EnemyPresenter : MonoBehaviour
     /// <param name="maxHealth"></param>
     private void HandleHealthChanged(int currentHealth, int maxHealth)
     {
+        if(currentHealth < _previousHealth)
+        {
+            _enemyDamageFeedbackView?.PlayFlush();
+        }
+
+        _previousHealth = currentHealth;
         _enemyView.UpdateHealth(currentHealth, maxHealth);
     }
 
@@ -70,8 +77,10 @@ public class EnemyPresenter : MonoBehaviour
     }
 
     [SerializeField] private EnemyView _enemyView;
+    [SerializeField] private EnemyDamegeFeedbackView _enemyDamageFeedbackView;
 
     private EnemyRuntimeModel _enemyRuntimeModel;
     private EnemyAttackTimer _enemyAttackTimer;
     private EnemySkillTurnTracker _enemySkillTurnTracker;
+    private float _previousHealth;
 }
