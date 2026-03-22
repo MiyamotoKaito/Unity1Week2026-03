@@ -1,4 +1,4 @@
-using Unity1Week.URA.System;
+﻿using Unity1Week.URA.System;
 using UnityEngine;
 
 namespace Unity1Week.URA.Stage
@@ -13,6 +13,7 @@ namespace Unity1Week.URA.Stage
         /// </summary>
         public void SelectStage()
         {
+            AudioManager.Instance.Stop();
             StageSelectionContext.SetSelectedStageData(_stageData);
             SceneLoader.LoadScene(_battleSceneName);
         }
