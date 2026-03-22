@@ -67,8 +67,6 @@ public class CardRepository
 
         if (first.GetTriggerMode() == CardTriggerMode.Single)
         {
-            Debug.Log($"[CardRepository] Execute effect (single): id={first.GetCardId()}, text={first.GetCardBackText()}");
-            first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
             RemoveMatchCard(first, first);
             Debug.Log("[CardRepository] Single card resolved (first).");
@@ -84,8 +82,6 @@ public class CardRepository
         Debug.Log($"[CardRepository] Second open: id={second.GetCardId()}, text={second.GetCardBackText()}, mode={second.GetTriggerMode()}");
         if (second.GetTriggerMode() == CardTriggerMode.Single)
         {
-            Debug.Log($"[CardRepository] Execute effect (single): id={second.GetCardId()}, text={second.GetCardBackText()}");
-            second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
             RemoveMatchCard(second, second);
             Debug.Log("[CardRepository] Single card resolved (second).");

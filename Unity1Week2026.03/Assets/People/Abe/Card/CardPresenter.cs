@@ -581,7 +581,6 @@ public class CardPresenter : MonoBehaviour
             yield break;
         }
 
-        Debug.Log("[CardPresenter] Match move effect start.");
         yield return MoveGroupOverTime(targets, _matchGatherPoint.position, _moveToGatherSeconds);
         if (_waitAtGatherSeconds > 0f)
         {
@@ -601,6 +600,9 @@ public class CardPresenter : MonoBehaviour
             // Trigger effect after cards disappear.
             Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
             a.ExcuteEffect();
+            EffectManager.Instance.CardMatchText(a);
+            yield return new WaitForSeconds(1.5f);
+            EffectManager.Instance.Play();
         }
     }
 
