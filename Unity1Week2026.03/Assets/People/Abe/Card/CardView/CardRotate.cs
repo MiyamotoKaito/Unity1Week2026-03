@@ -14,6 +14,7 @@ public class CardRotate : MonoBehaviour
             Debug.LogWarning($"カードがアクチE��ブではありません: {gameObject.name}");
             return;
         }
+        AudioManager.Instance.PlaySE("CardFlip");
         FlipTo(true);
     }
 
@@ -24,6 +25,7 @@ public class CardRotate : MonoBehaviour
             Debug.LogWarning($"カードがアクチE��ブではありません: {gameObject.name}");
             return;
         }
+        AudioManager.Instance.PlaySE("CardFlip");
         FlipTo(false);
     }
 

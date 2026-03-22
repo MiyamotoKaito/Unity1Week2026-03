@@ -5,6 +5,7 @@ public class NormalAttack : AttackBase
 {
     public override void Exucute()
     {
+        AudioManager.Instance.PlaySE("CardAttack");
         EffectManager.Instance.PlayAttack(_attackPower);
     }
 }

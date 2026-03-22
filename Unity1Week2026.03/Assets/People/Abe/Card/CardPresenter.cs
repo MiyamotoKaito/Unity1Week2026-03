@@ -604,6 +604,15 @@ public class CardPresenter : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             EffectManager.Instance.Play();
         }
+        else if(a != null&& b != null && a == b)
+        {
+            Debug.Log($"[CardPresenter] Execute effect (single): id={a.GetCardId()}, text={a.GetCardBackText()}");
+            a.ExcuteEffect();
+            EffectManager.Instance.CardMatchText(a);
+            yield return new WaitForSeconds(1.5f);
+            EffectManager.Instance.Play();
+        }
+
     }
 
     private IEnumerator MoveGroupOverTime(IReadOnlyList<Transform> targets, Vector3 dest, float duration)
