@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Unity1Week.URA.Battle;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
@@ -34,6 +34,8 @@ namespace Unity1Week.URA.Stage
         public bool IsGameOver => _isGameOver;
 
         public event Action<int, RoundData> OnRoundStarted;
+       
+        public void TrnsitionComplete() => _isTransitioning = true;
 
         /// <summary>
         ///     イベントの購読解除など、ステージの状態をリセットするための処理。
@@ -43,6 +45,7 @@ namespace Unity1Week.URA.Stage
             _playerHealthModel.OnPlayerDied -= HandlePlayerDied;
             UnsubscribeEnemy();
         }
+
 
         /// <summary>
         ///     ステージ(ゲーム）の開始処理。
@@ -95,11 +98,24 @@ namespace Unity1Week.URA.Stage
         /// <param name="deltaTime"></param>
         public void Updete(float deltaTime)
         {
-            if (_isStageCleared || _isGameOver)
+            if (_isStageCleared || _isGameOver || !_isTransitioning)
             {
                 return;
             }
             _currentEnemyBattleProvider?.Update(deltaTime);
+        }
+
+        /// <summary>
+        ///     時間を指定して敵の攻撃タイマーを増やす呼び出し口。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddEnemyAttackTimer(float amount)
+        {
+            if (_isStageCleared || _isGameOver)
+            {
+                return;
+            }
+            _currentEnemyBattleProvider.AddEnemyAttackTimer(amount);
         }
 
         /// <summary>
@@ -175,6 +191,7 @@ namespace Unity1Week.URA.Stage
         private int _currentRoundIndex;
         private bool _isStageCleared;
         private bool _isGameOver;
+        private bool _isTransitioning;
         private EnemyRuntimeModel _currentEnemyRuntimeModel;
         private EnemyAttackTimer _currentEnemyAttackTimer;
         private EnemySkillTurnTracker _currentEnemySkillTurnTracker;
@@ -215,6 +232,7 @@ namespace Unity1Week.URA.Stage
 
             if (_currentRoundIndex < _stageData.RoundDatas.Count)
             {
+                _isTransitioning = false;
                 RequestRound();
             }
             else

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Unity1Week.URA.Enemy
 {
@@ -24,6 +24,15 @@ namespace Unity1Week.URA.Enemy
         public void UpdateTimer(float deltaTime)
         {
             _remaingTime = Mathf.Max(_remaingTime - deltaTime, 0);
+        }
+
+        /// <summary>
+        ///     攻撃までの残り時間を増やす。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddRemainingTime(float amount)
+        {
+            _remaingTime = _remaingTime + amount;
         }
 
         /// <summary>
