@@ -14,6 +14,11 @@ public class CardController : MonoBehaviour
     public void SpawnCards()
     {
         EnsureTextDataInitialized();
+        if (_reverseMode)
+        {
+            _reverseMode = false;
+            OnReverseModeChanged?.Invoke();
+        }
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
         _cardSpawnSystem.ResetSpawnFlags();
@@ -60,6 +65,7 @@ public class CardController : MonoBehaviour
             {
                 _longPressTriggered = true;
                 ReverseTexts();
+                Debug.Log("Reverse mode toggled: " + IsReverseMode);
                
             }
             if (Input.GetKeyUp(KeyCode.Tab))
