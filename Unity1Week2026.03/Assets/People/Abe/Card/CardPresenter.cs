@@ -48,6 +48,28 @@ public class CardPresenter : MonoBehaviour
             }
         }
     }
+    // toukasaseru
+    public void Clairvoyance(int amount)
+    {
+        foreach (var text in _textToObject.Keys)
+        {
+            var obj = _textToObject[text];
+            var cardView = obj.GetComponentInChildren<ClairvoyanceView>(true);
+            if (cardView != null)
+            {
+                if (cardView.IsClairvoyanceActive)
+                {
+                    continue;
+                }
+                cardView.ShowClairvoyance();
+                amount--;
+                if (amount <= 0)
+                {
+                    break;
+                }
+            }
+        }
+    }
     public void MirrorTextTime(int seconds)
     {
         StartCoroutine(MirrorTextTimeCoroutine(seconds));
@@ -261,7 +283,7 @@ public class CardPresenter : MonoBehaviour
 
             var cardView = cardObject.GetComponentInChildren<CardView>(true);
             var cardRotate = cardObject.GetComponentInChildren<CardRotate>(true);
-
+            var clairvoyanceView = cardObject.GetComponentInChildren<ClairvoyanceView>(true);
             if (cardView == null || cardRotate == null)
             {
                 Debug.LogError($"CardViewまたはCardRotateが見つかりません: {cardObject.name}");
@@ -269,8 +291,11 @@ public class CardPresenter : MonoBehaviour
             }
             _textToObject[card.GetCardBackText()] = cardObject;
             _cardToObject[card] = cardObject;
+
             cardView.SetCard(card);
+            clairvoyanceView?.SetSprite(card.GetCardFrontSprite());
             card.OnCardOpened += cardRotate.OpenCard;
+            card.OnCardOpened += clairvoyanceView.HideClairvoyance;
             card.OnCardClosed += cardRotate.CloseCard;
             _cardRotates.Add(cardRotate);
         }
@@ -449,7 +474,7 @@ public class CardPresenter : MonoBehaviour
 
         a.CloseCard();
         b.CloseCard();
-        
+
         yield return new WaitForSeconds(0.8f);
         EffectManager.Instance.ReduceEnemySkillTurn();
 
@@ -771,9 +796,11 @@ public class CardPresenter : MonoBehaviour
         cardObject.name = $"Card_{card.GetCardBackText()}";
 
         var cardView = cardObject.GetComponentInChildren<CardView>(true);
+        var clairvoyanceView = cardObject.GetComponentInChildren<ClairvoyanceView>(true);
         if (cardView != null)
         {
             cardView.SetCard(card);
+            clairvoyanceView?.SetSprite(card.GetCardFrontSprite());
         }
     }
 
