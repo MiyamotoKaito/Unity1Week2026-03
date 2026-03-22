@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using System.Threading.Tasks;
 public class CardPresenter : MonoBehaviour
 {
     [SerializeField]
