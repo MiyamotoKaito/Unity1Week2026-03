@@ -19,6 +19,7 @@ namespace Unity1Week.URA.Stage
         [SerializeField] private CardController _cardController;
         [SerializeField] private CardPresenter _cardPresenter;
         [SerializeField] private GridCard _gridCard;
+        [SerializeField] private InputFieldController _inputFieldController;
 
         [SerializeField] private RoundTransitionView _roundTransitionView;
         [SerializeField] private BackGroundView _backGroundView;
@@ -55,7 +56,7 @@ namespace Unity1Week.URA.Stage
                 _cardController,
                 _cardPresenter);
 
-            _stageProgressController.OnRoundStarted += HandleRoundstart;
+            _stageProgressController.OnRoundStarted += HandleRoundStart;
         }
 
         /// <summary>
@@ -73,8 +74,9 @@ namespace Unity1Week.URA.Stage
             // _enemyDebugDamageDealer.Initialize(_stageProgressController);
         }
 
-        private void HandleRoundstart(int round, RoundData roundData)
+        private void HandleRoundStart(int round, RoundData roundData)
         {
+            _inputFieldController.DisableInputField();
             _roundTransitionView.Play(
                 roundData.RoundStartMessage,
                 () =>
@@ -85,6 +87,8 @@ namespace Unity1Week.URA.Stage
                 () =>
                 {
                     _stageProgressController.TrnsitionComplete();
+                    _inputFieldController.EnableInputField();
+                    _inputFieldController.ActiveInput();
                 },
                 round == 1
                 );
