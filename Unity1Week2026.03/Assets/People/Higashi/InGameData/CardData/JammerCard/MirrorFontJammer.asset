@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc0c37cd83dce154a9b7111152c03c49, type: 3}
-  m_Name: AttackCard4
+  m_Name: MirrorFontJammer
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  _cardId: 96
-  _frontSprite: {fileID: 21300000, guid: 0a8bd3800bf00eb4194574588f377bab, type: 3}
+  _cardId: 50
+  _frontSprite: {fileID: 21300000, guid: f3915e8cd3a705749ae46f01ebcfeb3f, type: 3}
   _cardEffect:
-    rid: 988827532604211283
-  _triggerMode: 0
-  _powerSprite: {fileID: 2819590118355691810, guid: ed11e99c9603bc64c9638776c2c6721d, type: 3}
+    rid: 988827532604211276
+  _triggerMode: 1
   references:
     version: 2
     RefIds:
-    - rid: 988827532604211283
-      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
-      data:
-        _attackPower: 5
+    - rid: 988827532604211276
+      type: {class: FontChangeJammer, ns: , asm: Assembly-CSharp}
+      data: 

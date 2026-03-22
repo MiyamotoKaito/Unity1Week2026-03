@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ae42bc9a3dca79468f46a0a1dbf1e08, type: 3}
-  m_Name: Round1Data
+  m_Name: Round3Data
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.RoundData
-  _enemyData: {fileID: 11400000, guid: 2856df5d78b9d224e98d3a2d678f08d5, type: 2}
-  _roundStartMessage: "\u6C38\u52AB\u306E\u970A\u5EDF\n\u5165\u53E3"
-  _backGroundSprite: {fileID: 21300000, guid: d82c3b51e1d230d40bda16921047f51c, type: 3}
+  _enemyData: {fileID: 11400000, guid: 99daf5331d932834cb42864a83d7abf8, type: 2}
+  _roundStartMessage: "\u6C38\u52AB\u306E\u970A\u5EDF\n\u6700\u6DF1\u90E8"
+  _backGroundSprite: {fileID: 21300000, guid: 46b2462d2289a834483d42a4534e4a1b, type: 3}
