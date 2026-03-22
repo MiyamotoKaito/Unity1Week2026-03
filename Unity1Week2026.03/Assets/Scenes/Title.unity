@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2bc64abc1fa1464f87071b1aacb8c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.StageSelectButton
-  _stageData: {fileID: 0}
+  _stageData: {fileID: 11400000, guid: c2c474d012b99ee4288e4a4e1385f1cb, type: 2}
   _battleSceneName: InGame
 --- !u!114 &178800763
 MonoBehaviour:
@@ -565,7 +565,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 178800764}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 178800762}
+        m_TargetAssemblyTypeName: Unity1Week.URA.Stage.StageSelectButton, Assembly-CSharp
+        m_MethodName: SelectStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &178800764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1054,7 +1066,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stage2
+  m_text: NomalStage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8003af4bb143f264488aff43a37c1877, type: 2}
   m_sharedMaterial: {fileID: 7147904527800192364, guid: 8003af4bb143f264488aff43a37c1877, type: 2}
