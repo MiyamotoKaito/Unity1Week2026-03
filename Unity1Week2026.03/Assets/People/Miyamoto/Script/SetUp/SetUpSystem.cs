@@ -13,35 +13,46 @@ public class SetUpSystem : MonoBehaviour
     [SerializeField] private Image _fadePanel;
     [SerializeField] private Image _setUpPanel;
 
-    [Header("アニメーション設定")]
+    [Header("アニメーション設定")] 
     [SerializeField] private float _fadeOutDuration;
     [SerializeField] private float _fadeInDuration;
 
     private TMP_InputField _inputField;
+    private InputFieldController _inputFieldController;
 
-    private void Awake()
+    private void Start()
     {
         _inputField = FindAnyObjectByType<TMP_InputField>();
+        _inputFieldController = GetComponent<InputFieldController>();
 
         _setUpPanel.gameObject.SetActive(true);
         _fadePanel.gameObject.SetActive(true);
-        
+
         SetUpAnimation().Forget();
     }
-
     /// <summary>
     /// タイトルの入場からInputFieldのEnterを押すまでのアニメーション
     /// </summary>
     private async UniTask SetUpAnimation()
     {
+        // 1秒待った後に消して入力できないようにする
+        await UniTask.Delay(System.TimeSpan.FromSeconds(1));
+        _inputFieldController.ClearTextField();
+        _inputFieldController.DisableInputField();
+        
+        // フェードアウトが終わった後にInputFieldを入力できるようにする
         await _fadePanel.DOFade(0f, _fadeOutDuration).AsyncWaitForCompletion();
-
+        _inputFieldController.EnableInputField();
+        _inputFieldController.ActiveInput();
+        
+        // Enterを待つ
         await WaitForSubmit();
+        _inputFieldController.DisableInputField();
 
-        //フェードイン→フェードアウト→タイトルシーンに移動
+        //フェードイン→フェードアウト→タイトルに移動
         await _fadePanel.DOFade(1f, _fadeInDuration).AsyncWaitForCompletion();
         _setUpPanel.gameObject.SetActive(false);
-        
+
         await _fadePanel.DOFade(0f, _fadeOutDuration).AsyncWaitForCompletion();
         _fadePanel.gameObject.SetActive(false);
     }

@@ -45,6 +45,20 @@ public class InputFieldController : MonoBehaviour
         _inputField.ActivateInputField();
     }
     /// <summary>
+    /// 入力を受け付けられるようにする
+    /// </summary>
+    public void EnableInputField()
+    {
+        _inputField.interactable = true;
+    }
+    /// <summary>
+    /// 入力を受け付けないようにする
+    /// </summary>
+    public void DisableInputField()
+    {
+        _inputField.interactable = false;
+    }
+    /// <summary>
     /// Enterが押されたときに呼ぶ
     /// </summary>
     /// <param name="text"></param>
