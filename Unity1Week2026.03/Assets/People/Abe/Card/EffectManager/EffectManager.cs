@@ -1,4 +1,4 @@
-
+﻿
 using System.Collections.Generic;
 using Unity1Week.URA.Stage;
 using UnityEngine;
@@ -27,6 +27,14 @@ public class EffectManager : MonoBehaviour
     public void PlayHeal(int healAmount)
     {
         _stageProgressController.HealPlayer(healAmount);
+    }
+    public void AddAtackTurn(int turn)
+    {
+        _stageProgressController.AddTurnToEnemy(turn);
+    }
+    public void AddEnemyAttackTimer(float time)
+    {
+        _stageProgressController.AddEnemyAttackTimer(time);
     }
     public void ReduceEnemyAttackTimer(float amount)
     {

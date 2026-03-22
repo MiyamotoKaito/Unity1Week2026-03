@@ -1,4 +1,4 @@
-using Unity1Week.URA.Enemy;
+﻿using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
 using UnityEngine;
 
@@ -80,10 +80,11 @@ namespace Unity1Week.URA.Stage
                 () =>
                 {
                     _backGroundView.SetBackGround(roundData.BackGroundSprite);
+                    _stageProgressController.StartRound();
                 },
                 () =>
                 {
-                    _stageProgressController.StartRound();
+                    _stageProgressController.TrnsitionComplete();
                 },
                 round == 1
                 );

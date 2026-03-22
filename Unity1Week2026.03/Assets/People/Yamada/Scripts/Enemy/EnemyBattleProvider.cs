@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity1Week.URA.Enemy;
 using Unity1Week.URA.Player;
 
@@ -37,7 +37,16 @@ namespace Unity1Week.URA.Battle
         }
 
         /// <summary>
-        ///     攻撃までの時間をリセットする呼び出し口。
+        ///     攻撃までの時間を増やす呼び出し口。
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddEnemyAttackTimer(float amount)
+        {
+            _enemyAttackTimer.AddRemainingTime(amount);
+        }
+
+        /// <summary>
+        ///     攻撃までの時間を減らす呼び出し口。
         /// </summary>
         /// <param name="amount"></param>
         public void ReduseEnemyAttackTimer(float amount)
