@@ -15,3 +15,5 @@ MonoBehaviour:
   _stagename: Nomal
   _roundDatas:
   - {fileID: 11400000, guid: fbe6569dd1f9f11499856428af2bc4c7, type: 2}
+  - {fileID: 11400000, guid: 70ac4fe2ad2b0aa44a384c2a67402a34, type: 2}
+  - {fileID: 11400000, guid: 088bb43c32a33294999aabcc2e6482eb, type: 2}

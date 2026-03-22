@@ -15,12 +15,13 @@ MonoBehaviour:
   _cardId: 97
   _frontSprite: {fileID: 21300000, guid: 89593580d9928d7439299f77d3788900, type: 3}
   _cardEffect:
-    rid: 988827532604211282
+    rid: 988827587829825614
   _triggerMode: 0
+  _powerSprite: {fileID: 2819590118355691810, guid: ed11e99c9603bc64c9638776c2c6721d, type: 3}
   references:
     version: 2
     RefIds:
-    - rid: 988827532604211282
-      type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
+    - rid: 988827587829825614
+      type: {class: CombinedAttack, ns: , asm: Assembly-CSharp}
       data:
         _attackPower: 2
