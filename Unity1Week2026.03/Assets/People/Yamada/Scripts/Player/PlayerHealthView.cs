@@ -1,24 +1,47 @@
+﻿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Unity1Week.URA.Player
 {
     /// <summary>
-    ///     プレイヤーのHPを表示するビュークラス。
+    ///     Player HP view.
     /// </summary>
     public class PlayerHealthView : MonoBehaviour
     {
         /// <summary>
-        ///     HPバーの表示を更新する。
+        ///     Update HP bar.
         /// </summary>
-        /// <param name="currentHealth"></param>
-        /// <param name="maxHealth"></param>
         public void UpdateHealthBar(int currentHealth, int maxHealth)
         {
             float ratio = (float)currentHealth / maxHealth;
-            _healthBarFill.fillAmount = ratio;
+            float prevRatio = _healthBarFill.fillAmount;
+
+            _healthBarFill.DOKill();
+            _healthBarFill.DOFillAmount(ratio, _frontFillDuration);
+
+            if (_damageBarFill != null)
+            {
+                _damageBarFill.DOKill();
+
+                if (ratio < prevRatio)
+                {
+                    // Damage: keep the red bar at the old value, then shrink after a delay.
+                    _damageBarFill.fillAmount = prevRatio;
+                    _damageBarFill.DOFillAmount(ratio, _damageFillDuration).SetDelay(_damageFillDelay);
+                }
+                else
+                {
+                    // Heal: follow immediately.
+                    _damageBarFill.fillAmount = ratio;
+                }
+            }
         }
 
         [SerializeField] private Image _healthBarFill;
+        [SerializeField] private Image _damageBarFill;
+        [SerializeField] private float _frontFillDuration = 0.2f;
+        [SerializeField] private float _damageFillDelay = 0.1f;
+        [SerializeField] private float _damageFillDuration = 0.5f;
     }
 }

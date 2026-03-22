@@ -9,6 +9,7 @@ public class CombinedAttack : AttackBase
     {
         for (int i = 0; i < _attackCount; i++)
         {
+             AudioManager.Instance.PlaySE("CardAttack");
             EffectManager.Instance.PlayAttack(_attackPower);
         }
     }
