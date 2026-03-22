@@ -30,8 +30,8 @@ namespace Unity1Week.URA.Stage
             _playerHealthModel.OnPlayerDied += HandlePlayerDied;
         }
 
-        public bool IsStageCleared => _isStageCleared;
-        public bool IsGameOver => _isGameOver;
+        public event Action OnStageCleared;
+        public event Action OnGameOver;
 
         public event Action<int, RoundData> OnRoundStarted;
 
@@ -222,8 +222,10 @@ namespace Unity1Week.URA.Stage
         private void HandlePlayerDied()
         {
             _isGameOver = true;
-            //TODO : ゲームオーバー処理をここに追加する。
-            SceneLoader.LoadScene("Result");
+
+            AudioManager.Instance.Stop();
+            AudioManager.Instance.PlayBGM("GameOver");
+            OnGameOver?.Invoke();
         }
 
         /// <summary>
@@ -247,7 +249,8 @@ namespace Unity1Week.URA.Stage
                 _isStageCleared = true;
                 Debug.Log("ステージクリア！");
                 //TODO : ステージクリア処理をここに追加する。
-                SceneLoader.LoadScene("Result");
+                OnStageCleared?.Invoke();
+                //SceneLoader.LoadScene("Result");
             }
         }
 
