@@ -1,6 +1,8 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+[System.Serializable]
 public class CombinedAttack : AttackBase
 {
+    [SerializeField]
     private int _attackCount;
 
     public override void Exucute()
