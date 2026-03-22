@@ -399,6 +399,11 @@ public class CardPresenter : MonoBehaviour
     private IEnumerator RespawnAfterDelay()
     {
         _isRespawning = true;
+        float matchEffectWait = GetMatchEffectWaitSeconds();
+        if (matchEffectWait > 0f)
+        {
+            yield return new WaitForSeconds(matchEffectWait);
+        }
         if (_respawnDelaySeconds > 0f)
         {
             yield return new WaitForSeconds(_respawnDelaySeconds);
@@ -655,6 +660,32 @@ public class CardPresenter : MonoBehaviour
     }
 
     private bool _isRespawning = false;
+
+    private float GetMatchEffectWaitSeconds()
+    {
+        if (!_useMatchMoveEffect || _matchGatherPoint == null || _matchExitPoint == null)
+        {
+            return 0f;
+        }
+        float total = 0f;
+        if (_hideDelayAfterFlip > 0f)
+        {
+            total += _hideDelayAfterFlip;
+        }
+        if (_moveToGatherSeconds > 0f)
+        {
+            total += _moveToGatherSeconds;
+        }
+        if (_waitAtGatherSeconds > 0f)
+        {
+            total += _waitAtGatherSeconds;
+        }
+        if (_moveToExitSeconds > 0f)
+        {
+            total += _moveToExitSeconds;
+        }
+        return total;
+    }
 
     private void RebuildTextIndex(IReadOnlyList<Card> cards)
     {

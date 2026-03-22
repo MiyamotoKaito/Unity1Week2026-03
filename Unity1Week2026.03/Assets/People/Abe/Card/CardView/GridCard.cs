@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,7 +18,13 @@ public class GridCard : MonoBehaviour
     [SerializeField] private int _width = 7;
     [SerializeField] private float _xSpace;
     [SerializeField] private float _ySpace;
+    [Header("Spawn Drop Effect")]
+    [SerializeField] private bool _useSpawnDropEffect = true;
+    [SerializeField] private float _spawnDropSeconds = 0.4f;
+    [SerializeField] private float _spawnDropHeight = 80f;
+    [SerializeField] private float _spawnFadeSeconds = 0.25f;
     private Coroutine _gridRoutine;
+    private Coroutine _spawnRoutine;
 
     private void OnEnable()
     {
@@ -31,29 +38,42 @@ public class GridCard : MonoBehaviour
             StopCoroutine(_gridRoutine);
             _gridRoutine = null;
         }
+        if (_spawnRoutine != null)
+        {
+            StopCoroutine(_spawnRoutine);
+            _spawnRoutine = null;
+        }
     }
     private IEnumerator GridCardsNextFrame()
     {
         yield return new WaitForEndOfFrame();
         RandomGrid();
+        if (_useSpawnDropEffect)
+        {
+            if (_spawnRoutine != null)
+            {
+                StopCoroutine(_spawnRoutine);
+            }
+            _spawnRoutine = StartCoroutine(PlaySpawnDropEffect());
+        }
         _gridRoutine = null;
     }
     /// <summary>
-    /// カードをグリッド状にランダム配置する shuffle + grid layout
+    /// �J�[�h���O���b�h��Ƀ����_���z�u���� shuffle + grid layout
     /// </summary>
     public void RandomGrid()
     {
         int count = _parent.childCount;
         if (count == 0) return;
 
-        // 子をリストにコピー
+        // �q�����X�g�ɃR�s�[
         List<Transform> children = new List<Transform>();
         for (int i = 0; i < count; i++)
         {
             children.Add(_parent.GetChild(i));
         }
 
-        // シャッフル
+        // �V���b�t��
         for (int i = count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -62,7 +82,7 @@ public class GridCard : MonoBehaviour
             children[j] = temp;
         }
 
-        // サイズ取得
+        // �T�C�Y�擾
         var rect = children[0].GetComponent<RectTransform>();
         float itemWidth = rect.rect.width * children[0].localScale.x;
         float itemHeight = rect.rect.height * children[0].localScale.y;
@@ -75,7 +95,7 @@ public class GridCard : MonoBehaviour
         float offsetX = (_width - 1) * spacingX * 0.5f;
         float offsetY = (height - 1) * spacingY * 0.5f;
 
-        // シャッフルされた順で配置
+        // �V���b�t�����ꂽ���Ŕz�u
         for (int i = 0; i < count; i++)
         {
             int x = i % _width;
@@ -90,6 +110,79 @@ public class GridCard : MonoBehaviour
             );
 
             child.localPosition = pos;
+        }
+    }
+
+    private IEnumerator PlaySpawnDropEffect()
+    {
+        if (_parent == null || _parent.childCount == 0)
+        {
+            yield break;
+        }
+
+        int count = _parent.childCount;
+        var items = new List<Transform>(count);
+        var targets = new Vector3[count];
+        var groups = new CanvasGroup[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            var child = _parent.GetChild(i);
+            items.Add(child);
+            targets[i] = child.localPosition;
+            var group = child.GetComponent<CanvasGroup>();
+            if (group == null)
+            {
+                group = child.gameObject.AddComponent<CanvasGroup>();
+            }
+            group.alpha = 0f;
+            group.interactable = false;
+            group.blocksRaycasts = false;
+            groups[i] = group;
+
+            child.localPosition = targets[i] + Vector3.up * _spawnDropHeight;
+        }
+
+        float t = 0f;
+        float moveDuration = Mathf.Max(0.01f, _spawnDropSeconds);
+        float fadeDuration = Mathf.Max(0.01f, _spawnFadeSeconds);
+        float total = Mathf.Max(moveDuration, fadeDuration);
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / total;
+            float moveT = moveDuration > 0f ? Mathf.Clamp01((t * total) / moveDuration) : 1f;
+            float fadeT = fadeDuration > 0f ? Mathf.Clamp01((t * total) / fadeDuration) : 1f;
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                var tr = items[i];
+                if (tr == null)
+                {
+                    continue;
+                }
+                tr.localPosition = Vector3.Lerp(
+                    targets[i] + Vector3.up * _spawnDropHeight,
+                    targets[i],
+                    moveT);
+                if (groups[i] != null)
+                {
+                    groups[i].alpha = fadeT;
+                }
+            }
+            yield return null;
+        }
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] != null)
+            {
+                items[i].localPosition = targets[i];
+            }
+            if (groups[i] != null)
+            {
+                groups[i].alpha = 1f;
+            }
         }
     }
 }

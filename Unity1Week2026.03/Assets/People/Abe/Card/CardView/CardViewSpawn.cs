@@ -10,6 +10,14 @@ public class CardViewSpawn : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             var card = Instantiate(_cardPrefab, _cardParent);
+            var group = card.GetComponent<CanvasGroup>();
+            if (group == null)
+            {
+                group = card.AddComponent<CanvasGroup>();
+            }
+            group.alpha = 0f;
+            group.interactable = false;
+            group.blocksRaycasts = false;
             cards.Add(card);
         }
         Debug.Log($"カードを{count}枚生成しました。");
@@ -17,6 +25,7 @@ public class CardViewSpawn : MonoBehaviour
     }
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private Transform _cardParent;
+    
 
 
 }
