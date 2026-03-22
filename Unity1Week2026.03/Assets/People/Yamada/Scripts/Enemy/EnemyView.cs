@@ -24,6 +24,15 @@ namespace Unity1Week.URA.Enemy
         }
 
         /// <summary>
+        ///     演出を止める。
+        /// </summary>
+        public void StopPulse()
+        {
+            _attackTimerText.transform.DOKill();
+            _attackTimerText.transform.localScale = Vector3.one;
+        }
+
+        /// <summary>
         ///     HPバーの表示を更新する。
         /// </summary>
         /// <param name="currentHp"></param>
@@ -51,13 +60,17 @@ namespace Unity1Week.URA.Enemy
         ///     スキルの残りターンを更新する。
         /// </summary>
         /// <param name="remainingTurns"></param>
-        public void UpdateSkillTurn(int remainingTurns)
+        public void UpdateSkillTurn(int remainingTurns, int startTurns)
         {
             _skillCountText.text = remainingTurns.ToString();
+            float ratio = 1f - (float)remainingTurns / startTurns;
+            _skillFillImage.fillAmount = ratio;
+            _hpText.text = $"{remainingTurns} / {startTurns}";
         }
 
 
         [SerializeField] private Image _hpFillImage;
+        [SerializeField] private Image _skillFillImage;
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackTimerText;
         [SerializeField] private TMP_Text _skillCountText;

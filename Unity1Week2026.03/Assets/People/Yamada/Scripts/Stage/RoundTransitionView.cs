@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
@@ -22,6 +22,8 @@ public class RoundTransitionView : MonoBehaviour
     public void Play(string message, Action mid, Action complete, bool sceneStarted)
     {
         gameObject.SetActive(true);
+        AudioManager.Instance.Stop();
+        AudioManager.Instance.PlaySE("esc01");
 
         _roundText.text = message;
 
