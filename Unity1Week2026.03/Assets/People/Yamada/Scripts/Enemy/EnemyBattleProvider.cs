@@ -32,6 +32,7 @@ namespace Unity1Week.URA.Battle
             if (_enemyAttackTimer.IsAttackReady)
             {
                 _playerHealthModel.TakeDamage(_enemyRuntimeModel.CurrentAttackPower);
+                AudioManager.Instance.PlaySE("CardAttack");
                 _enemyAttackTimer.ResetTimer();
             }
         }
