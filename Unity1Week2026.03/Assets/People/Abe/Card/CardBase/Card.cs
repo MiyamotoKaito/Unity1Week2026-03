@@ -154,6 +154,16 @@ public class Card
         turnBase = null;
         return false;
     }
+    public bool TryClairvoyance(out Clairvoyance clairvoyance)
+    {
+        if (_cardEffect is Clairvoyance clairvoyanceEffect)
+        {
+            clairvoyance = clairvoyanceEffect;
+            return true;
+        }
+        clairvoyance = null;
+        return false;
+    }
 
     private bool _isOpen;
     private CardId _cardId;
