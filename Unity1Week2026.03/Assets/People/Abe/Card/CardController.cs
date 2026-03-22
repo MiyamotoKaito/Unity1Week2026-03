@@ -57,6 +57,8 @@ public class CardController : MonoBehaviour
     private CardRepository _cardRepository;
     [SerializeField]
     private bool _reverseMode = false;
+    [SerializeField]
+    private ResetAnimation _resetAnimation;
     private float _holdTime = 0f;
     private bool _longPressTriggered = false;
     private float _longPressThreshold = 1f;
@@ -70,6 +72,7 @@ public class CardController : MonoBehaviour
         if (Input.GetKey(KeyCode.Tab))
         {
             _holdTime += Time.deltaTime;
+            _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
             if (!_longPressTriggered && _holdTime > _longPressThreshold)
             {
                 _longPressTriggered = true;
@@ -77,11 +80,12 @@ public class CardController : MonoBehaviour
                 Debug.Log("Reverse mode toggled: " + IsReverseMode);
                
             }
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                _holdTime = 0f;
-                _longPressTriggered = false;
-            }
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            _holdTime = 0f;
+            _longPressTriggered = false;
+            _resetAnimation?.ResetFillAmount();
         }
     }
     private void EnsureTextDataInitialized()
