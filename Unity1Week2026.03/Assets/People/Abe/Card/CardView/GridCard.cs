@@ -23,6 +23,7 @@ public class GridCard : MonoBehaviour
     [SerializeField] private float _spawnDropSeconds = 0.4f;
     [SerializeField] private float _spawnDropHeight = 80f;
     [SerializeField] private float _spawnFadeSeconds = 0.25f;
+    [SerializeField] private float _spawnStaggerSeconds = 0.03f;
     private Coroutine _gridRoutine;
     private Coroutine _spawnRoutine;
 
@@ -143,16 +144,17 @@ public class GridCard : MonoBehaviour
             child.localPosition = targets[i] + Vector3.up * _spawnDropHeight;
         }
 
-        float t = 0f;
         float moveDuration = Mathf.Max(0.01f, _spawnDropSeconds);
         float fadeDuration = Mathf.Max(0.01f, _spawnFadeSeconds);
-        float total = Mathf.Max(moveDuration, fadeDuration);
+        float stepDelay = Mathf.Max(0f, _spawnStaggerSeconds);
+        float maxDelay = stepDelay * Mathf.Max(0, items.Count - 1);
+        float total = Mathf.Max(moveDuration, fadeDuration) + maxDelay;
 
-        while (t < 1f)
+        float elapsed = 0f;
+
+        while (elapsed < total)
         {
-            t += Time.deltaTime / total;
-            float moveT = moveDuration > 0f ? Mathf.Clamp01((t * total) / moveDuration) : 1f;
-            float fadeT = fadeDuration > 0f ? Mathf.Clamp01((t * total) / fadeDuration) : 1f;
+            elapsed += Time.deltaTime;
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -161,6 +163,9 @@ public class GridCard : MonoBehaviour
                 {
                     continue;
                 }
+                float delay = stepDelay * i;
+                float moveT = Mathf.Clamp01((elapsed - delay) / moveDuration);
+                float fadeT = Mathf.Clamp01((elapsed - delay) / fadeDuration);
                 tr.localPosition = Vector3.Lerp(
                     targets[i] + Vector3.up * _spawnDropHeight,
                     targets[i],
