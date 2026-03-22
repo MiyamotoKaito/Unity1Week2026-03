@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -51,6 +51,7 @@ public class SetUpSystem : MonoBehaviour
 
         //フェードイン→フェードアウト→タイトルに移動
         await _fadePanel.DOFade(1f, _fadeInDuration).AsyncWaitForCompletion();
+        AudioManager.Instance.PlayBGM("Title");
         _setUpPanel.gameObject.SetActive(false);
 
         await _fadePanel.DOFade(0f, _fadeOutDuration).AsyncWaitForCompletion();
