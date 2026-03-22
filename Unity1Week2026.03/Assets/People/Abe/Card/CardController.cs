@@ -10,7 +10,7 @@ public class CardController : MonoBehaviour
     public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
     public event Action OnReverseModeChanged;
-
+    private bool _isInitialized = false;
     public void SpawnCards()
     {
         EnsureTextDataInitialized();
@@ -18,6 +18,14 @@ public class CardController : MonoBehaviour
         {
             _reverseMode = false;
             OnReverseModeChanged?.Invoke();
+        }
+        if(!_isInitialized)
+        {
+           EffectManager.Instance.ReduceEnemySkillTurn(1);
+        }
+        else
+        {
+            _isInitialized = false;
         }
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
@@ -38,6 +46,7 @@ public class CardController : MonoBehaviour
     }
     public void Init()
     {
+        _isInitialized = true;
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
