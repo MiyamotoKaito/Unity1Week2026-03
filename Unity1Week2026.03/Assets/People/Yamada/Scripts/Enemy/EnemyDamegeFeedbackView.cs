@@ -1,6 +1,9 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
+/// <summary>
+///     Enemyのダメージを受けたときの演出を管理するクラス。
+/// </summary>
 public class EnemyDamegeFeedbackView : MonoBehaviour
 {
     [SerializeField] private Color _flashColor;
