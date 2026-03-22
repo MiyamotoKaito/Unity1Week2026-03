@@ -88,24 +88,45 @@ public class EffectManager : MonoBehaviour
         {
             if (card.TryGetAttackBase(out var attack))
             {
-                effectText = $"プレイヤーは{attack.AttackPower}のダメージを与える";
+                effectText = $"{attack.AttackPower}のダメージを与える";
             }
             else if (card.TryGetHealBase(out var heal))
             {
-                effectText = $"プレイヤーは{heal.HealAmount}の体力を回復する";
+                effectText = $"{heal.HealAmount}の体力を回復する";
             }
             else if (card.TryGetTimeBase(out var time))
             {
-                effectText = $"{time.TimeToAdd}秒間、敵の行動を遅らせる";
+                effectText = $"{time.TimeToAdd}秒間敵の攻撃を遅らせた";
             }
             else if (card.TryGetTurnBase(out var turn))
             {
-                effectText = $"{turn.TurnToAdd}ターン間、敵の行動を遅らせる";
+                effectText = $"{turn.TurnToAdd}ターン敵の行動を遅らせた";
             }
             else if (card.TryClairvoyance(out var clairvoyance))
             {
-                effectText = $"プレイヤーは敵のカードを{clairvoyance}4枚見ることができる";
+                effectText = $"カードを4枚透視した";
             }
+            else if(card.TryGetShuffleCardPositionSkill(out var shuffleCardPositionSkill))
+            {
+                effectText = $"敵がカードの位置をシャッフルした";
+            }
+            else if (card.TryGetShieldEnemySkill(out var shieldEnemySkill))
+            {
+                effectText = $"敵がシールドを張った";
+            }
+            else if (card.TryGetReducePowerSkill(out var reduceEnemyAttackTimerSkill))
+            {
+                effectText = $"プレイヤーの攻撃力が減少した";
+            }
+            else if(card.TryGetDuplicateJammerSkill(out var duplicateJammerSkill))
+            {
+                effectText = $"カードの内容が一部シャッフルされた";
+            }
+            else if(card.TryGetAllTextShuffleSkill(out var allTextShuffleSkill))
+            {
+                effectText = $"カードの内容が全てシャッフルされた";
+            }
+            
         }
         else
         {

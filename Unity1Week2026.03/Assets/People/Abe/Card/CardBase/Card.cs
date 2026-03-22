@@ -1,4 +1,5 @@
 using System;
+using Unity1Week.URA.Enemy;
 using UnityEngine;
 /// <summary>
 /// Card entity
@@ -162,6 +163,56 @@ public class Card
             return true;
         }
         clairvoyance = null;
+        return false;
+    }
+    public bool TryGetAllTextShuffleSkill(out AllTextShuffleSkill allTextShuffleSkill)
+    {
+        if (_cardEffect is AllTextShuffleSkill skill)
+        {
+            allTextShuffleSkill = skill;
+            return true;
+        }
+        allTextShuffleSkill = null;
+        return false;
+    }
+    public bool TryGetDuplicateJammerSkill(out DuplicateJammerCardSkill duplicateJammerPairSkill)
+    {
+        if (_cardEffect is DuplicateJammerCardSkill skill)
+        {
+            duplicateJammerPairSkill = skill;
+            return true;
+        }
+        duplicateJammerPairSkill = null;
+        return false;
+    }
+    public bool TryGetReducePowerSkill(out ReduceAttackPowerSkill reducePowerSkill)
+    {
+        if (_cardEffect is ReduceAttackPowerSkill skill)
+        {
+            reducePowerSkill = skill;
+            return true;
+        }
+        reducePowerSkill = null;
+        return false;
+    }
+    public bool TryGetShieldEnemySkill(out ShieldEnemySkill shieldEnemySkill)
+    {
+        if (_cardEffect is ShieldEnemySkill skill)
+        {
+            shieldEnemySkill = skill;
+            return true;
+        }
+        shieldEnemySkill = null;
+        return false;
+    }
+    public bool TryGetShuffleCardPositionSkill(out ShuffleCardPositionsSkill shuffleCardPositionSkill)
+    {
+        if (_cardEffect is ShuffleCardPositionsSkill skill)
+        {
+            shuffleCardPositionSkill = skill;
+            return true;
+        }
+        shuffleCardPositionSkill = null;
         return false;
     }
 

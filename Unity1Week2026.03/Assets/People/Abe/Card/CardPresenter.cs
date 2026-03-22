@@ -601,7 +601,7 @@ public class CardPresenter : MonoBehaviour
             Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
             a.ExcuteEffect();
             EffectManager.Instance.CardMatchText(a);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             EffectManager.Instance.Play();
         }
     }
