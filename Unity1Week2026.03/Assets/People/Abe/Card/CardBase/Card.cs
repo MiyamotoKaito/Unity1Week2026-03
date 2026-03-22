@@ -5,11 +5,12 @@ using UnityEngine;
 /// </summary>
 public class Card
 {
-    public Card(int cardId, ICardEffect effect, Sprite frontSprite, string cardBackText, CardTriggerMode triggerMode)
+    public Card(int cardId, ICardEffect effect, Sprite frontSprite, Sprite powerSprite, string cardBackText, CardTriggerMode triggerMode)
     {
         _cardId = new CardId(cardId);
-        _cardEffect = effect;//TODO: CardEffectの実装ができたら引数から渡すようにする
+        _cardEffect = effect;//TODO: CardEffectの実裁E��できたら引数から渡すよぁE��する
         _cardFrontSprite = new CardFrontSprite(frontSprite);
+        _cardPowerSprite = powerSprite;
         _cardBackText = new CardBackText(cardBackText);
         _triggerMode = triggerMode;
     }
@@ -21,7 +22,7 @@ public class Card
     {
         if (_isOpen)
         {
-            Debug.LogWarning("カードはすでに開いています: " + _cardBackText.GetText());
+            Debug.LogWarning("カード�Eすでに開いてぁE��ぁE " + _cardBackText.GetText());
             return;
         }
         _isOpen = true;
@@ -34,7 +35,7 @@ public class Card
     {
         if (!_isOpen)
         {
-            Debug.LogWarning("カードはすでに閉じています: " + _cardBackText.GetText());
+            Debug.LogWarning("カード�Eすでに閉じてぁE��ぁE " + _cardBackText.GetText());
             return;
         }
         _isOpen = false;
@@ -67,6 +68,11 @@ public class Card
         return _cardFrontSprite.GetSprite();
     }
 
+    public Sprite GetCardPowerSprite()
+    {
+        return _cardPowerSprite;
+    }
+
     public string GetCardBackText()
     {
         return _cardBackText.GetText();
@@ -91,6 +97,7 @@ public class Card
         _cardId = new CardId(data.CardId);
         _cardEffect = data.CardEffect;
         _cardFrontSprite = new CardFrontSprite(data.FrontSprite);
+        _cardPowerSprite = data.PowerSprite;
         _triggerMode = data.TriggerMode;
     }
 
@@ -121,10 +128,35 @@ public class Card
         return false;
     }
 
+    public bool TryGetTimeBase(out TimeBase timeBase)
+    {
+        if (_cardEffect is TimeBase time)
+        {
+            timeBase = time;
+            return true;
+        }
+        timeBase = null;
+        return false;
+    }
+
+    public bool TryGetTurnBase(out TurnBase turnBase)
+    {
+        if (_cardEffect is TurnBase turn)
+        {
+            turnBase = turn;
+            return true;
+        }
+        turnBase = null;
+        return false;
+    }
+
     private bool _isOpen;
     private CardId _cardId;
     private ICardEffect _cardEffect;
     private CardFrontSprite _cardFrontSprite;
+    private Sprite _cardPowerSprite;
     private CardBackText _cardBackText;
     private CardTriggerMode _triggerMode;
 }
+
+

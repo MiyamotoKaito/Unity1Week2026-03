@@ -10,6 +10,7 @@ public class CardView : MonoBehaviour
         
         _image.sprite = card?.GetCardFrontSprite();
         _text.text = card?.GetCardBackText() ?? string.Empty;
+        UpdatePowerSprite(card);
         UpdateEffectValue(card);
     }
 
@@ -41,19 +42,22 @@ public class CardView : MonoBehaviour
     private Image _image;
     private TextMeshProUGUI _text;
     [SerializeField] private TextMeshProUGUI _effectValueText;
+    [SerializeField] private Image _powerImage;
     [SerializeField] private Animator _animator;
     [SerializeField] private string _debuffTrigger = "Debuff";
     [SerializeField] private ParticleSystem _debuffParticle;
     private const string CardBackImagePath = "Text/BackGround/BackImage";
     private const string CardBackTextPath = "Text";
     private const string EffectValuePath = "EffectValue";
+    private const string PowerImagePath = "PowerImage";
+    private const string PowerPath = "PowerText";
     private void Awake()
     {
         _image = transform.Find(CardBackImagePath).GetComponent<Image>();
         _text = transform.Find(CardBackTextPath).GetComponent<TextMeshProUGUI>();
         if (_effectValueText == null)
         {
-            var effectValue = transform.Find(EffectValuePath);
+            var effectValue = transform.Find($"{CardBackImagePath}/{PowerImagePath}/{PowerPath}");
             if (effectValue == null)
             {
                 effectValue = transform.Find($"{CardBackTextPath}/{EffectValuePath}");
@@ -61,6 +65,26 @@ public class CardView : MonoBehaviour
             if (effectValue != null)
             {
                 _effectValueText = effectValue.GetComponent<TextMeshProUGUI>();
+            }
+        }
+        if (_powerImage == null)
+        {
+            var power = transform.Find($"{CardBackImagePath}/{PowerImagePath}");
+            if (power == null)
+            {
+                power = transform.Find($"{CardBackImagePath}/{PowerImagePath}");
+            }
+            if (power == null)
+            {
+                power = transform.Find(PowerPath);
+            }
+            if (power == null)
+            {
+                power = transform.Find($"{CardBackTextPath}/{PowerPath}");
+            }
+            if (power != null)
+            {
+                _powerImage = power.GetComponent<Image>();
             }
         }
         if (_animator == null)
@@ -71,6 +95,17 @@ public class CardView : MonoBehaviour
         {
             _debuffParticle = GetComponentInChildren<ParticleSystem>(true);
         }
+    }
+
+    private void UpdatePowerSprite(Card card)
+    {
+        if (_powerImage == null)
+        {
+            return;
+        }
+        var sprite = card?.GetCardPowerSprite();
+        _powerImage.sprite = sprite;
+        _powerImage.gameObject.SetActive(sprite != null);
     }
 
     private void UpdateEffectValue(Card card)
@@ -85,6 +120,14 @@ public class CardView : MonoBehaviour
             else if (card.TryGetHealBase(out var heal))
             {
                 effectText = $"{heal.HealAmount}";
+            }
+            else if(card.TryGetTimeBase(out var time))
+            {
+                effectText = $"{time.TimeToAdd}";
+            }
+            else if(card.TryGetTurnBase(out var turn))
+            {
+                effectText = $"{turn.TurnToAdd}";
             }
         }
 

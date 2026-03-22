@@ -1,16 +1,8 @@
-﻿using UnityEngine;
-
-/// <summary>
-/// 
-/// </summary>
-public class TimePlus : ICardEffect
+[System.Serializable]
+public class TimePlus : TimeBase
 {
-
-    public void Exucute()
+    public override void Exucute()
     {
-        Debug.Log("時間を止める効果が発動しました。");
         EffectManager.Instance.AddEnemyAttackTimer(_timeToAdd);
     }
-
-    [SerializeField] private float _timeToAdd;
 }
