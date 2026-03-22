@@ -90,12 +90,17 @@ public class Card
 
     public void ApplyCardData(CardData data)
     {
+        ApplyCardData(data, data != null ? data.CreateEffectInstance() : null);
+    }
+
+    public void ApplyCardData(CardData data, ICardEffect effectInstance)
+    {
         if (data == null)
         {
             return;
         }
         _cardId = new CardId(data.CardId);
-        _cardEffect = data.CardEffect;
+        _cardEffect = effectInstance;
         _cardFrontSprite = new CardFrontSprite(data.FrontSprite);
         _cardPowerSprite = data.PowerSprite;
         _triggerMode = data.TriggerMode;

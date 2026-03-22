@@ -784,8 +784,9 @@ public class CardPresenter : MonoBehaviour
         {
             return;
         }
-        cards[pair.IndexA].ApplyCardData(data);
-        cards[pair.IndexB].ApplyCardData(data);
+        var effectInstance = data.CreateEffectInstance();
+        cards[pair.IndexA].ApplyCardData(data, effectInstance);
+        cards[pair.IndexB].ApplyCardData(data, effectInstance);
         RefreshView(pair.IndexA, cards[pair.IndexA]);
         RefreshView(pair.IndexB, cards[pair.IndexB]);
     }

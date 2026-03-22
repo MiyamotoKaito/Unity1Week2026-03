@@ -9,11 +9,26 @@ public class CardData : ScriptableObject
     public CardTriggerMode TriggerMode => _triggerMode;
     public Sprite PowerSprite => _powerSprite;
 
+    public ICardEffect CreateEffectInstance()
+    {
+        return CloneEffect(_cardEffect);
+    }
+
     [SerializeField] private int _cardId;
     [SerializeField] private Sprite _frontSprite;
     [SerializeReference, SubclassSelector] private ICardEffect _cardEffect;
     [SerializeField] private CardTriggerMode _triggerMode = CardTriggerMode.Pair;
     [SerializeField] private Sprite _powerSprite;
+
+    private static ICardEffect CloneEffect(ICardEffect effect)
+    {
+        if (effect == null)
+        {
+            return null;
+        }
+        var json = JsonUtility.ToJson(effect);
+        return JsonUtility.FromJson(json, effect.GetType()) as ICardEffect;
+    }
 }
 
 public enum CardTriggerMode
