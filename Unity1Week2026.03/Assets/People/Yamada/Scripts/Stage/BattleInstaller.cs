@@ -57,6 +57,8 @@ namespace Unity1Week.URA.Stage
                 _cardPresenter);
 
             _stageProgressController.OnRoundStarted += HandleRoundStart;
+            _stageProgressController.OnStageCleared += HandleGameCleared;
+            _stageProgressController.OnGameOver += HandleGameOver;
         }
 
         /// <summary>
@@ -92,6 +94,18 @@ namespace Unity1Week.URA.Stage
                 },
                 round == 1
                 );
+        }
+
+        private void HandleGameCleared()
+        {
+            _inputFieldController.DisableInputField();
+            _enemyPresenter.StopEffect();
+        }
+
+        private void HandleGameOver()
+        {
+            _inputFieldController.DisableInputField();
+            _enemyPresenter.StopEffect();
         }
 
         private void Awake()
