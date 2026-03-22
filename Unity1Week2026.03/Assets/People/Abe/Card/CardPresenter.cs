@@ -464,13 +464,6 @@ public class CardPresenter : MonoBehaviour
             yield return new WaitForSeconds(_hideDelayAfterFlip);
         }
 
-        if (a != null && b != null && a != b)
-        {
-            // Trigger effect when the matched cards disappear.
-            Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
-            a.ExcuteEffect();
-        }
-
         var targets = new List<Transform>();
         if (_cardToObject.TryGetValue(a, out var objA) && objA != null)
         {
@@ -483,7 +476,7 @@ public class CardPresenter : MonoBehaviour
 
         if (_useMatchMoveEffect && _matchGatherPoint != null && _matchExitPoint != null && targets.Count > 0)
         {
-            StartCoroutine(MoveMatchSequence(targets));
+            StartCoroutine(MoveMatchSequence(targets, a, b));
             yield break;
         }
 
@@ -495,6 +488,13 @@ public class CardPresenter : MonoBehaviour
             }
             Debug.Log("[CardPresenter] Hiding matched card.");
             t.gameObject.SetActive(false);
+        }
+
+        if (a != null && b != null && a != b)
+        {
+            // Trigger effect after cards disappear.
+            Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
+            a.ExcuteEffect();
         }
     }
 
@@ -537,7 +537,7 @@ public class CardPresenter : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveMatchSequence(IReadOnlyList<Transform> targets)
+    private IEnumerator MoveMatchSequence(IReadOnlyList<Transform> targets, Card a, Card b)
     {
         if (targets == null || targets.Count == 0)
         {
@@ -557,6 +557,13 @@ public class CardPresenter : MonoBehaviour
             {
                 targets[i].gameObject.SetActive(false);
             }
+        }
+
+        if (a != null && b != null && a != b)
+        {
+            // Trigger effect after cards disappear.
+            Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
+            a.ExcuteEffect();
         }
     }
 
