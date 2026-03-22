@@ -64,7 +64,7 @@ public class CardController : MonoBehaviour
             if (!_longPressTriggered && _holdTime > _longPressThreshold)
             {
                 _longPressTriggered = true;
-                ReverseTexts();
+                SpawnCards();
                 Debug.Log("Reverse mode toggled: " + IsReverseMode);
                
             }
