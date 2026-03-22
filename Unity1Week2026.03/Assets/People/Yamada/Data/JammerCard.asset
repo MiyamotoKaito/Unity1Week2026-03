@@ -15,11 +15,12 @@ MonoBehaviour:
   _cardId: 99
   _frontSprite: {fileID: 21300000, guid: f3915e8cd3a705749ae46f01ebcfeb3f, type: 3}
   _cardEffect:
-    rid: 988827532604211279
+    rid: 988827587829825610
   _triggerMode: 1
   references:
     version: 2
     RefIds:
-    - rid: 988827532604211279
-      type: {class: FontChangeJammer, ns: , asm: Assembly-CSharp}
-      data: 
+    - rid: 988827587829825610
+      type: {class: EnemyAttackTimerReduceJammer, ns: , asm: Assembly-CSharp}
+      data:
+        _reduceTime: 0
