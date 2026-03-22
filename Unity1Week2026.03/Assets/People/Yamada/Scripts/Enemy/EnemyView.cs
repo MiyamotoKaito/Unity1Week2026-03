@@ -41,6 +41,7 @@ namespace Unity1Week.URA.Enemy
         {
             float ratio = (float)currentHealth / maxHealth;
             float prevRatio = _healthBarFill.fillAmount;
+            _hpText.text = $"{currentHealth} / {maxHealth}";
 
             _healthBarFill.DOKill();
             _healthBarFill.DOFillAmount(ratio, _frontFillDuration);
