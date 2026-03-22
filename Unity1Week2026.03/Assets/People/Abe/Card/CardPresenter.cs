@@ -459,6 +459,13 @@ public class CardPresenter : MonoBehaviour
             yield return new WaitForSeconds(_hideDelayAfterFlip);
         }
 
+        if (a != null && b != null && a != b)
+        {
+            // Trigger effect when the matched cards disappear.
+            Debug.Log($"[CardPresenter] Execute effect (matched): id={a.GetCardId()}, text={a.GetCardBackText()}");
+            a.ExcuteEffect();
+        }
+
         var targets = new List<Transform>();
         if (_cardToObject.TryGetValue(a, out var objA) && objA != null)
         {

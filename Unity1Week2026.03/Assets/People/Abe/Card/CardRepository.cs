@@ -65,8 +65,9 @@ public class CardRepository
         }
         Debug.Log($"[CardRepository] First open: id={first.GetCardId()}, text={first.GetCardBackText()}, mode={first.GetTriggerMode()}");
 
-          if (first.GetTriggerMode() == CardTriggerMode.Single)
+        if (first.GetTriggerMode() == CardTriggerMode.Single)
         {
+            Debug.Log($"[CardRepository] Execute effect (single): id={first.GetCardId()}, text={first.GetCardBackText()}");
             first.ExcuteEffect();
             OnMatchCard?.Invoke(first, first);
             RemoveMatchCard(first, first);
@@ -83,6 +84,7 @@ public class CardRepository
         Debug.Log($"[CardRepository] Second open: id={second.GetCardId()}, text={second.GetCardBackText()}, mode={second.GetTriggerMode()}");
         if (second.GetTriggerMode() == CardTriggerMode.Single)
         {
+            Debug.Log($"[CardRepository] Execute effect (single): id={second.GetCardId()}, text={second.GetCardBackText()}");
             second.ExcuteEffect();
             OnMatchCard?.Invoke(second, second);
             RemoveMatchCard(second, second);
@@ -93,7 +95,6 @@ public class CardRepository
         var match = first.GetCardId() == second.GetCardId();
         if (match)
         {
-            first.ExcuteEffect();
             OnMatchCard?.Invoke(first, second);
             RemoveMatchCard(first, second);
             Debug.Log("[CardRepository] Pair matched and resolved.");
