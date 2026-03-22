@@ -51,25 +51,37 @@ public class CardPresenter : MonoBehaviour
     // toukasaseru
     public void Clairvoyance(int amount)
     {
-        foreach (var text in _textToObject.Keys)
+        var candidates = new List<ClairvoyanceView>();
+
+        foreach (var obj in _textToObject.Values)
         {
-            var obj = _textToObject[text];
-            var cardView = obj.GetComponentInChildren<ClairvoyanceView>(true);
-            if (cardView != null)
+            if (obj == null || !obj.activeInHierarchy) continue;
+
+            var group = obj.GetComponent<CanvasGroup>();
+            if (group != null && group.alpha <= 0.01f) continue;
+
+            var view = obj.GetComponentInChildren<ClairvoyanceView>(true);
+            if (view != null)
             {
-                if (cardView.IsClairvoyanceActive)
+                if (view.IsClairvoyanceActive)
                 {
                     continue;
                 }
-                cardView.ShowClairvoyance();
-                amount--;
-                if (amount <= 0)
-                {
-                    break;
-                }
+                candidates.Add(view);
             }
         }
+
+        for (int i = 0; i < amount && i < candidates.Count; i++)
+        {
+            candidates[i].ShowClairvoyance();
+        }
+
+        if (candidates.Count < amount)
+        {
+            Debug.LogWarning($"Clairvoyance: candidates {candidates.Count} < amount {amount}");
+        }
     }
+
     public void MirrorTextTime(int seconds)
     {
         StartCoroutine(MirrorTextTimeCoroutine(seconds));
