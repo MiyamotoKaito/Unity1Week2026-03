@@ -10,6 +10,19 @@ public class CardPresenter : MonoBehaviour
     private CardViewSpawn _generateCardView;
     [SerializeField]
     private float _hideDelayAfterFlip = 0.0f;
+    [Header("Match Move Effect")]
+    [SerializeField]
+    private bool _useMatchMoveEffect = true;
+    [SerializeField]
+    private Transform _matchGatherPoint;
+    [SerializeField]
+    private Transform _matchExitPoint;
+    [SerializeField]
+    private float _moveToGatherSeconds = 0.25f;
+    [SerializeField]
+    private float _moveToExitSeconds = 0.35f;
+    [SerializeField]
+    private float _waitAtGatherSeconds = 0.0f;
     [SerializeField]
     private TMP_FontAsset[] _fontAsssetArray;
     [SerializeField]
@@ -446,15 +459,30 @@ public class CardPresenter : MonoBehaviour
             yield return new WaitForSeconds(_hideDelayAfterFlip);
         }
 
-        if (_cardToObject.TryGetValue(a, out var objA))
+        var targets = new List<Transform>();
+        if (_cardToObject.TryGetValue(a, out var objA) && objA != null)
         {
-            Debug.Log("[CardPresenter] Hiding matched card A.");
-            objA.SetActive(false);
+            targets.Add(objA.transform);
         }
-        if (_cardToObject.TryGetValue(b, out var objB))
+        if (_cardToObject.TryGetValue(b, out var objB) && objB != null && objB != objA)
         {
-            Debug.Log("[CardPresenter] Hiding matched card B.");
-            objB.SetActive(false);
+            targets.Add(objB.transform);
+        }
+
+        if (_useMatchMoveEffect && _matchGatherPoint != null && _matchExitPoint != null && targets.Count > 0)
+        {
+            StartCoroutine(MoveMatchSequence(targets));
+            yield break;
+        }
+
+        foreach (var t in targets)
+        {
+            if (t == null)
+            {
+                continue;
+            }
+            Debug.Log("[CardPresenter] Hiding matched card.");
+            t.gameObject.SetActive(false);
         }
     }
 
@@ -494,6 +522,76 @@ public class CardPresenter : MonoBehaviour
         if (rotate != null)
         {
             rotate.OnFlipCompleted -= OnDone;
+        }
+    }
+
+    private IEnumerator MoveMatchSequence(IReadOnlyList<Transform> targets)
+    {
+        if (targets == null || targets.Count == 0)
+        {
+            yield break;
+        }
+
+        Debug.Log("[CardPresenter] Match move effect start.");
+        yield return MoveGroupOverTime(targets, _matchGatherPoint.position, _moveToGatherSeconds);
+        if (_waitAtGatherSeconds > 0f)
+        {
+            yield return new WaitForSeconds(_waitAtGatherSeconds);
+        }
+        yield return MoveGroupOverTime(targets, _matchExitPoint.position, _moveToExitSeconds);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i] != null)
+            {
+                targets[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private IEnumerator MoveGroupOverTime(IReadOnlyList<Transform> targets, Vector3 dest, float duration)
+    {
+        if (targets == null || targets.Count == 0)
+        {
+            yield break;
+        }
+        if (duration <= 0f)
+        {
+            for (int i = 0; i < targets.Count; i++)
+            {
+                if (targets[i] != null)
+                {
+                    targets[i].position = dest;
+                }
+            }
+            yield break;
+        }
+
+        var starts = new Vector3[targets.Count];
+        for (int i = 0; i < targets.Count; i++)
+        {
+            starts[i] = targets[i] != null ? targets[i].position : Vector3.zero;
+        }
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / duration;
+            for (int i = 0; i < targets.Count; i++)
+            {
+                var tr = targets[i];
+                if (tr == null)
+                {
+                    continue;
+                }
+                tr.position = Vector3.Lerp(starts[i], dest, t);
+            }
+            yield return null;
+        }
+        for (int i = 0; i < targets.Count; i++)
+        {
+            if (targets[i] != null)
+            {
+                targets[i].position = dest;
+            }
         }
     }
 
