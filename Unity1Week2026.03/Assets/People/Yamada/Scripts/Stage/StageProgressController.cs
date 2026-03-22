@@ -34,8 +34,15 @@ namespace Unity1Week.URA.Stage
         public bool IsGameOver => _isGameOver;
 
         public event Action<int, RoundData> OnRoundStarted;
-       
-        public void TrnsitionComplete() => _isTransitioning = true;
+
+        public void TrnsitionComplete()
+        {
+            _isTransitioning = true;
+            if (_currentRoundIndex == _stageData.RoundDatas.Count - 1)
+                AudioManager.Instance.PlayBGM("Boss");
+            else
+                AudioManager.Instance.PlayBGM("NormalBattle");
+        }
 
         /// <summary>
         ///     イベントの購読解除など、ステージの状態をリセットするための処理。

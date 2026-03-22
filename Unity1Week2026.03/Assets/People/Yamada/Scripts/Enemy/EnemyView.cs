@@ -74,6 +74,7 @@ namespace Unity1Week.URA.Enemy
         private SpriteRenderer _enemySr;
         private bool _hasPulsed;
         private float _pulseTimer;
+        private Color _defaultColor;
 
         /// <summary>
         ///     タイマーの色を変える。
@@ -83,6 +84,12 @@ namespace Unity1Week.URA.Enemy
         {
             foreach (var setting in _timerColorSettings)
             {
+                if (remainingTimer > setting.Thresold)
+                {
+                    _attackTimerText.color = _defaultColor;
+                    continue;
+                }
+
                 if (remainingTimer <= setting.Thresold)
                 {
                     _attackTimerText.color = setting.Color;
@@ -136,6 +143,7 @@ namespace Unity1Week.URA.Enemy
         {
             _enemySr = GetComponent<SpriteRenderer>();
             _timerColorSettings.Sort((a, b) => a.Thresold.CompareTo(b.Thresold));
+            _defaultColor = _attackTimerText.color;
         }
     }
 }
