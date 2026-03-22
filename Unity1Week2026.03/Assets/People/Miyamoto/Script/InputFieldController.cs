@@ -64,6 +64,7 @@ public class InputFieldController : MonoBehaviour
     /// <param name="text"></param>
     private void OnSubmit(string text)
     {
+        AudioManager.Instance.PlaySE("InputSubmit");
         Invoke(nameof(ClearTextField), 0.1f);
         Invoke(nameof(ActiveInput), 0.1f);
     }
