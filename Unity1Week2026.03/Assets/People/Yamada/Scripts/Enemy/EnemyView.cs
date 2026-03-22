@@ -65,7 +65,6 @@ namespace Unity1Week.URA.Enemy
             _skillCountText.text = remainingTurns.ToString();
             float ratio = 1f - (float)remainingTurns / startTurns;
             _skillFillImage.fillAmount = ratio;
-            _hpText.text = $"{remainingTurns} / {startTurns}";
         }
 
 
