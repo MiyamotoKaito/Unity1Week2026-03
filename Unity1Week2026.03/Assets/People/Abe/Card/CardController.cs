@@ -10,7 +10,7 @@ public class CardController : MonoBehaviour
     public int MaxCardPairs => _maxCardPairs;
     public CardRepository CardRepository => _cardRepository;
     public event Action OnReverseModeChanged;
-
+    private bool _isInitialized = false;
     public void SpawnCards()
     {
         EnsureTextDataInitialized();
@@ -18,6 +18,14 @@ public class CardController : MonoBehaviour
         {
             _reverseMode = false;
             OnReverseModeChanged?.Invoke();
+        }
+        if(!_isInitialized)
+        {
+           EffectManager.Instance.ReduceEnemySkillTurn(1);
+        }
+        else
+        {
+            _isInitialized = false;
         }
         _cardRepository.ClearCards();
         TempCardTextData.ResetUsage();
@@ -38,6 +46,7 @@ public class CardController : MonoBehaviour
     }
     public void Init()
     {
+        _isInitialized = true;
         _cardRepository = new CardRepository();
         _cardSpawnSystem = new CardSpawnSystem(_cardRepository);
     }
@@ -48,6 +57,8 @@ public class CardController : MonoBehaviour
     private CardRepository _cardRepository;
     [SerializeField]
     private bool _reverseMode = false;
+    [SerializeField]
+    private ResetAnimation _resetAnimation;
     private float _holdTime = 0f;
     private bool _longPressTriggered = false;
     private float _longPressThreshold = 1f;
@@ -61,6 +72,7 @@ public class CardController : MonoBehaviour
         if (Input.GetKey(KeyCode.Tab))
         {
             _holdTime += Time.deltaTime;
+            _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
             if (!_longPressTriggered && _holdTime > _longPressThreshold)
             {
                 _longPressTriggered = true;
@@ -68,11 +80,12 @@ public class CardController : MonoBehaviour
                 Debug.Log("Reverse mode toggled: " + IsReverseMode);
                
             }
-            if (Input.GetKeyUp(KeyCode.Tab))
-            {
-                _holdTime = 0f;
-                _longPressTriggered = false;
-            }
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            _holdTime = 0f;
+            _longPressTriggered = false;
+            _resetAnimation?.ResetFillAmount();
         }
     }
     private void EnsureTextDataInitialized()
