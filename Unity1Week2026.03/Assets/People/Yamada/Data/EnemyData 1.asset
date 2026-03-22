@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyData 1
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyData
   _enemyName: TestEnemy2
-  _sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  _sprite: {fileID: 21300000, guid: 8922b4e1b1dca0f449ac2a0bb99efefa, type: 3}
   _maxHealth: 10
   _attackPower: 50
   _attackIntervalSeconds: 10

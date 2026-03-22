@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyData
   _enemyName: TestEnemy
   _sprite: {fileID: 21300000, guid: f904f77b1a90e594b9efb6cd840ddfad, type: 3}
-  _maxHealth: 100
+  _maxHealth: 20
   _attackPower: 50
-  _attackIntervalSeconds: 10
+  _attackIntervalSeconds: 100
   _skillTurnInterval: 50
   _enemySkills:
   - rid: 5427475729416454221
