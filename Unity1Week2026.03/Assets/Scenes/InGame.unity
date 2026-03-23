@@ -2145,19 +2145,40 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 692295803987547917, guid: 1f6e6907d351f6643b0cbe9db16e46e3, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7766702388677421515, guid: 1f6e6907d351f6643b0cbe9db16e46e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1664269893}
   m_SourcePrefab: {fileID: 100100000, guid: 1f6e6907d351f6643b0cbe9db16e46e3, type: 3}
 --- !u!114 &1664269891 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7821461213060530979, guid: 1f6e6907d351f6643b0cbe9db16e46e3, type: 3}
   m_PrefabInstance: {fileID: 1664269890}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1664269892}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
+--- !u!1 &1664269892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7766702388677421515, guid: 1f6e6907d351f6643b0cbe9db16e46e3, type: 3}
+  m_PrefabInstance: {fileID: 1664269890}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1664269893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664269892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WebGLInput::WebGLSupport.WebGLInput
+  showHtmlElement: 0
 --- !u!1 &1668764794
 GameObject:
   m_ObjectHideFlags: 0
