@@ -468,6 +468,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7584204946244970747, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584204946244970747, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.38431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584204946244970747, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.85490197
+      objectReference: {fileID: 0}
     - target: {fileID: 7838708539071306426, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
       propertyPath: _textSpawner
       value: 
