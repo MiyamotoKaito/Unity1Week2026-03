@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyData
   _enemyName: Goblin
   _sprite: {fileID: 21300000, guid: f904f77b1a90e594b9efb6cd840ddfad, type: 3}
-  _maxHealth: 25
+  _maxHealth: 20
   _attackPower: 10
-  _attackIntervalSeconds: 50
-  _skillTurnInterval: 20
+  _attackIntervalSeconds: 45
+  _skillTurnInterval: 10
   _enemySkills:
-  - rid: 988827587829825616
+  - rid: 988827587829825623
   _jammerCards:
   - {fileID: 11400000, guid: bbb7fe2a7b82c974f83deb5ff0a06823, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 988827587829825616
-      type: {class: ShuffleCardPositionsSkill, ns: , asm: Assembly-CSharp}
+    - rid: 988827587829825623
+      type: {class: AllTextShuffleSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
+        _shuffleCount: 5

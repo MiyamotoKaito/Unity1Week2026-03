@@ -15,7 +15,7 @@ MonoBehaviour:
   _enemyName: TestEnemy
   _sprite: {fileID: 21300000, guid: f904f77b1a90e594b9efb6cd840ddfad, type: 3}
   _maxHealth: 20
-  _attackPower: 50
+  _attackPower: 30
   _attackIntervalSeconds: 100
   _skillTurnInterval: 50
   _enemySkills:

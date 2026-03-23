@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc0c37cd83dce154a9b7111152c03c49, type: 3}
-  m_Name: AttackCard3
+  m_Name: ClairvoyanceCard
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  _cardId: 97
-  _frontSprite: {fileID: 21300000, guid: 89593580d9928d7439299f77d3788900, type: 3}
+  _cardId: 92
+  _frontSprite: {fileID: 21300000, guid: 88cd0e2b5e15e7549ab2cd7b87ec43ad, type: 3}
   _cardEffect:
-    rid: 988827587829825614
+    rid: 988827587829825620
   _triggerMode: 0
-  _powerSprite: {fileID: 2819590118355691810, guid: ed11e99c9603bc64c9638776c2c6721d, type: 3}
+  _powerSprite: {fileID: -3772893748374258087, guid: 8c186d274915ba34ab243c591c174fab, type: 3}
   references:
     version: 2
     RefIds:
-    - rid: 988827587829825614
-      type: {class: CombinedAttack, ns: , asm: Assembly-CSharp}
-      data:
-        _attackPower: 6
-        _attackCount: 2
+    - rid: 988827587829825620
+      type: {class: Clairvoyance, ns: , asm: Assembly-CSharp}
+      data: 

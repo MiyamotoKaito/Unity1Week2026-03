@@ -17,7 +17,7 @@ MonoBehaviour:
   _cardEffect:
     rid: 988827587829825613
   _triggerMode: 0
-  _powerSprite: {fileID: -3772893748374258087, guid: 8c186d274915ba34ab243c591c174fab, type: 3}
+  _powerSprite: {fileID: 4333481054370618874, guid: f109d06df735c2d40a23e4c446343d20, type: 3}
   references:
     version: 2
     RefIds:

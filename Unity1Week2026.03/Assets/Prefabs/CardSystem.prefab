@@ -131,12 +131,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 56bbed69922cbea4b90bb81106c71bb9, type: 2}
   - {fileID: 11400000, guid: c8c5687368088794f877f55219891356, type: 2}
   - {fileID: 11400000, guid: 661dfbbbc4872de4e91e6d6243bc108f, type: 2}
-  - {fileID: 11400000, guid: 30654d4bdf4a0164da435638df504521, type: 2}
-  - {fileID: 11400000, guid: 7ac4e8982eeacec4e90b88d3a892c6f9, type: 2}
-  - {fileID: 11400000, guid: 237bb67625555a242843d46c592054c2, type: 2}
-  - {fileID: 11400000, guid: 92934afbd1c027b46af2909e5c15d8d5, type: 2}
+  - {fileID: 11400000, guid: ce7a24f7f35f831499acdab3285b4e44, type: 2}
+  - {fileID: 11400000, guid: bb8e1a2612096cb4e950a1380d26ba5a, type: 2}
+  - {fileID: 11400000, guid: 7fc31fd02b1a3004dada4df115314764, type: 2}
+  - {fileID: 11400000, guid: af2a3e9e1a0da274e8d0cfea2cb5c25c, type: 2}
   _maxCardPairs: 9
   _reverseMode: 0
+  _resetAnimation: {fileID: 0}
 --- !u!1 &4040012453491653340
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,3 +278,8 @@ MonoBehaviour:
   _width: 6
   _xSpace: 2.5
   _ySpace: 1.5
+  _useSpawnDropEffect: 1
+  _spawnDropSeconds: 0.4
+  _spawnDropHeight: 80
+  _spawnFadeSeconds: 0.25
+  _spawnStaggerSeconds: 0.03

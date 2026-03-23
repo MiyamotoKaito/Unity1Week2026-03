@@ -17,11 +17,11 @@ MonoBehaviour:
   _maxHealth: 50
   _attackPower: 15
   _attackIntervalSeconds: 40
-  _skillTurnInterval: 20
+  _skillTurnInterval: 10
   _enemySkills:
   - rid: 988827587829825619
   _jammerCards:
-  - {fileID: 11400000, guid: bbb7fe2a7b82c974f83deb5ff0a06823, type: 2}
+  - {fileID: 11400000, guid: 2159b6e45943d4a4e9377f142b9a639c, type: 2}
   references:
     version: 2
     RefIds:
@@ -29,4 +29,4 @@ MonoBehaviour:
       type: {class: ReduceAttackPowerSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
-        _reduceAmount: 2
+        _reduceAmount: 3

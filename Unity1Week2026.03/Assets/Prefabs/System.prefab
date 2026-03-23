@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3591440215438060094}
   - component: {fileID: 6273835374487412308}
   - component: {fileID: 6960464327594996314}
+  - component: {fileID: 2665756829957272873}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -63,6 +64,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Player.PlayerHealthView
   _healthBarFill: {fileID: 0}
+  _damageBarFill: {fileID: 0}
+  _frontFillDuration: 0.2
+  _damageFillDelay: 0.1
+  _damageFillDuration: 0.5
 --- !u!114 &3591440215438060094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPresenter
   _enemyView: {fileID: 0}
+  _enemyDamageFeedbackView: {fileID: 0}
 --- !u!114 &6273835374487412308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,13 +94,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baa24d331412264ba2ae364a23c35f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.BattleInstaller
-  _playerMaxHealth: 1000
+  _playerMaxHealth: 100
   _playerHealthPresenter: {fileID: 4087275882039407649}
   _enemyPresenter: {fileID: 3591440215438060094}
   _enemyDebugDamageDealer: {fileID: 6960464327594996314}
   _cardController: {fileID: 0}
   _cardPresenter: {fileID: 0}
   _gridCard: {fileID: 0}
+  _inputFieldController: {fileID: 0}
+  _resultView: {fileID: 0}
   _roundTransitionView: {fileID: 0}
   _backGroundView: {fileID: 0}
 --- !u!114 &6960464327594996314
@@ -111,3 +119,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyDebugDamageDealer
   _normalDamage: 10
   _bigDamage: 50
+--- !u!114 &2665756829957272873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599215876189621745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b047098b4a5ac1c4c8b716d3c0f7a44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResultTextSpawer
+  _charPrefab: {fileID: 1350545872587432294, guid: 69a2f8b270fabb84a80ffd0c5076092c, type: 3}
+  _parent: {fileID: 0}
