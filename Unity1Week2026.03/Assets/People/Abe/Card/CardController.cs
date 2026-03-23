@@ -78,8 +78,26 @@ public class CardController : MonoBehaviour
     }
     private void Update()
     {
-        // Tab長押し処理をここで時間計測だけ行う
-        if (_isTabHolding)
+#if UNITY_WEBGL && !UNITY_EDITOR
+    // WebGL本番はOnWebGLKeyDown/Upで管理するのでここは何もしない
+    if (_isTabHolding)
+    {
+        _holdTime += Time.deltaTime;
+        _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
+        if (!_longPressTriggered && _holdTime > _longPressThreshold)
+        {
+            _longPressTriggered = true;
+            SpawnCards();
+        }
+    }
+#else
+        // エディタ・非WebGLはInput.GetKeyで検知
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _holdTime = 0f;
+            _longPressTriggered = false;
+        }
+        if (Input.GetKey(KeyCode.Tab))
         {
             _holdTime += Time.deltaTime;
             _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
@@ -89,6 +107,14 @@ public class CardController : MonoBehaviour
                 SpawnCards();
             }
         }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            _isTabHolding = false;
+            _holdTime = 0f;
+            _longPressTriggered = false;
+            _resetAnimation?.ResetFillAmount();
+        }
+#endif
     }
     private void OnWebGLKeyUp(WebGLSupport.WebGLInput instance, WebGLSupport.KeyboardEvent e)
     {
