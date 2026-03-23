@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MiyamotoRound2
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.RoundData
   _enemyData: {fileID: 11400000, guid: b0083e89e66c0354e84c869ac6b12ca6, type: 2}
-  _roundStartMessage: "\u6803\u6728\u306E\u8FBA\u5883\u5730\n\u30DC\u30FC\u30CA\u30B9\u30B9\u30C6\u30FC\u30B8"
+  _roundStartMessage: "\u8328\u57CE\u306E\u8FBA\u5883\u5730\n\u30DC\u30FC\u30CA\u30B9\u30B9\u30C6\u30FC\u30B8"
   _backGroundSprite: {fileID: 21300000, guid: 84c786f93a8a52140a00f41f20cc8b4f, type: 3}
