@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,6 +69,7 @@ public class CardRepository
         {
             OnMatchCard?.Invoke(first, first);
             RemoveMatchCard(first, first);
+            AudioManager.Instance.PlaySE("EnemySkill");
             Debug.Log("[CardRepository] Single card resolved (first).");
             return;
         }
@@ -83,7 +84,7 @@ public class CardRepository
         if (second.GetTriggerMode() == CardTriggerMode.Single)
         {
             OnMatchCard?.Invoke(second, second);
-            RemoveMatchCard(second, second);
+            AudioManager.Instance.PlaySE("EnemySkill");
             Debug.Log("[CardRepository] Single card resolved (second).");
             return;
         }
