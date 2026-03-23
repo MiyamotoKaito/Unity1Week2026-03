@@ -1820,22 +1820,25 @@ MonoBehaviour:
   - _clip: {fileID: 8300000, guid: be9233f6ee4735a4a8ba420cbff82065, type: 3}
     _name: InputSubmit
     _volume: 0.3
-  _bgmList:
-  - _clip: {fileID: 8300000, guid: bbed0cd2ec5e32242bb7679d4e544f9f, type: 3}
-    _name: Title
-    _volume: 0.3
-  - _clip: {fileID: 8300000, guid: 16134c4ff63dd9641bfe2d0144cf447a, type: 3}
-    _name: NormalBattle
-    _volume: 0.3
-  - _clip: {fileID: 8300000, guid: 4551d98eecf652a488d0b730b9591998, type: 3}
-    _name: Boss
-    _volume: 0.3
   - _clip: {fileID: 8300000, guid: 004891ce9ec854247b60c60d8b5ac356, type: 3}
     _name: GameClear
     _volume: 0.3
   - _clip: {fileID: 8300000, guid: ff68972e65bc18f418d63d79d214c231, type: 3}
     _name: GameOver
     _volume: 0.3
+  - _clip: {fileID: 8300000, guid: e559abbf8c413e249bee49daa3967f12, type: 3}
+    _name: EnemySkill
+    _volume: 0.3
+  _bgmList:
+  - _clip: {fileID: 8300000, guid: bbed0cd2ec5e32242bb7679d4e544f9f, type: 3}
+    _name: Title
+    _volume: 0.1
+  - _clip: {fileID: 8300000, guid: 16134c4ff63dd9641bfe2d0144cf447a, type: 3}
+    _name: NormalBattle
+    _volume: 0.1
+  - _clip: {fileID: 8300000, guid: 4551d98eecf652a488d0b730b9591998, type: 3}
+    _name: Boss
+    _volume: 0.1
 --- !u!4 &1309234427
 Transform:
   m_ObjectHideFlags: 0
