@@ -2,7 +2,6 @@
 using System;
 using UnityEngine;
 using Unity1Week.URA.typing;
-using WebGLSupport;
 
 [DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
@@ -68,14 +67,14 @@ public class CardController : MonoBehaviour
 
     private void OnEnable()
     {
-        WebGLInput.OnKeyboardDown += OnWebGLKeyDown;
-        WebGLInput.OnKeyboardUp += OnWebGLKeyUp;
+        WebGLSupport.WebGLInput.OnKeyboardDown += OnWebGLKeyDown;
+        WebGLSupport.WebGLInput.OnKeyboardUp += OnWebGLKeyUp;
     }
 
     private void OnDisable()
     {
-        WebGLInput.OnKeyboardDown -= OnWebGLKeyDown;
-        WebGLInput.OnKeyboardUp -= OnWebGLKeyUp;
+        WebGLSupport.WebGLInput.OnKeyboardDown -= OnWebGLKeyDown;
+        WebGLSupport.WebGLInput.OnKeyboardUp -= OnWebGLKeyUp;
     }
     private void Update()
     {
@@ -91,7 +90,7 @@ public class CardController : MonoBehaviour
             }
         }
     }
-    private void OnWebGLKeyUp(WebGLInput instance, KeyboardEvent e)
+    private void OnWebGLKeyUp(WebGLSupport.WebGLInput instance, WebGLSupport.KeyboardEvent e)
     {
         if (e.Key == "Tab")
         {
@@ -101,7 +100,7 @@ public class CardController : MonoBehaviour
             _resetAnimation?.ResetFillAmount();
         }
     }
-    private void OnWebGLKeyDown(WebGLInput instance, KeyboardEvent e)
+    private void OnWebGLKeyDown(WebGLSupport.WebGLInput instance, WebGLSupport.KeyboardEvent e)
     {
         if (e.Key == "Tab" && !_isTabHolding)
         {
