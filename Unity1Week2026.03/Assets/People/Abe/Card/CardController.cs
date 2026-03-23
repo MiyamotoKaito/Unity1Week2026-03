@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using Unity1Week.URA.typing;
+
 [DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
 {
@@ -62,8 +63,35 @@ public class CardController : MonoBehaviour
     private float _holdTime = 0f;
     private bool _longPressTriggered = false;
     private float _longPressThreshold = 1f;
+    private bool _isTabHolding = false;
+
+    private void OnEnable()
+    {
+        WebGLSupport.WebGLInput.OnKeyboardDown += OnWebGLKeyDown;
+        WebGLSupport.WebGLInput.OnKeyboardUp += OnWebGLKeyUp;
+    }
+
+    private void OnDisable()
+    {
+        WebGLSupport.WebGLInput.OnKeyboardDown -= OnWebGLKeyDown;
+        WebGLSupport.WebGLInput.OnKeyboardUp -= OnWebGLKeyUp;
+    }
     private void Update()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+    // WebGL本番はOnWebGLKeyDown/Upで管理するのでここは何もしない
+    if (_isTabHolding)
+    {
+        _holdTime += Time.deltaTime;
+        _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
+        if (!_longPressTriggered && _holdTime > _longPressThreshold)
+        {
+            _longPressTriggered = true;
+            SpawnCards();
+        }
+    }
+#else
+        // エディタ・非WebGLはInput.GetKeyで検知
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             _holdTime = 0f;
@@ -77,15 +105,34 @@ public class CardController : MonoBehaviour
             {
                 _longPressTriggered = true;
                 SpawnCards();
-                Debug.Log("Reverse mode toggled: " + IsReverseMode);
-               
             }
         }
         if (Input.GetKeyUp(KeyCode.Tab))
         {
+            _isTabHolding = false;
             _holdTime = 0f;
             _longPressTriggered = false;
             _resetAnimation?.ResetFillAmount();
+        }
+#endif
+    }
+    private void OnWebGLKeyUp(WebGLSupport.WebGLInput instance, WebGLSupport.KeyboardEvent e)
+    {
+        if (e.Key == "Tab")
+        {
+            _isTabHolding = false;
+            _holdTime = 0f;
+            _longPressTriggered = false;
+            _resetAnimation?.ResetFillAmount();
+        }
+    }
+    private void OnWebGLKeyDown(WebGLSupport.WebGLInput instance, WebGLSupport.KeyboardEvent e)
+    {
+        if (e.Key == "Tab" && !_isTabHolding)
+        {
+            _isTabHolding = true;
+            _holdTime = 0f;
+            _longPressTriggered = false;
         }
     }
     private void EnsureTextDataInitialized()

@@ -9,6 +9,7 @@ public class InputFieldController : MonoBehaviour
     #region 変数
     [SerializeField]
     private TMP_InputField _inputField;
+    private WebGLSupport.WebGLInput _webGLInput;
     #endregion
 
 
@@ -27,6 +28,7 @@ public class InputFieldController : MonoBehaviour
     }
     private void Start()
     {
+        _webGLInput = GetComponent<WebGLSupport.WebGLInput>();
         ActiveInput();
         ClearTextField();
     }
@@ -65,7 +67,8 @@ public class InputFieldController : MonoBehaviour
     private void OnSubmit(string text)
     {
         AudioManager.Instance.PlaySE("InputSubmit");
-        Invoke(nameof(ClearTextField), 0.1f);
+        ClearTextField();
+        _webGLInput?.SyncText(0);
         Invoke(nameof(ActiveInput), 0.1f);
     }
     /// <summary>
@@ -74,7 +77,7 @@ public class InputFieldController : MonoBehaviour
     /// <param name="text"></param>
     private void OnDeselect(string text)
     {
-        ActiveInput();
+        Invoke(nameof(ActiveInput), 0.1f); // 少し遅らせる
     }
     /// <summary>
     /// テキストボックスが選択されているときに呼び出す
