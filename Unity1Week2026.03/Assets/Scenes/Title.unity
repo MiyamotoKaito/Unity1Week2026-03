@@ -1820,9 +1820,6 @@ MonoBehaviour:
   - _clip: {fileID: 8300000, guid: be9233f6ee4735a4a8ba420cbff82065, type: 3}
     _name: InputSubmit
     _volume: 0.3
-  - _clip: {fileID: 8300000, guid: ff68972e65bc18f418d63d79d214c231, type: 3}
-    _name: GameOver
-    _volume: 0.3
   _bgmList:
   - _clip: {fileID: 8300000, guid: bbed0cd2ec5e32242bb7679d4e544f9f, type: 3}
     _name: Title
@@ -1835,6 +1832,9 @@ MonoBehaviour:
     _volume: 0.3
   - _clip: {fileID: 8300000, guid: 004891ce9ec854247b60c60d8b5ac356, type: 3}
     _name: GameClear
+    _volume: 0.3
+  - _clip: {fileID: 8300000, guid: ff68972e65bc18f418d63d79d214c231, type: 3}
+    _name: GameOver
     _volume: 0.3
 --- !u!4 &1309234427
 Transform:
