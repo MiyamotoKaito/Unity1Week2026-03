@@ -2,6 +2,8 @@
 using System;
 using UnityEngine;
 using Unity1Week.URA.typing;
+using WebGLSupport;
+
 [DefaultExecutionOrder(-111)]
 public class CardController : MonoBehaviour
 {
@@ -62,14 +64,23 @@ public class CardController : MonoBehaviour
     private float _holdTime = 0f;
     private bool _longPressTriggered = false;
     private float _longPressThreshold = 1f;
+    private bool _isTabHolding = false;
+
+    private void OnEnable()
+    {
+        WebGLInput.OnKeyboardDown += OnWebGLKeyDown;
+        WebGLInput.OnKeyboardUp += OnWebGLKeyUp;
+    }
+
+    private void OnDisable()
+    {
+        WebGLInput.OnKeyboardDown -= OnWebGLKeyDown;
+        WebGLInput.OnKeyboardUp -= OnWebGLKeyUp;
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            _holdTime = 0f;
-            _longPressTriggered = false;
-        }
-        if (Input.GetKey(KeyCode.Tab))
+        // Tab長押し処理をここで時間計測だけ行う
+        if (_isTabHolding)
         {
             _holdTime += Time.deltaTime;
             _resetAnimation?.PlayResetAnimation(_holdTime / _longPressThreshold);
@@ -77,15 +88,26 @@ public class CardController : MonoBehaviour
             {
                 _longPressTriggered = true;
                 SpawnCards();
-                Debug.Log("Reverse mode toggled: " + IsReverseMode);
-               
             }
         }
-        if (Input.GetKeyUp(KeyCode.Tab))
+    }
+    private void OnWebGLKeyUp(WebGLInput instance, KeyboardEvent e)
+    {
+        if (e.Key == "Tab")
         {
+            _isTabHolding = false;
             _holdTime = 0f;
             _longPressTriggered = false;
             _resetAnimation?.ResetFillAmount();
+        }
+    }
+    private void OnWebGLKeyDown(WebGLInput instance, KeyboardEvent e)
+    {
+        if (e.Key == "Tab" && !_isTabHolding)
+        {
+            _isTabHolding = true;
+            _holdTime = 0f;
+            _longPressTriggered = false;
         }
     }
     private void EnsureTextDataInitialized()

@@ -78,7 +78,7 @@ public class InputFieldController : MonoBehaviour
     /// <param name="text"></param>
     private void OnDeselect(string text)
     {
-        ActiveInput();
+        Invoke(nameof(ActiveInput), 0.1f); // 少し遅らせる
     }
     /// <summary>
     /// テキストボックスが選択されているときに呼び出す
