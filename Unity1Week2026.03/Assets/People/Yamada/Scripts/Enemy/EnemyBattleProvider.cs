@@ -100,6 +100,7 @@ namespace Unity1Week.URA.Battle
                 skill.Execute(skillContext);
             }
 
+            AudioManager.Instance.PlaySE("EnemySkill");
             _enemySkillTurnTracker.ResetTurn();
         }
 
