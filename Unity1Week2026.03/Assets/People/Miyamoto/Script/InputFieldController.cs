@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using WebGLSupport;
 
 /// <summary>
 /// InputFieldを制御するクラス
@@ -9,6 +10,7 @@ public class InputFieldController : MonoBehaviour
     #region 変数
     [SerializeField]
     private TMP_InputField _inputField;
+    private WebGLInput _webGLInput;
     #endregion
 
 
@@ -27,6 +29,7 @@ public class InputFieldController : MonoBehaviour
     }
     private void Start()
     {
+        _webGLInput = GetComponent<WebGLInput>();
         ActiveInput();
         ClearTextField();
     }
@@ -65,7 +68,8 @@ public class InputFieldController : MonoBehaviour
     private void OnSubmit(string text)
     {
         AudioManager.Instance.PlaySE("InputSubmit");
-        Invoke(nameof(ClearTextField), 0.1f);
+        ClearTextField();
+        _webGLInput?.SyncText(0);
         Invoke(nameof(ActiveInput), 0.1f);
     }
     /// <summary>
