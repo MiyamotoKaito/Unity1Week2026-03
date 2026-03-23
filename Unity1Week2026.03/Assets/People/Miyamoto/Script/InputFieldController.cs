@@ -1,6 +1,5 @@
 ﻿using TMPro;
 using UnityEngine;
-using WebGLSupport;
 
 /// <summary>
 /// InputFieldを制御するクラス
@@ -10,7 +9,7 @@ public class InputFieldController : MonoBehaviour
     #region 変数
     [SerializeField]
     private TMP_InputField _inputField;
-    private WebGLInput _webGLInput;
+    private WebGLSupport.WebGLInput _webGLInput;
     #endregion
 
 
@@ -29,7 +28,7 @@ public class InputFieldController : MonoBehaviour
     }
     private void Start()
     {
-        _webGLInput = GetComponent<WebGLInput>();
+        _webGLInput = GetComponent<WebGLSupport.WebGLInput>();
         ActiveInput();
         ClearTextField();
     }
