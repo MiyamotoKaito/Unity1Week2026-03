@@ -25,7 +25,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297667812804758163}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24944815, g: 0.8189292, b: 0.9245283, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -100,7 +100,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5004030695531274090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -525}
-  m_SizeDelta: {x: 1920, y: 30}
+  m_SizeDelta: {x: 1910, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3632200828644430784
 CanvasRenderer:
@@ -133,14 +133,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.78113204, g: 0.19307224, b: 0.19307224, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5258358551728893149, guid: 2a6f711a551ca2a48a89ce19a840ff80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03eee899b5c505944986b3d289265b3a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4566037, g: 0.4566037, b: 0.4566037, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 4915809144949236381}
   - component: {fileID: 4808579900554751378}
   - component: {fileID: 7838708539071306426}
+  - component: {fileID: 1551743169196597392}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -812,6 +813,28 @@ MonoBehaviour:
   _overCharDelay: 0.08
   _dropHeight: 300
   _bounceHeight: 20
+--- !u!114 &1551743169196597392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979581584586220959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f333a05fcdb36a41afa4ac30f1d6a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameClearEffect
+  _resultRoot: {fileID: 7968484017251963981}
+  _fadePanel: {fileID: 7334442560298919451}
+  _textSpawner: {fileID: 0}
+  _backToTitleButton: {fileID: 3512143971481496709}
+  _fadeDuration: 0.3
+  _clearCharDelay: 0.05
+  _clearMoveY: 50
+  _overCharDelay: 0.08
+  _dropHeight: 300
+  _bounceHeight: 20
 --- !u!1001 &1421364591818136860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -894,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9135620603881447625, guid: 69a2f8b270fabb84a80ffd0c5076092c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -485
+      value: -283
       objectReference: {fileID: 0}
     - target: {fileID: 9135620603881447625, guid: 69a2f8b270fabb84a80ffd0c5076092c, type: 3}
       propertyPath: m_AnchoredPosition.y

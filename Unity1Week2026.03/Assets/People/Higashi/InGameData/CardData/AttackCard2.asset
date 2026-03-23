@@ -24,4 +24,4 @@ MonoBehaviour:
     - rid: 988827532604211281
       type: {class: NormalAttack, ns: , asm: Assembly-CSharp}
       data:
-        _attackPower: 5
+        _attackPower: 15

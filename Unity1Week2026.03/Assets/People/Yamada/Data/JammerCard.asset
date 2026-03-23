@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: JammerCard
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   _cardId: 99
-  _frontSprite: {fileID: 21300000, guid: f3915e8cd3a705749ae46f01ebcfeb3f, type: 3}
+  _frontSprite: {fileID: 9162411782528667381, guid: 0c709d54d3f14504392c9393feebba92, type: 3}
   _cardEffect:
     rid: 988827587829825610
   _triggerMode: 1
+  _powerSprite: {fileID: 0}
   references:
     version: 2
     RefIds:
