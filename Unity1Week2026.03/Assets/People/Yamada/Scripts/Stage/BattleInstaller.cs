@@ -102,6 +102,8 @@ namespace Unity1Week.URA.Stage
             _inputFieldController.DisableInputField();
             _enemyPresenter.StopEffect();
             _resultView.PlayGameClear();
+            AudioManager.Instance.Stop();
+            AudioManager.Instance.PlaySE("GameClear");
         }
 
         private void HandleGameOver()
@@ -109,6 +111,8 @@ namespace Unity1Week.URA.Stage
             _inputFieldController.DisableInputField();
             _enemyPresenter.StopEffect();
             _resultView.PlayGameOver();
+            AudioManager.Instance.Stop();
+            AudioManager.Instance.PlaySE("GameOver");
         }
 
         private void Awake()
