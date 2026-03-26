@@ -75,18 +75,26 @@ public class CardRotate : MonoBehaviour
     }
     private IEnumerator ToggleCard()
     {
-        float duration = _flipDuration / 180;
+        float elapsedTime = 0f;
+        bool faceSwitched = false;
 
-        _flipAngle = 0;
-        for (int i = 0; i < 180; i++)
+        while (elapsedTime < _flipDuration)
         {
-            yield return new WaitForSeconds(duration);
-            transform.Rotate(_x, _y, _z);
-            _flipAngle++;
-            if (_flipAngle == 90 || _flipAngle == -90)
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / _flipDuration;
+            
+            // 180度回転させる
+            float rotationAmount = 180f * (Time.deltaTime / _flipDuration);
+            transform.Rotate(_x * rotationAmount, _y * rotationAmount, _z * rotationAmount);
+            
+            // 50%の地点で表裏を切り替え
+            if (!faceSwitched && progress >= 0.5f)
             {
                 ToggleFace();
+                faceSwitched = true;
             }
+            
+            yield return null;
         }
 
         _flipAngle = 0;
