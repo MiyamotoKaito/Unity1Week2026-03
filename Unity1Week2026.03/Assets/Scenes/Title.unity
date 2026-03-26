@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stage3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8003af4bb143f264488aff43a37c1877, type: 2}
   m_sharedMaterial: {fileID: 7147904527800192364, guid: 8003af4bb143f264488aff43a37c1877, type: 2}
@@ -1659,7 +1659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1050099772
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1677,8 +1677,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -573, y: -274}
-  m_SizeDelta: {x: 480, y: 90}
+  m_AnchoredPosition: {x: 935.3, y: 515.6}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1050099773
 MonoBehaviour:
@@ -1692,7 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2bc64abc1fa1464f87071b1aacb8c4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Stage.StageSelectButton
-  _stageData: {fileID: 0}
+  _stageData: {fileID: 11400000, guid: ee273930fee56384ca73d9ac75596ecd, type: 2}
   _battleSceneName: InGame
 --- !u!114 &1050099774
 MonoBehaviour:
@@ -1737,7 +1737,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1050099775}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1050099773}
+        m_TargetAssemblyTypeName: Unity1Week.URA.Stage.StageSelectButton, Assembly-CSharp
+        m_MethodName: SelectStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1050099775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1751,7 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8540188, g: 0.38316125, b: 0.86415094, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2466,7 +2478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SimpleStage
+  m_text: EasyStage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8003af4bb143f264488aff43a37c1877, type: 2}
   m_sharedMaterial: {fileID: 7147904527800192364, guid: 8003af4bb143f264488aff43a37c1877, type: 2}

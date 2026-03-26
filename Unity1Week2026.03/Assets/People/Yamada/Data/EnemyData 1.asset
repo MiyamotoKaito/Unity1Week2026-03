@@ -15,16 +15,17 @@ MonoBehaviour:
   _enemyName: TestEnemy2
   _sprite: {fileID: 21300000, guid: 8922b4e1b1dca0f449ac2a0bb99efefa, type: 3}
   _maxHealth: 10
-  _attackPower: 35
-  _attackIntervalSeconds: 20
+  _attackPower: 33
+  _attackIntervalSeconds: 30
   _skillTurnInterval: 5
   _enemySkills:
-  - rid: 5427475683074637897
+  - rid: 988827626752180300
   _jammerCards: []
   references:
     version: 2
     RefIds:
-    - rid: 5427475683074637897
-      type: {class: ShieldEnemySkill, ns: Unity1Week.URA.Enemy, asm: Assembly-CSharp}
+    - rid: 988827626752180300
+      type: {class: AllTextShuffleSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
+        _shuffleCount: 8

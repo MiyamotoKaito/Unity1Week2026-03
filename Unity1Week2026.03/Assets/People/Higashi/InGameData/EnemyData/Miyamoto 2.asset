@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9055d04ba2ed5f428ddb3fcaae32290, type: 3}
-  m_Name: Boss
+  m_Name: Miyamoto 2
   m_EditorClassIdentifier: Assembly-CSharp::Unity1Week.URA.Enemy.EnemyData
-  _enemyName: Necromancer
-  _sprite: {fileID: 21300000, guid: d0ed55776ca955e40b13237a6e40774d, type: 3}
-  _maxHealth: 100
-  _attackPower: 18
+  _enemyName: miyamoto2
+  _sprite: {fileID: 21300000, guid: 60fae51ff97ddef499f7c60206534500, type: 3}
+  _maxHealth: 70
+  _attackPower: 20
   _attackIntervalSeconds: 35
   _skillTurnInterval: 15
   _enemySkills:
-  - rid: 988827587829825622
+  - rid: 988827626752180304
   _jammerCards:
   - {fileID: 11400000, guid: 25c243ae537e32240b97ea8b3732d179, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 988827587829825622
-      type: {class: ShuffleCardPositionsSkill, ns: , asm: Assembly-CSharp}
+    - rid: 988827626752180304
+      type: {class: AllTextShuffleSkill, ns: , asm: Assembly-CSharp}
       data:
         _skillName: 
+        _shuffleCount: 0

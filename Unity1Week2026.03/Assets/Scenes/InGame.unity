@@ -490,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7968484017251963981, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8365481282194873065, guid: c282c6b159112dc46be7a0090c33ca8b, type: 3}
       propertyPath: m_Color.b
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.43529412}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1625,7 +1625,7 @@ PrefabInstance:
       objectReference: {fileID: 521475162}
     - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
       propertyPath: _playerMaxHealth
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6273835374487412308, guid: b713bdc3df9b048409446a93f543e51c, type: 3}
       propertyPath: _roundTransitionView
@@ -2614,6 +2614,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 280305434816429626, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 377839750940847107, guid: decc11b3535c45d41b035459eb3bd0e5, type: 3}
       propertyPath: m_fontAsset
       value: 
